@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Marvel Popularity Trap</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="story-header">
+        <p class="eyebrow">Week 1 · Marvel network</p>
+        <h1>The Marvel Popularity Trap</h1>
+        <p class="subtitle">Does fame make a superhero central?</p>
+      </header>
+
+      <section class="intro-text">
+        <p>
+          At first glance, the most connected superhero might seem like the most important one.
+          But in a Wikipedia network, a link does not only tell us that two pages are related.
+          It tells us <strong>which way attention flows</strong>.
+        </p>
+        <p>
+          A page can be heavily referenced by the rest of the network <em>without</em> referring out to many others.
+          The same node can also be a hub of outgoing references without receiving the same attention back.
+        </p>
+      </section>
+
+      <div class="toolbar">
+        <button id="revealButton" class="primary-button">Reveal direction →</button>
+        <button id="surpriseButton" class="secondary-button">Show me a surprise</button>
+        <label class="search-wrap" for="characterSearch">
+          <span>Search</span>
+          <input id="characterSearch" type="text" list="characterOptions" placeholder="Search for a Marvel superhero" />
+          <datalist id="characterOptions"></datalist>
+        </label>
+      </div>
+
+      <div class="viz-shell">
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div>
+              <h2>Popularity map</h2>
+              <p id="chartIntro">Big dots look important. But are they popular?</p>
+            </div>
+          </div>
+          <svg id="chart" viewBox="0 0 920 620" role="img" aria-label="Marvel popularity map"></svg>
+          <div class="legend">
+            <span><i class="swatch swatch-blue"></i> receives more attention</span>
+            <span><i class="swatch swatch-orange"></i> references more characters</span>
+            <span><i class="swatch swatch-purple"></i> strong connectedness</span>
+          </div>
+        </div>
+
+        <aside class="detail-panel" id="detailPanel">
+          <h3 id="detailName">Select a character</h3>
+          <div class="detail-line"><span>Connectedness</span><strong id="detailUndirected">—</strong></div>
+          <div class="detail-line"><span>Incoming links</span><strong id="detailIncoming">—</strong></div>
+          <div class="detail-line"><span>Outgoing links</span><strong id="detailOutgoing">—</strong></div>
+          <div class="detail-line"><span>Difference</span><strong id="detailBalance">—</strong></div>
+          <div class="detail-line"><span>Connectedness rank</span><strong id="detailConnectedRank">—</strong></div>
+          <div class="detail-line"><span>Incoming-attention rank</span><strong id="detailPopularityRank">—</strong></div>
+          <div class="mini-rank-wrap">
+            <div class="mini-row">
+              <span>Connectedness</span>
+              <div class="mini-track"><div id="connectedBar" class="mini-bar"></div></div>
+            </div>
+            <div class="mini-row">
+              <span>Incoming</span>
+              <div class="mini-track"><div id="incomingBar" class="mini-bar purple"></div></div>
+            </div>
+          </div>
+          <p id="detailSummary">Choose a node to see how its network position differs from its popularity.</p>
+        </aside>
+      </div>
+    </div>
+
+    <div id="tooltip" class="tooltip hidden" aria-live="polite"></div>
+
+    <script src="popularity-map.js"></script>
+  </body>
+</html>

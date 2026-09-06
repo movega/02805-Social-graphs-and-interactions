@@ -1,0 +1,2426 @@
+[
+  {
+    "character":"Abomination (character)",
+    "in_degree":5,
+    "out_degree":8,
+    "undirected_degree":9,
+    "total_directed_degree":13,
+    "balance":-3
+  },
+  {
+    "character":"Adam Warlock",
+    "in_degree":8,
+    "out_degree":22,
+    "undirected_degree":25,
+    "total_directed_degree":30,
+    "balance":-14
+  },
+  {
+    "character":"Agent X (Marvel Comics)",
+    "in_degree":4,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":1
+  },
+  {
+    "character":"Ajak",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Alex Wilder",
+    "in_degree":1,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":0
+  },
+  {
+    "character":"Anne Weying",
+    "in_degree":3,
+    "out_degree":4,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":-1
+  },
+  {
+    "character":"Anole (character)",
+    "in_degree":6,
+    "out_degree":6,
+    "undirected_degree":8,
+    "total_directed_degree":12,
+    "balance":0
+  },
+  {
+    "character":"Anya Corazon",
+    "in_degree":10,
+    "out_degree":12,
+    "undirected_degree":16,
+    "total_directed_degree":22,
+    "balance":-2
+  },
+  {
+    "character":"Arabian Knight (character)",
+    "in_degree":5,
+    "out_degree":8,
+    "undirected_degree":10,
+    "total_directed_degree":13,
+    "balance":-3
+  },
+  {
+    "character":"Ares (Marvel Comics)",
+    "in_degree":5,
+    "out_degree":7,
+    "undirected_degree":9,
+    "total_directed_degree":12,
+    "balance":-2
+  },
+  {
+    "character":"Backhand (character)",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Balder the Brave",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Battlestar (character)",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Baymax",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Beta Ray Bill",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Betsy Braddock",
+    "in_degree":7,
+    "out_degree":28,
+    "undirected_degree":28,
+    "total_directed_degree":35,
+    "balance":-21
+  },
+  {
+    "character":"Bill Foster (character)",
+    "in_degree":9,
+    "out_degree":12,
+    "undirected_degree":17,
+    "total_directed_degree":21,
+    "balance":-3
+  },
+  {
+    "character":"Bird-Brain (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Black Bolt",
+    "in_degree":13,
+    "out_degree":9,
+    "undirected_degree":18,
+    "total_directed_degree":22,
+    "balance":4
+  },
+  {
+    "character":"Black Cat (Marvel Comics)",
+    "in_degree":21,
+    "out_degree":14,
+    "undirected_degree":28,
+    "total_directed_degree":35,
+    "balance":7
+  },
+  {
+    "character":"Black Fox (Robert Paine)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Black Jack Tarr",
+    "in_degree":1,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":2,
+    "balance":0
+  },
+  {
+    "character":"Black Knight (Marvel Comics)",
+    "in_degree":4,
+    "out_degree":3,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":1
+  },
+  {
+    "character":"Black Marvel",
+    "in_degree":5,
+    "out_degree":2,
+    "undirected_degree":6,
+    "total_directed_degree":7,
+    "balance":3
+  },
+  {
+    "character":"Black Panther (character)",
+    "in_degree":27,
+    "out_degree":11,
+    "undirected_degree":31,
+    "total_directed_degree":38,
+    "balance":16
+  },
+  {
+    "character":"Black Rider (character)",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Black Widow (Natasha Romanova)",
+    "in_degree":22,
+    "out_degree":7,
+    "undirected_degree":25,
+    "total_directed_degree":29,
+    "balance":15
+  },
+  {
+    "character":"Blackthorn (character)",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Blackwulf",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Blade (character)",
+    "in_degree":17,
+    "out_degree":12,
+    "undirected_degree":22,
+    "total_directed_degree":29,
+    "balance":5
+  },
+  {
+    "character":"Blazing Skull",
+    "in_degree":3,
+    "out_degree":8,
+    "undirected_degree":8,
+    "total_directed_degree":11,
+    "balance":-5
+  },
+  {
+    "character":"Blue Bullet",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"Blue Diamond (character)",
+    "in_degree":1,
+    "out_degree":9,
+    "undirected_degree":9,
+    "total_directed_degree":10,
+    "balance":-8
+  },
+  {
+    "character":"Blue Eagle (character)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Blue Marvel",
+    "in_degree":2,
+    "out_degree":4,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":-2
+  },
+  {
+    "character":"Bob, Agent of Hydra",
+    "in_degree":2,
+    "out_degree":7,
+    "undirected_degree":7,
+    "total_directed_degree":9,
+    "balance":-5
+  },
+  {
+    "character":"Box (comics)",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Brain Drain (character)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Breeze Barton",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Brian Braddock",
+    "in_degree":1,
+    "out_degree":11,
+    "undirected_degree":11,
+    "total_directed_degree":12,
+    "balance":-10
+  },
+  {
+    "character":"Bucky (Marvel Comics)",
+    "in_degree":9,
+    "out_degree":9,
+    "undirected_degree":12,
+    "total_directed_degree":18,
+    "balance":0
+  },
+  {
+    "character":"Bug (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Cable (character)",
+    "in_degree":21,
+    "out_degree":11,
+    "undirected_degree":24,
+    "total_directed_degree":32,
+    "balance":10
+  },
+  {
+    "character":"Cammi (character)",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Captain Marvel (Khn'nr)",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Captain Marvel (Marvel Comics)",
+    "in_degree":9,
+    "out_degree":14,
+    "undirected_degree":17,
+    "total_directed_degree":23,
+    "balance":-5
+  },
+  {
+    "character":"Captain Midlands",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Captain Ultra",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Captain Universe",
+    "in_degree":6,
+    "out_degree":14,
+    "undirected_degree":17,
+    "total_directed_degree":20,
+    "balance":-8
+  },
+  {
+    "character":"Caretaker (comics)",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Ch'od",
+    "in_degree":4,
+    "out_degree":3,
+    "undirected_degree":6,
+    "total_directed_degree":7,
+    "balance":1
+  },
+  {
+    "character":"Charcoal (comics)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Chase Stein",
+    "in_degree":4,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":0
+  },
+  {
+    "character":"Citizen V",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Cloak and Dagger (characters)",
+    "in_degree":11,
+    "out_degree":24,
+    "undirected_degree":28,
+    "total_directed_degree":35,
+    "balance":-13
+  },
+  {
+    "character":"Coldblood",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Crane Mother",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Crippler (character)",
+    "in_degree":0,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-4
+  },
+  {
+    "character":"Cyclops (Marvel Comics)",
+    "in_degree":26,
+    "out_degree":11,
+    "undirected_degree":26,
+    "total_directed_degree":37,
+    "balance":15
+  },
+  {
+    "character":"Dargo Ktor",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Darkdevil",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Darkhawk",
+    "in_degree":8,
+    "out_degree":11,
+    "undirected_degree":15,
+    "total_directed_degree":19,
+    "balance":-3
+  },
+  {
+    "character":"Deadpool",
+    "in_degree":33,
+    "out_degree":19,
+    "undirected_degree":41,
+    "total_directed_degree":52,
+    "balance":14
+  },
+  {
+    "character":"Deathlok",
+    "in_degree":17,
+    "out_degree":5,
+    "undirected_degree":20,
+    "total_directed_degree":22,
+    "balance":12
+  },
+  {
+    "character":"Debrii",
+    "in_degree":1,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":-4
+  },
+  {
+    "character":"Delroy Garrett",
+    "in_degree":5,
+    "out_degree":3,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":2
+  },
+  {
+    "character":"Detroit Steel",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Devil Dinosaur",
+    "in_degree":4,
+    "out_degree":8,
+    "undirected_degree":12,
+    "total_directed_degree":12,
+    "balance":-4
+  },
+  {
+    "character":"Devil Hulk",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Digitek (character)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Doctor Druid",
+    "in_degree":5,
+    "out_degree":4,
+    "undirected_degree":9,
+    "total_directed_degree":9,
+    "balance":1
+  },
+  {
+    "character":"Doctor Nemesis",
+    "in_degree":7,
+    "out_degree":9,
+    "undirected_degree":15,
+    "total_directed_degree":16,
+    "balance":-2
+  },
+  {
+    "character":"Doctor Spectrum",
+    "in_degree":2,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":-4
+  },
+  {
+    "character":"Doctor Strange",
+    "in_degree":50,
+    "out_degree":17,
+    "undirected_degree":57,
+    "total_directed_degree":67,
+    "balance":33
+  },
+  {
+    "character":"Dogpool",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Doom 2099",
+    "in_degree":1,
+    "out_degree":9,
+    "undirected_degree":9,
+    "total_directed_degree":10,
+    "balance":-8
+  },
+  {
+    "character":"Dragon Lord (character)",
+    "in_degree":1,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":0
+  },
+  {
+    "character":"Dusk (comics)",
+    "in_degree":2,
+    "out_degree":6,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":-4
+  },
+  {
+    "character":"Eddie Brock",
+    "in_degree":11,
+    "out_degree":16,
+    "undirected_degree":22,
+    "total_directed_degree":27,
+    "balance":-5
+  },
+  {
+    "character":"Elsa Bloodstone",
+    "in_degree":5,
+    "out_degree":12,
+    "undirected_degree":15,
+    "total_directed_degree":17,
+    "balance":-7
+  },
+  {
+    "character":"Emma Frost",
+    "in_degree":21,
+    "out_degree":17,
+    "undirected_degree":27,
+    "total_directed_degree":38,
+    "balance":4
+  },
+  {
+    "character":"Empath (character)",
+    "in_degree":4,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":1
+  },
+  {
+    "character":"Emrys Killebrew",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Enigma (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Ethan Edwards",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Fabio Medina",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Fandral",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Father Time (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Fin Fang Foom",
+    "in_degree":5,
+    "out_degree":2,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":3
+  },
+  {
+    "character":"Firebird (Marvel Comics)",
+    "in_degree":2,
+    "out_degree":12,
+    "undirected_degree":13,
+    "total_directed_degree":14,
+    "balance":-10
+  },
+  {
+    "character":"Firelord (character)",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Flatman (character)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Force (comics)",
+    "in_degree":1,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":2,
+    "balance":0
+  },
+  {
+    "character":"Frankenstein's Monster (Marvel Comics)",
+    "in_degree":2,
+    "out_degree":11,
+    "undirected_degree":11,
+    "total_directed_degree":13,
+    "balance":-9
+  },
+  {
+    "character":"Franklin Richards (character)",
+    "in_degree":13,
+    "out_degree":3,
+    "undirected_degree":14,
+    "total_directed_degree":16,
+    "balance":10
+  },
+  {
+    "character":"Frog-Man",
+    "in_degree":2,
+    "out_degree":6,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":-4
+  },
+  {
+    "character":"G. W. Bridge",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Gargoyle (comics)",
+    "in_degree":5,
+    "out_degree":5,
+    "undirected_degree":8,
+    "total_directed_degree":10,
+    "balance":0
+  },
+  {
+    "character":"Garrison Kane",
+    "in_degree":1,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":-5
+  },
+  {
+    "character":"Gauntlet (Joseph Green)",
+    "in_degree":3,
+    "out_degree":3,
+    "undirected_degree":6,
+    "total_directed_degree":6,
+    "balance":0
+  },
+  {
+    "character":"Genis-Vell",
+    "in_degree":7,
+    "out_degree":3,
+    "undirected_degree":8,
+    "total_directed_degree":10,
+    "balance":4
+  },
+  {
+    "character":"Ghost Rider",
+    "in_degree":13,
+    "out_degree":15,
+    "undirected_degree":22,
+    "total_directed_degree":28,
+    "balance":-2
+  },
+  {
+    "character":"Ghost Rider (Danny Ketch)",
+    "in_degree":7,
+    "out_degree":7,
+    "undirected_degree":10,
+    "total_directed_degree":14,
+    "balance":0
+  },
+  {
+    "character":"Ghost Rider (Johnny Blaze)",
+    "in_degree":10,
+    "out_degree":8,
+    "undirected_degree":15,
+    "total_directed_degree":18,
+    "balance":2
+  },
+  {
+    "character":"Gladiator (Kallark)",
+    "in_degree":6,
+    "out_degree":6,
+    "undirected_degree":10,
+    "total_directed_degree":12,
+    "balance":0
+  },
+  {
+    "character":"Golem (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Gorgon (Inhuman)",
+    "in_degree":5,
+    "out_degree":1,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":4
+  },
+  {
+    "character":"Gremlin (comics)",
+    "in_degree":0,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-4
+  },
+  {
+    "character":"Guardian (Marvel Comics)",
+    "in_degree":6,
+    "out_degree":4,
+    "undirected_degree":7,
+    "total_directed_degree":10,
+    "balance":2
+  },
+  {
+    "character":"Guardsman (character)",
+    "in_degree":4,
+    "out_degree":7,
+    "undirected_degree":8,
+    "total_directed_degree":11,
+    "balance":-3
+  },
+  {
+    "character":"Gwenpool",
+    "in_degree":6,
+    "out_degree":15,
+    "undirected_degree":15,
+    "total_directed_degree":21,
+    "balance":-9
+  },
+  {
+    "character":"Hank Pym",
+    "in_degree":24,
+    "out_degree":8,
+    "undirected_degree":27,
+    "total_directed_degree":32,
+    "balance":16
+  },
+  {
+    "character":"Happy Sam Sawyer",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Hawkeye (comics)",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Helix (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Hellfire (J. T. Slade)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Hellion (character)",
+    "in_degree":4,
+    "out_degree":11,
+    "undirected_degree":12,
+    "total_directed_degree":15,
+    "balance":-7
+  },
+  {
+    "character":"Hercules (Marvel Comics)",
+    "in_degree":19,
+    "out_degree":17,
+    "undirected_degree":26,
+    "total_directed_degree":36,
+    "balance":2
+  },
+  {
+    "character":"Hit-Monkey",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Hornet (comics)",
+    "in_degree":4,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":0
+  },
+  {
+    "character":"Hrimhari",
+    "in_degree":1,
+    "out_degree":1,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":0
+  },
+  {
+    "character":"Hulk",
+    "in_degree":64,
+    "out_degree":10,
+    "undirected_degree":65,
+    "total_directed_degree":74,
+    "balance":54
+  },
+  {
+    "character":"Hulk 2099",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"Hulkling",
+    "in_degree":5,
+    "out_degree":9,
+    "undirected_degree":11,
+    "total_directed_degree":14,
+    "balance":-4
+  },
+  {
+    "character":"Human Fly (character)",
+    "in_degree":0,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":5,
+    "balance":-5
+  },
+  {
+    "character":"Human Torch",
+    "in_degree":17,
+    "out_degree":5,
+    "undirected_degree":18,
+    "total_directed_degree":22,
+    "balance":12
+  },
+  {
+    "character":"Human Torch (android)",
+    "in_degree":14,
+    "out_degree":9,
+    "undirected_degree":17,
+    "total_directed_degree":23,
+    "balance":5
+  },
+  {
+    "character":"Hybrid (Scott Washington)",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Hyperion (character)",
+    "in_degree":7,
+    "out_degree":6,
+    "undirected_degree":10,
+    "total_directed_degree":13,
+    "balance":1
+  },
+  {
+    "character":"Ikaris",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Illuminator (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Inferno (Dante Pertuz)",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Iron Fist (character)",
+    "in_degree":21,
+    "out_degree":16,
+    "undirected_degree":26,
+    "total_directed_degree":37,
+    "balance":5
+  },
+  {
+    "character":"Iron Lad",
+    "in_degree":2,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":6,
+    "balance":-2
+  },
+  {
+    "character":"Iron Man (Ultimate Marvel character)",
+    "in_degree":1,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":-4
+  },
+  {
+    "character":"Iron Man 2020",
+    "in_degree":4,
+    "out_degree":3,
+    "undirected_degree":6,
+    "total_directed_degree":7,
+    "balance":1
+  },
+  {
+    "character":"Isaiah Bradley",
+    "in_degree":0,
+    "out_degree":7,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":-7
+  },
+  {
+    "character":"Jack Frost (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":7,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":-6
+  },
+  {
+    "character":"Jack Monroe (character)",
+    "in_degree":3,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":7,
+    "balance":-1
+  },
+  {
+    "character":"Janice Lincoln",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":5,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Jean Grey",
+    "in_degree":23,
+    "out_degree":12,
+    "undirected_degree":24,
+    "total_directed_degree":35,
+    "balance":11
+  },
+  {
+    "character":"Jean Grey (X-Men film series)",
+    "in_degree":1,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":-4
+  },
+  {
+    "character":"Jeffrey Mace",
+    "in_degree":7,
+    "out_degree":1,
+    "undirected_degree":8,
+    "total_directed_degree":8,
+    "balance":6
+  },
+  {
+    "character":"Jericho Drumm",
+    "in_degree":13,
+    "out_degree":7,
+    "undirected_degree":15,
+    "total_directed_degree":20,
+    "balance":6
+  },
+  {
+    "character":"Jessica Jones",
+    "in_degree":8,
+    "out_degree":14,
+    "undirected_degree":18,
+    "total_directed_degree":22,
+    "balance":-6
+  },
+  {
+    "character":"John Jameson (character)",
+    "in_degree":9,
+    "out_degree":7,
+    "undirected_degree":14,
+    "total_directed_degree":16,
+    "balance":2
+  },
+  {
+    "character":"Jubilee (character)",
+    "in_degree":10,
+    "out_degree":10,
+    "undirected_degree":15,
+    "total_directed_degree":20,
+    "balance":0
+  },
+  {
+    "character":"Junior Juniper",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Justice (New Universe)",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":6,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Karnak (character)",
+    "in_degree":4,
+    "out_degree":7,
+    "undirected_degree":10,
+    "total_directed_degree":11,
+    "balance":-3
+  },
+  {
+    "character":"Kid Colt",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Killpower",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"Killraven",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":7,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Kismet (Marvel Comics)",
+    "in_degree":3,
+    "out_degree":9,
+    "undirected_degree":9,
+    "total_directed_degree":12,
+    "balance":-6
+  },
+  {
+    "character":"Korvus",
+    "in_degree":3,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":7,
+    "balance":-1
+  },
+  {
+    "character":"Kristoff Vernard",
+    "in_degree":4,
+    "out_degree":4,
+    "undirected_degree":8,
+    "total_directed_degree":8,
+    "balance":0
+  },
+  {
+    "character":"Leech (character)",
+    "in_degree":2,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":6,
+    "balance":-2
+  },
+  {
+    "character":"Lei Kung (character)",
+    "in_degree":3,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":6,
+    "balance":0
+  },
+  {
+    "character":"Living Lightning",
+    "in_degree":3,
+    "out_degree":5,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":-2
+  },
+  {
+    "character":"Luke Cage",
+    "in_degree":25,
+    "out_degree":9,
+    "undirected_degree":28,
+    "total_directed_degree":34,
+    "balance":16
+  },
+  {
+    "character":"Machine Man",
+    "in_degree":6,
+    "out_degree":12,
+    "undirected_degree":14,
+    "total_directed_degree":18,
+    "balance":-6
+  },
+  {
+    "character":"Magician (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Mahr Vehl",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Makkari (character)",
+    "in_degree":5,
+    "out_degree":1,
+    "undirected_degree":6,
+    "total_directed_degree":6,
+    "balance":4
+  },
+  {
+    "character":"Man-Thing",
+    "in_degree":15,
+    "out_degree":12,
+    "undirected_degree":20,
+    "total_directed_degree":27,
+    "balance":3
+  },
+  {
+    "character":"Mania (character)",
+    "in_degree":1,
+    "out_degree":7,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":-6
+  },
+  {
+    "character":"Mark Hazzard: Merc",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Marvel Boy (Robert Grayson)",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"Mayday Parker",
+    "in_degree":14,
+    "out_degree":14,
+    "undirected_degree":18,
+    "total_directed_degree":28,
+    "balance":0
+  },
+  {
+    "character":"Miracleman (character)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Misty Knight",
+    "in_degree":15,
+    "out_degree":13,
+    "undirected_degree":21,
+    "total_directed_degree":28,
+    "balance":2
+  },
+  {
+    "character":"Mockingbird (Marvel Comics)",
+    "in_degree":13,
+    "out_degree":11,
+    "undirected_degree":21,
+    "total_directed_degree":24,
+    "balance":2
+  },
+  {
+    "character":"Moon Knight",
+    "in_degree":22,
+    "out_degree":14,
+    "undirected_degree":27,
+    "total_directed_degree":36,
+    "balance":8
+  },
+  {
+    "character":"Moondragon",
+    "in_degree":11,
+    "out_degree":7,
+    "undirected_degree":15,
+    "total_directed_degree":18,
+    "balance":4
+  },
+  {
+    "character":"Moonglow (comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Morbius",
+    "in_degree":9,
+    "out_degree":16,
+    "undirected_degree":19,
+    "total_directed_degree":25,
+    "balance":-7
+  },
+  {
+    "character":"Motormouth (comics)",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Ms. Marvel",
+    "in_degree":11,
+    "out_degree":1,
+    "undirected_degree":11,
+    "total_directed_degree":12,
+    "balance":10
+  },
+  {
+    "character":"NFL SuperPro",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Nightmask",
+    "in_degree":5,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":8,
+    "balance":2
+  },
+  {
+    "character":"Nightwatch (character)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Noh-Varr",
+    "in_degree":4,
+    "out_degree":18,
+    "undirected_degree":18,
+    "total_directed_degree":22,
+    "balance":-14
+  },
+  {
+    "character":"Nomad (Marvel Comics)",
+    "in_degree":5,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":9,
+    "balance":1
+  },
+  {
+    "character":"Northstar (character)",
+    "in_degree":4,
+    "out_degree":14,
+    "undirected_degree":17,
+    "total_directed_degree":18,
+    "balance":-10
+  },
+  {
+    "character":"Nova (Richard Rider)",
+    "in_degree":16,
+    "out_degree":11,
+    "undirected_degree":21,
+    "total_directed_degree":27,
+    "balance":5
+  },
+  {
+    "character":"Ogre (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Outlaw (Marvel Comics)",
+    "in_degree":6,
+    "out_degree":5,
+    "undirected_degree":9,
+    "total_directed_degree":11,
+    "balance":1
+  },
+  {
+    "character":"Oya (comics)",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Paladin (comics)",
+    "in_degree":5,
+    "out_degree":10,
+    "undirected_degree":13,
+    "total_directed_degree":15,
+    "balance":-5
+  },
+  {
+    "character":"Patsy Walker",
+    "in_degree":7,
+    "out_degree":10,
+    "undirected_degree":13,
+    "total_directed_degree":17,
+    "balance":-3
+  },
+  {
+    "character":"Peggy Carter",
+    "in_degree":3,
+    "out_degree":0,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":3
+  },
+  {
+    "character":"Phil Urich",
+    "in_degree":5,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":8,
+    "balance":2
+  },
+  {
+    "character":"Phoenix Force",
+    "in_degree":24,
+    "out_degree":17,
+    "undirected_degree":32,
+    "total_directed_degree":41,
+    "balance":7
+  },
+  {
+    "character":"Phyla-Vell",
+    "in_degree":7,
+    "out_degree":8,
+    "undirected_degree":9,
+    "total_directed_degree":15,
+    "balance":-1
+  },
+  {
+    "character":"Power Man (Victor Alvarez)",
+    "in_degree":2,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":6,
+    "balance":-2
+  },
+  {
+    "character":"Powerhouse (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-3
+  },
+  {
+    "character":"Puck (Marvel Comics)",
+    "in_degree":5,
+    "out_degree":8,
+    "undirected_degree":9,
+    "total_directed_degree":13,
+    "balance":-3
+  },
+  {
+    "character":"Quasar (character)",
+    "in_degree":24,
+    "out_degree":3,
+    "undirected_degree":24,
+    "total_directed_degree":27,
+    "balance":21
+  },
+  {
+    "character":"Quicksilver (Marvel Comics)",
+    "in_degree":10,
+    "out_degree":10,
+    "undirected_degree":15,
+    "total_directed_degree":20,
+    "balance":0
+  },
+  {
+    "character":"Rachel Summers",
+    "in_degree":16,
+    "out_degree":19,
+    "undirected_degree":24,
+    "total_directed_degree":35,
+    "balance":-3
+  },
+  {
+    "character":"Radian (Morituri)",
+    "in_degree":4,
+    "out_degree":6,
+    "undirected_degree":6,
+    "total_directed_degree":10,
+    "balance":-2
+  },
+  {
+    "character":"Radioactive Man (comics)",
+    "in_degree":4,
+    "out_degree":8,
+    "undirected_degree":11,
+    "total_directed_degree":12,
+    "balance":-4
+  },
+  {
+    "character":"Ravage 2099",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Raza Longknife",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Red Guardian",
+    "in_degree":5,
+    "out_degree":5,
+    "undirected_degree":8,
+    "total_directed_degree":10,
+    "balance":0
+  },
+  {
+    "character":"Red Raven (Marvel Comics)",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Red Wolf (comics)",
+    "in_degree":1,
+    "out_degree":9,
+    "undirected_degree":9,
+    "total_directed_degree":10,
+    "balance":-8
+  },
+  {
+    "character":"Redneck (comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Ricochet (comics)",
+    "in_degree":2,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":6,
+    "balance":-2
+  },
+  {
+    "character":"Rikki Barnes",
+    "in_degree":3,
+    "out_degree":6,
+    "undirected_degree":6,
+    "total_directed_degree":9,
+    "balance":-3
+  },
+  {
+    "character":"Robbie Baldwin",
+    "in_degree":6,
+    "out_degree":13,
+    "undirected_degree":15,
+    "total_directed_degree":19,
+    "balance":-7
+  },
+  {
+    "character":"Rocket Raccoon",
+    "in_degree":10,
+    "out_degree":8,
+    "undirected_degree":16,
+    "total_directed_degree":18,
+    "balance":2
+  },
+  {
+    "character":"Rockman (character)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Rockslide (character)",
+    "in_degree":3,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":9,
+    "balance":-3
+  },
+  {
+    "character":"Rom the Space Knight",
+    "in_degree":8,
+    "out_degree":8,
+    "undirected_degree":15,
+    "total_directed_degree":16,
+    "balance":0
+  },
+  {
+    "character":"Ronin (Marvel Comics)",
+    "in_degree":4,
+    "out_degree":5,
+    "undirected_degree":7,
+    "total_directed_degree":9,
+    "balance":-1
+  },
+  {
+    "character":"Ruby Summers",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Rusty Collins",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Sabra (character)",
+    "in_degree":3,
+    "out_degree":9,
+    "undirected_degree":10,
+    "total_directed_degree":12,
+    "balance":-6
+  },
+  {
+    "character":"Satana (Marvel Comics)",
+    "in_degree":4,
+    "out_degree":7,
+    "undirected_degree":10,
+    "total_directed_degree":11,
+    "balance":-3
+  },
+  {
+    "character":"Scaredycat",
+    "in_degree":3,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":6,
+    "balance":0
+  },
+  {
+    "character":"Scarlet Scarab",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Scarlet Spider",
+    "in_degree":8,
+    "out_degree":3,
+    "undirected_degree":8,
+    "total_directed_degree":11,
+    "balance":5
+  },
+  {
+    "character":"Scarlet Witch",
+    "in_degree":28,
+    "out_degree":14,
+    "undirected_degree":32,
+    "total_directed_degree":42,
+    "balance":14
+  },
+  {
+    "character":"Scatterbrain (Morituri)",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"Scorpio (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Sean and Chris",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Sentry (Robert Reynolds)",
+    "in_degree":9,
+    "out_degree":6,
+    "undirected_degree":12,
+    "total_directed_degree":15,
+    "balance":3
+  },
+  {
+    "character":"Shamrock (comics)",
+    "in_degree":0,
+    "out_degree":8,
+    "undirected_degree":8,
+    "total_directed_degree":8,
+    "balance":-8
+  },
+  {
+    "character":"Shang-Chi",
+    "in_degree":13,
+    "out_degree":11,
+    "undirected_degree":18,
+    "total_directed_degree":24,
+    "balance":2
+  },
+  {
+    "character":"Shatterstar",
+    "in_degree":3,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":0
+  },
+  {
+    "character":"She-Hulk",
+    "in_degree":29,
+    "out_degree":20,
+    "undirected_degree":37,
+    "total_directed_degree":49,
+    "balance":9
+  },
+  {
+    "character":"She-Hulk (Lyra)",
+    "in_degree":2,
+    "out_degree":6,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":-4
+  },
+  {
+    "character":"Shear (character)",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Shuri (character)",
+    "in_degree":3,
+    "out_degree":9,
+    "undirected_degree":10,
+    "total_directed_degree":12,
+    "balance":-6
+  },
+  {
+    "character":"Silencer (comics)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Silhouette (comics)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Silk (character)",
+    "in_degree":10,
+    "out_degree":4,
+    "undirected_degree":12,
+    "total_directed_degree":14,
+    "balance":6
+  },
+  {
+    "character":"Skull the Slayer",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"Snapdragon (Morituri)",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Solarman",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Solo (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":12,
+    "undirected_degree":13,
+    "total_directed_degree":13,
+    "balance":-11
+  },
+  {
+    "character":"Solomon Kane (comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Speed (character)",
+    "in_degree":3,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":9,
+    "balance":-3
+  },
+  {
+    "character":"Spider-Bitch (Ashley Barton)",
+    "in_degree":2,
+    "out_degree":15,
+    "undirected_degree":16,
+    "total_directed_degree":17,
+    "balance":-13
+  },
+  {
+    "character":"Spider-Girl",
+    "in_degree":5,
+    "out_degree":12,
+    "undirected_degree":14,
+    "total_directed_degree":17,
+    "balance":-7
+  },
+  {
+    "character":"Spider-Man",
+    "in_degree":106,
+    "out_degree":9,
+    "undirected_degree":106,
+    "total_directed_degree":115,
+    "balance":97
+  },
+  {
+    "character":"Spider-Man (Marvel Mangaverse)",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Spider-Man Noir",
+    "in_degree":7,
+    "out_degree":5,
+    "undirected_degree":9,
+    "total_directed_degree":12,
+    "balance":2
+  },
+  {
+    "character":"Spider-UK",
+    "in_degree":2,
+    "out_degree":8,
+    "undirected_degree":8,
+    "total_directed_degree":10,
+    "balance":-6
+  },
+  {
+    "character":"Spider-Woman",
+    "in_degree":10,
+    "out_degree":12,
+    "undirected_degree":17,
+    "total_directed_degree":22,
+    "balance":-2
+  },
+  {
+    "character":"Spider-Woman (Gwen Stacy)",
+    "in_degree":12,
+    "out_degree":14,
+    "undirected_degree":18,
+    "total_directed_degree":26,
+    "balance":-2
+  },
+  {
+    "character":"Spider-Woman (Jessica Drew)",
+    "in_degree":16,
+    "out_degree":11,
+    "undirected_degree":22,
+    "total_directed_degree":27,
+    "balance":5
+  },
+  {
+    "character":"Spitfire (character)",
+    "in_degree":5,
+    "out_degree":5,
+    "undirected_degree":6,
+    "total_directed_degree":10,
+    "balance":0
+  },
+  {
+    "character":"Star Brand",
+    "in_degree":8,
+    "out_degree":11,
+    "undirected_degree":16,
+    "total_directed_degree":19,
+    "balance":-3
+  },
+  {
+    "character":"Star-Lord",
+    "in_degree":12,
+    "out_degree":10,
+    "undirected_degree":17,
+    "total_directed_degree":22,
+    "balance":2
+  },
+  {
+    "character":"Starhawk (character)",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":6,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Starr the Slayer",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Steel Spider",
+    "in_degree":2,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":-1
+  },
+  {
+    "character":"Stingray (Marvel Comics)",
+    "in_degree":1,
+    "out_degree":7,
+    "undirected_degree":8,
+    "total_directed_degree":8,
+    "balance":-6
+  },
+  {
+    "character":"Storm (Marvel Comics)",
+    "in_degree":20,
+    "out_degree":16,
+    "undirected_degree":27,
+    "total_directed_degree":36,
+    "balance":4
+  },
+  {
+    "character":"Straw Man (comics)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Super Rabbit",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Surge (Marvel Comics)",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":5,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Synapse (character)",
+    "in_degree":2,
+    "out_degree":0,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":2
+  },
+  {
+    "character":"Tarantula (Marvel Comics)",
+    "in_degree":6,
+    "out_degree":9,
+    "undirected_degree":13,
+    "total_directed_degree":15,
+    "balance":-3
+  },
+  {
+    "character":"The Union (Marvel)",
+    "in_degree":2,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":4,
+    "balance":0
+  },
+  {
+    "character":"The Witness (character)",
+    "in_degree":1,
+    "out_degree":0,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":1
+  },
+  {
+    "character":"Thena",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Thin Man (character)",
+    "in_degree":3,
+    "out_degree":1,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":2
+  },
+  {
+    "character":"Thor Girl",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":4,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Thunderbolt (Marvel Comics)",
+    "in_degree":0,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":2,
+    "balance":-2
+  },
+  {
+    "character":"Thunderclap (comics)",
+    "in_degree":0,
+    "out_degree":1,
+    "undirected_degree":1,
+    "total_directed_degree":1,
+    "balance":-1
+  },
+  {
+    "character":"Timeslip (comics)",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":2,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"Toro (character)",
+    "in_degree":4,
+    "out_degree":4,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":0
+  },
+  {
+    "character":"Toxyn",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"Turbo (comics)",
+    "in_degree":3,
+    "out_degree":3,
+    "undirected_degree":5,
+    "total_directed_degree":6,
+    "balance":0
+  },
+  {
+    "character":"Two-Gun Kid",
+    "in_degree":4,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":8,
+    "balance":0
+  },
+  {
+    "character":"Typeface (character)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"U.S. Agent",
+    "in_degree":6,
+    "out_degree":20,
+    "undirected_degree":21,
+    "total_directed_degree":26,
+    "balance":-14
+  },
+  {
+    "character":"Ulysses Bloodstone",
+    "in_degree":2,
+    "out_degree":1,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":1
+  },
+  {
+    "character":"Union Jack (Joseph Chapman)",
+    "in_degree":6,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":12,
+    "balance":0
+  },
+  {
+    "character":"Union Jack (Marvel Comics)",
+    "in_degree":8,
+    "out_degree":5,
+    "undirected_degree":8,
+    "total_directed_degree":13,
+    "balance":3
+  },
+  {
+    "character":"Ursa Major (character)",
+    "in_degree":0,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-4
+  },
+  {
+    "character":"Vance Astrovik",
+    "in_degree":5,
+    "out_degree":8,
+    "undirected_degree":11,
+    "total_directed_degree":13,
+    "balance":-3
+  },
+  {
+    "character":"Venom (character)",
+    "in_degree":17,
+    "out_degree":21,
+    "undirected_degree":29,
+    "total_directed_degree":38,
+    "balance":-4
+  },
+  {
+    "character":"Vindicator (comics)",
+    "in_degree":5,
+    "out_degree":4,
+    "undirected_degree":6,
+    "total_directed_degree":9,
+    "balance":1
+  },
+  {
+    "character":"Vulcan (Marvel Comics)",
+    "in_degree":9,
+    "out_degree":8,
+    "undirected_degree":11,
+    "total_directed_degree":17,
+    "balance":1
+  },
+  {
+    "character":"Vyking",
+    "in_degree":3,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":5,
+    "balance":1
+  },
+  {
+    "character":"War Machine",
+    "in_degree":12,
+    "out_degree":4,
+    "undirected_degree":16,
+    "total_directed_degree":16,
+    "balance":8
+  },
+  {
+    "character":"Werewolf by Night",
+    "in_degree":7,
+    "out_degree":13,
+    "undirected_degree":15,
+    "total_directed_degree":20,
+    "balance":-6
+  },
+  {
+    "character":"White Tiger (Heroes for Hire)",
+    "in_degree":1,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":4,
+    "balance":-2
+  },
+  {
+    "character":"White Tiger (comics)",
+    "in_degree":2,
+    "out_degree":5,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":-3
+  },
+  {
+    "character":"Whizzer (Robert Frank)",
+    "in_degree":6,
+    "out_degree":6,
+    "undirected_degree":8,
+    "total_directed_degree":12,
+    "balance":0
+  },
+  {
+    "character":"Wild Child (character)",
+    "in_degree":0,
+    "out_degree":3,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-3
+  },
+  {
+    "character":"Will o' the Wisp (comics)",
+    "in_degree":1,
+    "out_degree":2,
+    "undirected_degree":3,
+    "total_directed_degree":3,
+    "balance":-1
+  },
+  {
+    "character":"William Burnside (character)",
+    "in_degree":3,
+    "out_degree":4,
+    "undirected_degree":5,
+    "total_directed_degree":7,
+    "balance":-1
+  },
+  {
+    "character":"Wolverine (Ultimate Marvel character)",
+    "in_degree":6,
+    "out_degree":8,
+    "undirected_degree":11,
+    "total_directed_degree":14,
+    "balance":-2
+  },
+  {
+    "character":"Wolverine (character)",
+    "in_degree":60,
+    "out_degree":17,
+    "undirected_degree":63,
+    "total_directed_degree":77,
+    "balance":43
+  },
+  {
+    "character":"Xorn",
+    "in_degree":4,
+    "out_degree":8,
+    "undirected_degree":9,
+    "total_directed_degree":12,
+    "balance":-4
+  },
+  {
+    "character":"Yelena Belova",
+    "in_degree":2,
+    "out_degree":6,
+    "undirected_degree":7,
+    "total_directed_degree":8,
+    "balance":-4
+  },
+  {
+    "character":"Yo-Yo Rodriguez",
+    "in_degree":0,
+    "out_degree":0,
+    "undirected_degree":0,
+    "total_directed_degree":0,
+    "balance":0
+  },
+  {
+    "character":"Zombie (comics)",
+    "in_degree":0,
+    "out_degree":4,
+    "undirected_degree":4,
+    "total_directed_degree":4,
+    "balance":-4
+  }
+]

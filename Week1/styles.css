@@ -203,7 +203,6 @@ button:hover { transform: translateY(-1px); }
 }
 
 .node {
-  fill: var(--blue);
   opacity: 0.82;
   stroke: rgba(0, 0, 0, 0.35);
   stroke-width: 1;
@@ -318,6 +317,11 @@ button:hover { transform: translateY(-1px); }
   border-radius: 50%;
   margin-right: 6px;
 }
+
+.swatch-blue { background: var(--blue); }
+.swatch-orange { background: var(--orange); }
+.swatch-purple { background: var(--purple); }
+.swatch-gray { background: #8d9aa8; }
 
 .swatch-blue { background: var(--blue); }
 .swatch-orange { background: var(--orange); }

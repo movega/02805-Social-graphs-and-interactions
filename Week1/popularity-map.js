@@ -5,6 +5,7 @@ const detailUndirected = document.getElementById('detailUndirected');
 const detailIncoming = document.getElementById('detailIncoming');
 const detailOutgoing = document.getElementById('detailOutgoing');
 const detailBalance = document.getElementById('detailBalance');
+const detailArchetype = document.getElementById('detailArchetype');
 const detailConnectedRank = document.getElementById('detailConnectedRank');
 const detailPopularityRank = document.getElementById('detailPopularityRank');
 const detailSummary = document.getElementById('detailSummary');
@@ -26,6 +27,13 @@ const state = {
 
 const width = 920;
 const height = 620;
+
+const personalityStyles = {
+  celebrities: { label: 'Celebrities', color: '#70b7ff' },
+  connectors: { label: 'Connectors', color: '#ffb347' },
+  socialites: { label: 'Socialites', color: '#d4a6ff' },
+  outsiders: { label: 'Outsiders', color: '#8d9aa8' },
+};
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -54,6 +62,28 @@ function makeRankings(data) {
   return { connectedness, popularity };
 }
 
+function percentile(values, quantile) {
+  return d3.quantile([...values].sort(d3.ascending), quantile) || 0;
+}
+
+function assignPersonalities(data) {
+  const inThreshold = percentile(data.map(d => d.in_degree), 0.8);
+  const outThreshold = percentile(data.map(d => d.out_degree), 0.8);
+  const totalThreshold = percentile(data.map(d => d.total_directed_degree), 0.2);
+
+  data.forEach(d => {
+    if (d.total_directed_degree <= totalThreshold) {
+      d.personality = 'outsiders';
+    } else if (d.in_degree >= inThreshold && d.out_degree >= outThreshold) {
+      d.personality = 'socialites';
+    } else if (d.in_degree > d.out_degree) {
+      d.personality = 'celebrities';
+    } else {
+      d.personality = 'connectors';
+    }
+  });
+}
+
 function updateDetailPanel(d) {
   if (!d) {
     detailName.textContent = 'Select a character';
@@ -61,6 +91,7 @@ function updateDetailPanel(d) {
     detailIncoming.textContent = '—';
     detailOutgoing.textContent = '—';
     detailBalance.textContent = '—';
+    detailArchetype.textContent = '—';
     detailConnectedRank.textContent = '—';
     detailPopularityRank.textContent = '—';
     connectedBar.style.width = '0%';
@@ -78,17 +109,18 @@ function updateDetailPanel(d) {
   detailIncoming.textContent = d.in_degree;
   detailOutgoing.textContent = d.out_degree;
   detailBalance.textContent = d.balance;
+  detailArchetype.textContent = personalityStyles[d.personality].label;
   detailConnectedRank.textContent = `#${d.connectednessRank}`;
   detailPopularityRank.textContent = `#${d.popularityRank}`;
   connectedBar.style.width = `${clamp(100 - connectedPercent, 6, 100)}%`;
   incomingBar.style.width = `${clamp(100 - popularityPercent, 6, 100)}%`;
 
   let summary = '';
-  if (d.in_degree > d.out_degree && d.in_degree >= d.out_degree * 1.5) {
+  if (d.personality === 'celebrities') {
     summary = 'Mostly receives attention from the rest of the network.';
-  } else if (d.out_degree > d.in_degree && d.out_degree >= d.in_degree * 1.5) {
+  } else if (d.personality === 'connectors') {
     summary = 'Links outward much more than it is linked back to.';
-  } else if (d.in_degree > 0 && d.out_degree > 0 && Math.abs(d.balance) < Math.max(1, combined * 0.2)) {
+  } else if (d.personality === 'socialites') {
     summary = 'Highly embedded in both directions.';
   } else {
     summary = 'Peripheral in this Marvel Wikipedia network.';
@@ -245,11 +277,7 @@ function renderChart() {
     .attr('cx', d => x(d.out_degree))
     .attr('cy', d => y(d.in_degree))
     .attr('r', d => clamp(rScale(d.undirected_degree), 3.5, 16))
-    .attr('fill', d => {
-      if (d.in_degree > d.out_degree) return '#70b7ff';
-      if (d.out_degree > d.in_degree) return '#ffb347';
-      return '#d4a6ff';
-    })
+    .attr('fill', d => personalityStyles[d.personality].color)
     .attr('opacity', d => (selectedName && d.character !== selectedName ? 0.18 : 0.82))
     .on('mouseenter', (event, d) => {
       tooltip
@@ -329,6 +357,7 @@ async function loadData() {
   const response = await fetch('assets/data/marvel_nodes.json');
   const data = await response.json();
   state.data = data;
+  assignPersonalities(data);
   makeRankings(data);
   refreshSearchOptions(data);
   renderChart();

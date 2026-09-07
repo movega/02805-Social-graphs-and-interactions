@@ -59,8 +59,8 @@
       <p class="post-header__dek">Bootstrap edition: we load the frozen snapshot of Wikipedia&rsquo;s Marvel superheroes, count who links to whom, and see what the shape of the degree distribution already gives away.</p>
 
       <div class="sans post-header__meta">
-        <span><span class="todo">todo</span>Published [date]</span>
-        <span>By <span data-site="team-name">Varmel</span></span>
+        <span>07/09/2026</span>
+        <span>Alvaro Vega, Oier Garcia & Paula Balcells</span></span>
         <span>Dataset: week-1 release · 303 nodes · 1,784 directed edges</span>
       </div>
     </div>
@@ -71,102 +71,50 @@
     <div class="post-body__inner">
 
       <div class="callout">
-        <div class="sans callout__label">Placeholder post</div>
-        <p>This is the skeleton we publish before the real write-up lands. Every <span class="todo">todo</span> below marks something to replace: our own question, our own figures, our own numbers. The structure — <strong>what we asked → what we did → one figure → what surprised us</strong> — is the one the course asks for, so it stays.</p>
+        <div class="sans callout__label">The Marvel popularity trap</div>
+        <p>At first glance, the most famous Marvel superheroes should also be the most central ones. But the Wikipedia network tells a more complicated story: some are frequently linked to, some link out to many others, and some do both. We wanted to find out whether popularity and connectedness really point to the same characters.</p>
       </div>
 
       <h2>What we asked</h2>
-      <p><span class="todo">todo</span> One sentence, sharp enough that a figure can answer it. The obvious week-1 candidates, to be narrowed down:</p>
-      <ul>
-        <li>Who is linked to the most, who links out the most — and <em>why are those different characters?</em></li>
-        <li>Does the in-degree distribution have a heavy tail while the out-degree distribution does not, and what would that say about how each kind of edge comes to exist?</li>
-        <li>What lives outside the giant component — and are the 17 isolates isolated for a reason, or just badly written articles?</li>
-      </ul>
-
-      <h2>The data</h2>
-      <p>The shared playground: every character in Wikipedia&rsquo;s <em>Category:Marvel Comics superheroes</em>, with a directed edge <code>A → B</code> whenever article A links to article B. We use the frozen week-1 release so that every group in the course computes on identical data.</p>
-
-      <div class="stat-row">
-        <div class="stat"><div class="stat__value">303</div><div class="stat__label">Characters</div></div>
-        <div class="stat"><div class="stat__value">1,784</div><div class="stat__label">Directed links</div></div>
-        <div class="stat"><div class="stat__value">17</div><div class="stat__label">Isolates</div></div>
-        <div class="stat"><div class="stat__value"><span class="todo">todo</span></div><div class="stat__label">Giant component</div></div>
-      </div>
-
-      <p>The one trap the course warns about: a careless load builds the graph from the edge list alone and silently drops the 17 characters with no link in either direction. We add the node roster first, then the edges.</p>
-
-      <pre><code>import pandas as pd
-import networkx as nx
-
-nodes = pd.read_csv("Data/week1_nodes.tsv", sep="\t", comment="#")
-edges = pd.read_csv("Data/week1_edges.tsv", sep="\t", comment="#",
-                    names=["source", "target"])
-
-G = nx.DiGraph()
-G.add_nodes_from(nodes.node_id)                     # all 303 — isolates included
-G.add_edges_from(edges.itertuples(index=False, name=None))
-
-print(G.number_of_nodes(), G.number_of_edges())     # 303 1784
-print(sum(1 for n in G if G.degree(n) == 0))        # 17 isolates</code></pre>
+      <p>The main topic of this network analysis was <strong>"The Marvel popularity trap"</strong>, in which we tried to answer whether the most famous names really sit at the center of the network by more than one definition of centrality. </p>
 
       <h2>What we did</h2>
-      <p><span class="todo">todo</span> A short, honest account of the path — including the dead ends. Roughly:</p>
-      <ol>
-        <li>Loaded the snapshot as a directed graph, isolates and all, and sanity-checked <code>n</code>, <code>m</code>, <code>&lt;k&gt;</code> and the density against the numbers on the course page.</li>
-        <li>Plotted the degree distribution on linear axes, then on log&ndash;log axes with the <code>k+1</code> shift so the 17 isolates survive the log axis.</li>
-        <li>Split in-degree from out-degree and compared the two tails.</li>
-        <li>Drew the network — force layout, node size by degree — and separately went looking for the components outside the giant one.</li>
-      </ol>
+      <p>To answer our question and investigate the Marvel popularity trap, we first started with the <strong>undirected version of the network</strong>, and tried to answer how many distinvt neighbors does each character have, in order to see who was the most connected character. Spider-Man dominated this view, followed by Hulk and Wolverine.</p>
+        
+      <p>We then looked at the <strong>directed version of the network</strong>, and counted how many <strong>incoming links (in-degree)</strong> each character had, in order to see who was the most referenced character. In this view, Spider-Man was still the most referenced character, followed by the same two characters, Hulk and Wolverine. Finally, we looked at the directed version of the network again, but this time we counted how many <strong>outgoing links (out-degree)</strong> each character had, in order to see who was the most referencing character. In this view, the ranking was led by Betsy Braddock, Cloack and Dagger, and Adam Warlock.</p>
+        
+      <p>In order to go a bit further, we then created some <strong>"link personalities"</strong> to characterize each character by lookin at how much it receives versus emits. We visualized this by plotting the out-degree vs the in-degree. We then used <strong>percentile-based thresholds</strong> (rather than arbirtrary fixed degree thresholds) and defined the following <strong>network archetypes</strong>:</p>
+        <ul>
+          <li><strong>Celebrities</strong> are characters that receive a lot of attention but do not reference many others.</li>
+          <li><strong>Connectors</strong> are characters that receive a lot of attention and also reference many others.</li>
+          <li><strong>Socialites</strong> are characters that do not receive much attention but reference many others.</li>
+          <li><strong>Outsiders</strong> are characters that do not receive much attention and do not reference many others.</li>
+        </ul>
+      <p>From this analysis, we got some examples from each archetype. For example, Spider-Man was a celebrity, while Hulk was a socialite. Betsy Braddock was instead a connector, and the outsiders included Doctor Nemesis.
+      </p>
 
-      <h2>One figure</h2>
-      <p><span class="todo">todo</span> Replace the placeholder with the figure that actually answers the question. Save plots to <code>assets/img/</code> and swap the block below for an <code>&lt;img&gt;</code>.</p>
+      <p>Finally, we looked at <strong>the forgotten heroes</strong>, those are characters that are mostly peripheral to this 303-character Marvel universe. We focused on the edge cases: isolates, degree-1 nodes, and members of tiny components (less than 5 nodes) outside the giant network.</p>
+
+
+      <h2>One figure or table</h2>
+      <p>The interactive figure below shows the Marvel popularity map, which visualizes the connections between characters in the network as out-degree vs in-degree and characterizes each character based on their position in the plot.</p>
 
       <figure>
-        <div class="figure-placeholder">
-          <div class="sans figure-placeholder__label">Figure 1</div>
-          <div class="figure-placeholder__hint">Degree distribution, linear vs. log&ndash;log. Drop the exported PNG in <code>assets/img/</code> and replace this block with an image.</div>
-        </div>
-        <figcaption>Fig. 1 — <span class="todo">todo</span> Caption: state what the reader should see, and what they should <em>not</em> conclude from it.</figcaption>
+        <iframe
+          src="../Week1/index.html"
+          title="Interactive Marvel popularity map"
+          style="display:block; width:100%; height:850px; border:1px solid var(--line); border-radius:10px; background:#101821;"
+          loading="lazy">
+        </iframe>
+        <figcaption>Fig. 1 — Use the popularity map to compare incoming attention, outgoing references, and overall connectedness.</figcaption>
       </figure>
-
-      <figure>
-        <div class="figure-placeholder">
-          <div class="sans figure-placeholder__label">Figure 2</div>
-          <div class="figure-placeholder__hint">The network drawn: force layout, node size by degree. What here is data, and what is layout?</div>
-        </div>
-        <figcaption>Fig. 2 — <span class="todo">todo</span> Caption.</figcaption>
-      </figure>
-
-      <h3>Top of the tail</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Character</th><th>In-degree</th><th>Out-degree</th><th>Note</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>[character]</td><td>—</td><td>—</td><td><span class="todo">todo</span></td></tr>
-            <tr><td>[character]</td><td>—</td><td>—</td><td><span class="todo">todo</span></td></tr>
-            <tr><td>[character]</td><td>—</td><td>—</td><td><span class="todo">todo</span></td></tr>
-            <tr><td>[character]</td><td>—</td><td>—</td><td><span class="todo">todo</span></td></tr>
-            <tr><td>[character]</td><td>—</td><td>—</td><td><span class="todo">todo</span></td></tr>
-          </tbody>
-        </table>
-      </div>
 
       <h2>What surprised us</h2>
-      <p><span class="todo">todo</span> The part worth reading. One thing we did not expect, and what we think explains it — with the alternative explanation we could not rule out.</p>
+      <p>The biggest surprise was that <strong>the answer changed as soon as we paid attention to direction</strong>. Spider-Man, Hulk, and Wolverine were at the top when we counted incoming links and distinct neighbors, but the out-degree ranking was led by Betsy Braddock, Cloak and Dagger, and Adam Warlock. In other words, the characters most often referenced by the network were not necessarily the characters whose pages referenced the widest part of the network.</p>
 
-      <blockquote>[The one-line takeaway of the week goes here.]</blockquote>
+      <p>That difference is a reminder that <strong>this graph describes Wikipedia&rsquo;s structure, not fictional relationships</strong>. Incoming links may reflect broad recognition, while outgoing links can reflect how an article is written and how many related characters its editors choose to mention. The same superhero can therefore look central under one definition and much less central under another.</p>
 
-      <h2>Caveats</h2>
-      <ul>
-        <li>The network is a snapshot of Wikipedia, not of the Marvel universe: an edge means an editor wrote a link, which tracks fame and article length as much as it tracks the story.</li>
-        <li>Category membership is a human judgement call — who counts as a &ldquo;superhero&rdquo; is already an analysis decision made before we saw the data.</li>
-        <li><span class="todo">todo</span> Anything our own method assumed away.</li>
-      </ul>
-
-      <h2>Reproduce it</h2>
-      <p><span class="todo">todo</span> Link the notebook once it is in the repo — <code>notebooks/week1.ipynb</code> — and note the exact package versions. Data: the week-1 release from the course data page (frozen snapshot, 2026-08-26).</p>
+      <blockquote>In the Marvel Wikipedia universe, every superhero has a link personality: some attract attention, some spread it, some do both, and some stay on the edge.</blockquote>
 
     </div>
   </div>

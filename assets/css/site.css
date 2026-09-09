@@ -220,14 +220,8 @@ a.week-cell__title:hover { color: var(--accent); }
 .week-project__title { font-style: italic; font-size: 14.5px; color: var(--muted); opacity: 0.62; }
 
 /* --- Team --------------------------------------------------------------- */
-/* Two members, capped so the cards keep their proportions instead of
-   stretching across the whole page. */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-  max-width: 720px;
-}
+/* Two members, each taking half the row. */
+.team-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .member { padding: 26px; border-radius: 12px; background: var(--bg-panel); }
 .member__badge {
   width: 46px; height: 46px; border-radius: 50%;

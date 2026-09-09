@@ -41,8 +41,8 @@ repo URL, the three members. Every page picks it up:
 ```js
 var SITE = {
   teamName: 'Varmel',
-  repoUrl: 'https://github.com/balpaula/02805-Social-graphs-and-interactions',
-  repoLabel: 'balpaula/02805-Social-graphs-and-interactions',
+  repoUrl: 'https://github.com/movega/02805-Social-graphs-and-interactions',
+  repoLabel: 'movega/02805-Social-graphs-and-interactions',
   members: [
     { name: 'Alvaro Vega', role: 'Network analysis', link: 'https://github.com/...' },
     ...

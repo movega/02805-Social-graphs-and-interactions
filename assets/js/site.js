@@ -10,8 +10,8 @@
 var SITE = {
   // ---- Fill these in and every page updates ------------------------------
   teamName: 'Varmel',
-  repoUrl: 'https://github.com/balpaula/02805-Social-graphs-and-interactions',
-  repoLabel: 'balpaula/02805-Social-graphs-and-interactions',
+  repoUrl: 'https://github.com/movega/02805-Social-graphs-and-interactions',
+  repoLabel: 'movega/02805-Social-graphs-and-interactions',
   members: [
     // Roles below are a first guess — swap them around as you like.
     { name: 'Alvaro Vega', role: 'Network analysis', link: '' },

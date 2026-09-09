@@ -446,8 +446,122 @@ def fig_dropped(GIANT, rng_seed, nrep_small):
             "hub": hub, "hub_degree": deg[hub], "hub_lost": float(lost[hub]),
             "lost_total_mean": float(ls.sum()),
             "top_losers": sorted(((float(lost[n]), n, deg[n]) for n in lost),
-                                 reverse=True)[:8]}
+                                 reverse=True)[:8],
+            "kept": [int(k) for k in kept],
+            "points": [{"name": n.replace("_", " "), "k": deg[n],
+                        "lost": round(float(lost[n]), 3)} for n in GIANT]}
 
+
+
+# --- 7. Data for the interactive charts on the post -------------------------
+# The post replaces each PNG with a hand-rolled SVG chart (assets/js/charts.js).
+# Both are drawn from this one run, so the static fallback and the interactive
+# version can never disagree. Histograms are binned here rather than shipping
+# 1000 raw draws per series.
+
+PLAIN = {
+    "Average clustering": "Average clustering",
+    "Transitivity": "Transitivity",
+    "Triangles": "Triangles",
+    "Reciprocity": "Both-ways links",
+    "Giant component size": "Size of the main group",
+    "Max k-core": "Densest inner ring",
+    "Mean shortest path": "Average hops apart",
+    "Components": "Separate groups",
+    "Degree assortativity": "Do the popular link to the popular?",
+    "Diameter": "Widest gap in the network",
+    "Hub's share of links": "Spider-Man's share of all links",
+    "Isolated characters": "Characters with no links at all",
+}
+# The order the post's table uses: strongest evidence first.
+BATTERY_ORDER = [
+    "Average clustering", "Transitivity", "Triangles", "Reciprocity",
+    "Giant component size", "Max k-core", "Mean shortest path", "Components",
+    "Degree assortativity", "Diameter", "Hub's share of links", "Isolated characters",
+]
+
+
+def _series(draws, lo, hi, bins):
+    """One histogram, or a pin if the null returned the identical value every time."""
+    if float(draws.max() - draws.min()) == 0.0:
+        return {"pin": round(float(draws[0]), 6)}
+    counts, edges = np.histogram(draws, bins=bins, range=(lo, hi))
+    return {"edges": [round(float(e), 6) for e in edges],
+            "counts": [int(c) for c in counts]}
+
+
+def _window(values, real):
+    lo, hi = float(min(values)), float(max(values))
+    lo, hi = min(lo, real), max(hi, real)
+    pad = (hi - lo) * 0.06 or (abs(hi) * 0.06 or 1.0)
+    return lo - pad, hi + pad
+
+
+def chart_data(res_giant, res_full, res_dir, rows, dropped, nrep):
+    by_scope = {"giant": res_giant, "full": res_full, "directed": res_dir}
+    row_by_label = {r["label"]: r for r in rows}
+
+    # 1. the clustering chart: three nulls on one axis
+    cl = res_giant["Average clustering"]
+    allv = np.concatenate([cl[k]["draws"] for k in ("gnm", "config", "swap")])
+    lo, hi = _window(allv, cl["real"])
+    clustering = {
+        "real": round(float(cl["real"]), 6),
+        "nrep": nrep,
+        "series": [
+            {"key": "gnm", "label": "Blind universes", "colour": "er",
+             "mean": round(float(cl["gnm"]["mean"]), 6), **_series(cl["gnm"]["draws"], lo, hi, 60)},
+            {"key": "config", "label": "Leaky recipe", "colour": "cfg",
+             "mean": round(float(cl["config"]["mean"]), 6), **_series(cl["config"]["draws"], lo, hi, 60)},
+            {"key": "swap", "label": "Fame-preserving", "colour": "deg",
+             "mean": round(float(cl["swap"]["mean"]), 6), **_series(cl["swap"]["draws"], lo, hi, 60)},
+        ],
+    }
+
+    # 2. the battery, and 3. one histogram pair per quantity
+    battery, panels = [], {}
+    for label in BATTERY_ORDER:
+        r = row_by_label[label]
+        res = by_scope[r["scope"]]
+        q = res[label]
+        matched = {k: int(round(r["p_" + k] * (nrep + 1) - 1)) for k in ("deg", "er")}
+        battery.append({
+            "label": label, "plain": PLAIN[label], "scope": r["scope"],
+            "real": round(float(q["real"]), 6),
+            "deg": {"mean": round(r["deg_mean"], 6), "sd": round(r["deg_sd"], 6),
+                    "z": None if not np.isfinite(r["z_deg"]) else round(r["z_deg"], 2),
+                    "matched": matched["deg"]},
+            "er": {"mean": round(r["er_mean"], 6), "sd": round(r["er_sd"], 6),
+                   "z": None if not np.isfinite(r["z_er"]) else round(r["z_er"], 2),
+                   "matched": matched["er"]},
+            "verdict": r["verdict"],
+        })
+        allv = np.concatenate([q["swap"]["draws"], q["gnm"]["draws"]])
+        lo, hi = _window(allv, q["real"])
+        panels[label] = {
+            "real": round(float(q["real"]), 6),
+            "series": [
+                {"key": "gnm", "label": "Blind universes", "colour": "er",
+                 "mean": round(float(q["gnm"]["mean"]), 6), **_series(q["gnm"]["draws"], lo, hi, 40)},
+                {"key": "swap", "label": "Fame-preserving", "colour": "deg",
+                 "mean": round(float(q["swap"]["mean"]), 6), **_series(q["swap"]["draws"], lo, hi, 40)},
+            ],
+        }
+
+    # 4. the leak: how many links come back, and who pays for it
+    kept = np.asarray(dropped["kept"], dtype=float)
+    klo, khi = _window(kept, float(dropped["real_edges"]))
+    counts, edges = np.histogram(kept, bins=40, range=(klo, khi))
+    leak = {
+        "real_edges": dropped["real_edges"],
+        "kept": {"edges": [round(float(e), 3) for e in edges],
+                 "counts": [int(c) for c in counts],
+                 "mean": round(dropped["kept_mean"], 2)},
+        "points": dropped["points"],
+    }
+
+    return {"nrep": nrep, "clustering": clustering, "battery": battery,
+            "panels": panels, "leak": leak}
 
 # --- 6. Report --------------------------------------------------------------
 
@@ -525,6 +639,15 @@ def main():
     fig_zscores(rows)
     fig_panels(res_giant, res_full, res_dir, nrep)
     dropped = fig_dropped(GIANT, 20260909, nrep)
+
+    dropped["real_edges"] = GIANT.number_of_edges()
+    charts = chart_data(res_giant, res_full, res_dir, rows, dropped, nrep)
+    cpath = os.path.join(os.path.dirname(IMG), "data", "week2_charts.json")
+    os.makedirs(os.path.dirname(cpath), exist_ok=True)
+    with open(cpath, "w") as f:
+        json.dump(charts, f, separators=(",", ":"))
+    print("  wrote %s (%.0f kB)" % (os.path.relpath(cpath, os.path.dirname(IMG)),
+                                    os.path.getsize(cpath) / 1024.0))
 
     print("\nWhere the configuration model loses its links:")
     print("  %.1f link-endpoints lost per draw; %s alone loses %.1f of its %d" % (

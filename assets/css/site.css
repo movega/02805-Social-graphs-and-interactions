@@ -14,6 +14,8 @@
   --accent: oklch(0.55 0.22 25);
   --accent2: oklch(0.68 0.11 235);
   --line-node: oklch(0.88 0.02 40 / 0.6);
+  --chart-gold: oklch(0.68 0.12 85);      /* the blind G(n,m) null */
+  --chart-violet: oklch(0.66 0.14 300);   /* the leaky configuration model */
   --eye-fill: oklch(0.97 0.01 40 / 0.06);
   --eye-line: oklch(0.03 0 0 / 0.92);
 
@@ -284,6 +286,97 @@ a.post-card:hover .post-card__glyph { color: var(--text); }
   color: var(--muted); border: 1px dashed var(--line);
 }
 .post-card--empty .post-card__title { color: var(--muted); opacity: 0.55; }
+
+/* --- Interactive charts ------------------------------------------------- */
+/* Progressive enhancement: the figure ships a PNG, and charts.js swaps in an
+   SVG version when it loads. Everything here styles the SVG version only. */
+
+.figcaption__hint { color: var(--accent2); font-style: normal; }
+.chart { margin: 0; }
+.chart--stacked + .chart--stacked { margin-top: 22px; }
+.chart__plot { width: 100%; }
+.chart__plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.chart__tick { font-size: 10.5px; fill: var(--muted); font-family: "Manrope", system-ui, sans-serif; }
+.chart__axis { font-size: 11px; fill: var(--muted); font-family: "Manrope", system-ui, sans-serif; }
+.chart__rowlabel { font-size: 11.5px; fill: var(--text); font-family: "Manrope", system-ui, sans-serif; }
+.chart__pinned { font-size: 10.5px; fill: var(--accent2); font-style: italic; font-family: "Manrope", system-ui, sans-serif; }
+.chart__clip { font-size: 10px; fill: var(--bg); font-weight: 700; font-family: "Manrope", system-ui, sans-serif; }
+.chart__note { font-size: 11px; fill: var(--text); font-weight: 600; font-family: "Manrope", system-ui, sans-serif; }
+
+.chart__plot rect, .chart__plot circle { transition: opacity 120ms ease; }
+.chart__plot rect:hover, .chart__plot circle:hover { opacity: 1; }
+
+/* legend: each entry toggles its series */
+.chart__legend {
+  display: flex; flex-wrap: wrap; gap: 8px 16px;
+  margin-top: 10px; align-items: center;
+}
+.chart__key {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: none; border: 0; padding: 2px 0;
+  font-family: "Manrope", system-ui, sans-serif; font-size: 12px;
+  color: var(--text); cursor: pointer;
+}
+.chart__key--static { cursor: default; }
+.chart__key.is-off { opacity: 0.4; }
+.chart__key:hover:not(.chart__key--static) { color: var(--accent); }
+.chart__keynum { color: var(--muted); font-variant-numeric: tabular-nums; }
+.chart__swatch { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+.chart__swatch--line { width: 3px; height: 13px; border-radius: 1px; }
+
+/* controls: which null to compare against */
+.chart__controls, .chart__chips {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin-bottom: 12px;
+}
+.chart__label {
+  font-family: "Manrope", system-ui, sans-serif; font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  margin-right: 2px;
+}
+.chart__toggle, .chart__chip {
+  font-family: "Manrope", system-ui, sans-serif; font-size: 11.5px;
+  color: var(--muted); background: none;
+  border: 1px solid var(--line); border-radius: 100px;
+  padding: 4px 11px; cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.chart__toggle:hover, .chart__chip:hover { color: var(--text); border-color: var(--muted); }
+.chart__toggle.is-on, .chart__chip.is-on {
+  color: var(--accent); border-color: var(--accent);
+  background: oklch(0.55 0.20 25 / 0.14);
+}
+.chart__chips { gap: 6px; }
+
+/* tooltip: appended to <body>, so it is never clipped by the figure */
+.chart-tip {
+  position: fixed; z-index: 60; display: none;
+  pointer-events: none;
+  background: var(--bg-panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 11px; max-width: 260px;
+  font-family: "Manrope", system-ui, sans-serif; font-size: 12px; line-height: 1.5;
+  box-shadow: 0 6px 20px oklch(0 0 0 / 0.45);
+}
+.chart-tip strong { color: var(--text); }
+.chart-tip em { color: var(--accent); font-style: normal; }
+
+/* A figure whose PNG has been replaced. The selector has to out-specify
+   `.post-body figure img { display: block }` above, or that rule keeps the
+   image on screen even with the hidden attribute set. */
+.post-body figure.figure--interactive img { display: none; }
+
+@media print {
+  /* print gets the PNG back: an SVG built by script will not be there */
+  .post-body figure.figure--interactive img { display: block; }
+  .chart, .chart-tip { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart__plot rect, .chart__plot circle,
+  .chart__toggle, .chart__chip, .chart__key { transition: none; }
+}
 
 /* --- Article (weekly post) ---------------------------------------------- */
 .post-header { padding: 64px var(--pad-x) 0; }

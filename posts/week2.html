@@ -127,7 +127,8 @@
 
       <figure>
         <img src="../assets/img/week2_clustering_nulls.png" alt="Histogram of average clustering under three kinds of alternate universe. The blind G(n,m) universes cluster around 0.037, the configuration model around 0.111, the fame-preserving edge swaps around 0.155. A red vertical line marks our real value, 0.320, far to the right of all three.">
-        <figcaption>Fig. 1 &mdash; Where a thousand alternate universes land, three different ways of building them, against our own value in red. Our 0.320 is out of reach of all of them &mdash; but notice how much of the distance the fame-preserving universes (blue) already cover compared with the blind ones (gold). The gap between the blue and violet piles is not a fact about Marvel at all; it is a mistake, and it is what the next section is about.</figcaption>
+        <div class="chart" data-chart="clustering"></div>
+        <figcaption>Fig. 1 &mdash; Where a thousand alternate universes land, three different ways of building them, against our own value in red. Our 0.320 is out of reach of all of them &mdash; but notice how much of the distance the fame-preserving universes (blue) already cover compared with the blind ones (gold). The gap between the blue and violet piles is not a fact about Marvel at all; it is a mistake, and it is what the next section is about. <span class="figcaption__hint">Hover a bar for how many universes landed there; click a name in the key to hide that pile.</span></figcaption>
       </figure>
 
       <p>Not one of the thousand fame-preserving universes came close to 0.320. So Marvel characters really are more tightly knit than their fame alone requires. What we emphatically have <em>not</em> shown is why: characters appearing in the same comics, sharing a team, or simply being written up by the same editor working through one storyline would all produce this, and we cannot tell those apart from the link map.</p>
@@ -146,7 +147,8 @@
 
       <figure>
         <img src="../assets/img/week2_config_dropped.png" alt="Two panels. Left: histogram of how many links survive in the configuration model, centred near 1,318, with a red line at our real 1,421 far to the right, unreached by any of the thousand draws. Right: average number of links lost plotted against a character's real link count on a logarithmic axis; the curve is flat near zero for most characters and climbs steeply at the right, with Spider-Man at 106 links losing about 29.">
-        <figcaption>Fig. 2 &mdash; The leak. Left: out of 1,421 links, that recipe hands back about 1,318, and in a thousand tries it never once returned them all. Right: who pays for it. The hundreds of minor characters lose essentially nothing; the superstars lose a chunk of themselves on the way through.</figcaption>
+        <div class="chart" data-chart="leak"></div>
+        <figcaption>Fig. 2 &mdash; The leak, in two parts: how many of the 1,421 links actually come back, and who pays for the shortfall. It hands back about 1,318, and in a thousand tries it never once returned them all. The hundreds of minor characters lose essentially nothing; the superstars lose a chunk of themselves on the way through. <span class="figcaption__hint">Hover any dot to see which character it is and how much of themselves they lose.</span></figcaption>
       </figure>
 
       <p>Spider-Man arrives in those universes missing <strong>29 of his 106 links</strong>. Hulk loses 12.8 of 65, Wolverine 12.0 of 63, Doctor Strange 10.2 of 57. The reason is simple once you see it: the more loose ends you are holding, the more likely two of them get tied to each other, so the superstars are exactly where the illegal links form and exactly where the deleting happens. That recipe quietly shaves the hubs &mdash; and a Marvel universe with weaker superstars has less clustering. Hence 0.111 instead of 0.155.</p>
@@ -160,7 +162,8 @@
 
       <figure>
         <img src="../assets/img/week2_zscores.png" alt="Horizontal bar chart of how far our value sits from each kind of alternate universe, for twelve measurements. Gold bars, against the blind universes, are large for almost everything. Blue bars, against the fame-preserving universes, are large for clustering, transitivity, triangles, both-ways links and the size of the main group, but fall inside the shaded band of normal variation for degree assortativity and diameter. Two rows are labelled 'fixed by this null'.">
-        <figcaption>Fig. 3 &mdash; All twelve measurements. Gold is the easy comparison, blue is the one that counts. Any blue bar sitting inside the shaded strip is a number that fame already accounts for &mdash; no Marvel content required.</figcaption>
+        <div class="chart" data-chart="battery"></div>
+        <figcaption>Fig. 3 &mdash; All twelve measurements. Gold is the easy comparison, blue is the one that counts. Any blue bar sitting inside the shaded strip is a number that fame already accounts for &mdash; no Marvel content required. <span class="figcaption__hint">Hover a bar for the exact numbers behind it, and switch which comparison you are looking at.</span></figcaption>
       </figure>
 
       <div class="table-wrap">
@@ -206,7 +209,8 @@
 
       <figure>
         <img src="../assets/img/week2_null_panels.png" alt="Six small histograms comparing our measured value against both kinds of alternate universe. For transitivity, both-ways links, loners and Spider-Man's share, the red line sits far outside the blue pile. For degree assortativity the red line falls inside the blue pile. For average hops the red line sits just outside a narrow gold pile and well to the right of the blue one.">
-        <figcaption>Fig. 4 &mdash; Six of the twelve up close, so the bars in Fig. 3 are not taken on trust. Look at the second panel along, labelled <em>Degree assortativity</em> &mdash; that is the do-the-popular-link-to-the-popular question. The red line is sitting <em>inside</em> the blue pile. That is what a number with no story behind it looks like. The dashed lines mark the two things a fame-preserving shuffle cannot change at all.</figcaption>
+        <div class="chart" data-chart="panels"></div>
+        <figcaption>Fig. 4 &mdash; The shuffled universes up close, so the bars in Fig. 3 are not taken on trust. Choose <em>Do the popular link to the popular?</em> and you will find the red line sitting <em>inside</em> the blue pile &mdash; that is what a number with no story behind it looks like. Two of the twelve show a dashed line instead of a pile: those are the ones a fame-preserving shuffle cannot change at all. <span class="figcaption__hint">Pick any of the twelve measurements from the row of buttons.</span></figcaption>
       </figure>
 
       <p>And once you see why, it stops being mysterious. Spider-Man has 106 connections to spend in a population of 277, and only three other characters are even above 55. There is almost nobody at his level for him to connect to, so the overwhelming majority of his links <em>must</em> land on characters far less famous than he is. It is not editorial taste and it is not storytelling. It is counting. Against the easy comparison, where fame is thrown away, this same measurement looks like a solid finding. Against the honest one, it evaporates.</p>
@@ -269,5 +273,6 @@ python analysis_week2.py --json   # also dump every number to week2_numbers.json
 </div>
 
 <script src="../assets/js/site.js"></script>
+<script src="../assets/js/charts.js" data-src="../assets/data/week2_charts.json"></script>
 </body>
 </html>

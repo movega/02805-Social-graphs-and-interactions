@@ -4,7 +4,7 @@ Group site for **02805 Social Graphs and Interactions** (DTU, autumn 2026) — t
 "Go nuts with your LLM" posts, one per week, on the shared Marvel Wikipedia
 network (303 characters, 1,784 directed links).
 
-Live site: <https://balpaula.github.io/02805-Social-graphs-and-interactions/>
+Live site: <https://movega.github.io/02805-Social-graphs-and-interactions/>
 
 ## Layout
 

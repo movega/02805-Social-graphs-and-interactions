@@ -2,6 +2,7 @@
    02805 Social Graphs — group site
    1. SITE: the one place to edit team name, members and repo URL.
    2. Week-state: lights up the spider legs / week grid for the current week.
+   3. The weaver: the spider easter egg that draws those legs, one per week.
    Everything degrades gracefully: with JS off the page still shows the
    placeholder text written in the HTML.
    ========================================================================== */
@@ -98,9 +99,7 @@ var SITE = {
     el.setAttribute('stroke-dasharray', s.dash);
   }
 
-  function applyWeekState() {
-    var currentWeek = computeCurrentWeek();
-
+  function applyWeekState(currentWeek) {
     for (var w = 1; w <= 8; w++) {
       var status = w < currentWeek ? 'past' : (w === currentWeek ? 'current' : 'upcoming');
       var leg = legStyle(status);
@@ -168,9 +167,403 @@ var SITE = {
     if (caption) caption.style.display = currentWeek >= 8 ? '' : 'none';
   }
 
+  /* ---- 3. The weaver --------------------------------------------------- */
+  /* An easter egg: a spider drops in on a thread, walks out one leg per
+     elapsed week to draw it, then hangs under the hub. Click a woven week and
+     it comes over to that foot. Decorative only — if anything here throws,
+     the static SVG in the HTML is still a correct picture of the term.
+     Leg geometry is read back out of the HTML so the animation and the drawn
+     legs can never drift apart. */
+
+  function readLegs() {
+    var legs = {};
+    for (var w = 1; w <= 8; w++) {
+      var l1 = document.getElementById('leg' + w + '-line1');
+      var l2 = document.getElementById('leg' + w + '-line2');
+      if (!l1 || !l2) continue;
+      legs[w] = {
+        knee: [parseFloat(l1.getAttribute('x2')), parseFloat(l1.getAttribute('y2'))],
+        foot: [parseFloat(l2.getAttribute('x2')), parseFloat(l2.getAttribute('y2'))]
+      };
+    }
+    return legs;
+  }
+
+  function initSpiderWeave(currentWeek) {
+    var spider = document.getElementById('spider');
+    if (!spider) return;
+
+    var LEGS = readLegs();
+    var thread = document.getElementById('spider-thread');
+    var pulse = document.getElementById('reveal-pulse');
+    var caption = document.getElementById('reveal-caption');
+    var hint = document.getElementById('weeks-hint');
+    var scene = document.getElementById('weeks-svg');
+
+    var reduce = false;
+    try {
+      reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {}
+
+    var woven = Math.max(0, Math.min(8, currentWeek));
+    var isComplete = currentWeek >= 8;
+
+    var ANCHOR = { x: 0, y: 14 };   // where the hanging thread is tied
+    var HANG = isComplete ? 128 : 52;
+    var TOP = -178;                 // off the top of the frame
+
+    function d(ax, ay, bx, by) {
+      return Math.sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
+    }
+    function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function easeOutBack(t) {
+      var c = 1.70158 + 1;
+      return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2);
+    }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    var legs = {};
+    for (var w = 1; w <= 8; w++) {
+      var g = LEGS[w];
+      if (!g) continue;
+      var l1 = d(0, 0, g.knee[0], g.knee[1]);
+      var l2 = d(g.knee[0], g.knee[1], g.foot[0], g.foot[1]);
+      legs[w] = {
+        knee: g.knee,
+        foot: g.foot,
+        l1: l1,
+        l2: l2,
+        total: l1 + l2,
+        line1: document.getElementById('leg' + w + '-line1'),
+        line2: document.getElementById('leg' + w + '-line2'),
+        footEl: document.getElementById('leg' + w + '-foot')
+      };
+    }
+
+    /* Draw a leg to `p` (0..1) by walking its dash offset. */
+    function setLegProgress(w, p) {
+      var L = legs[w];
+      if (!L) return;
+      var run = p * L.total;
+      if (L.line1) {
+        var p1 = Math.max(0, Math.min(1, L.l1 ? run / L.l1 : 1));
+        L.line1.setAttribute('stroke-dasharray', L.l1.toFixed(2));
+        L.line1.setAttribute('stroke-dashoffset', (L.l1 * (1 - p1)).toFixed(2));
+      }
+      if (L.line2) {
+        var p2 = Math.max(0, Math.min(1, L.l2 ? (run - L.l1) / L.l2 : 1));
+        L.line2.setAttribute('stroke-dasharray', L.l2.toFixed(2));
+        L.line2.setAttribute('stroke-dashoffset', (L.l2 * (1 - p2)).toFixed(2));
+      }
+    }
+    function clearLegDash(w) {
+      var L = legs[w];
+      if (!L) return;
+      [L.line1, L.line2].forEach(function (el) {
+        if (!el) return;
+        el.removeAttribute('stroke-dasharray');
+        el.removeAttribute('stroke-dashoffset');
+      });
+    }
+    function pointOnLeg(w, p) {
+      var L = legs[w];
+      var run = p * L.total;
+      if (run <= L.l1) {
+        var t = L.l1 ? run / L.l1 : 0;
+        return { x: L.knee[0] * t, y: L.knee[1] * t };
+      }
+      var t2 = L.l2 ? (run - L.l1) / L.l2 : 0;
+      return {
+        x: L.knee[0] + (L.foot[0] - L.knee[0]) * t2,
+        y: L.knee[1] + (L.foot[1] - L.knee[1]) * t2
+      };
+    }
+
+    var pos = { x: 0, y: TOP };
+    var angle = 0;
+
+    function paint() {
+      spider.setAttribute(
+        'transform',
+        'translate(' + pos.x.toFixed(2) + ',' + pos.y.toFixed(2) + ') rotate(' + angle.toFixed(2) + ')'
+      );
+    }
+    function setThread(ax, ay, on) {
+      if (!thread) return;
+      if (!on) { thread.setAttribute('opacity', '0'); return; }
+      thread.setAttribute('opacity', '0.5');
+      thread.setAttribute('x1', ax.toFixed(2));
+      thread.setAttribute('y1', ay.toFixed(2));
+      thread.setAttribute('x2', pos.x.toFixed(2));
+      thread.setAttribute('y2', pos.y.toFixed(2));
+    }
+    function faceTowards(dx, dy) {
+      if (dx === 0 && dy === 0) return;
+      angle = (Math.atan2(dy, dx) * 180) / Math.PI - 90;
+    }
+    function walking(on) {
+      if (on) spider.classList.add('walking');
+      else spider.classList.remove('walking');
+    }
+
+    /* ---- phases -------------------------------------------------------- */
+
+    function pDrop() {
+      return {
+        dur: 900,
+        start: function () { pos.x = 0; pos.y = TOP; angle = 0; walking(false); },
+        run: function (t) {
+          var e = easeOutBack(t);
+          pos.x = 0;
+          pos.y = TOP + (-46 - TOP) * e;
+          angle = Math.sin(t * Math.PI * 2) * 5;
+          setThread(0, TOP, true);
+        }
+      };
+    }
+
+    function pArcTo(target, dur, bulge) {
+      var from = { x: 0, y: 0 };
+      return {
+        dur: dur,
+        start: function () { from.x = pos.x; from.y = pos.y; walking(true); },
+        run: function (t) {
+          var e = easeInOut(t);
+          var mx = (from.x + target.x) / 2;
+          var my = (from.y + target.y) / 2;
+          var nx = -(target.y - from.y);
+          var ny = target.x - from.x;
+          var len = Math.sqrt(nx * nx + ny * ny) || 1;
+          var cx = mx + (nx / len) * (bulge || 0);
+          var cy = my + (ny / len) * (bulge || 0);
+          var u = 1 - e;
+          var px = u * u * from.x + 2 * u * e * cx + e * e * target.x;
+          var py = u * u * from.y + 2 * u * e * cy + e * e * target.y;
+          faceTowards(px - pos.x, py - pos.y);
+          pos.x = px;
+          pos.y = py;
+          setThread(from.x, from.y, true);
+        },
+        end: function () { walking(false); }
+      };
+    }
+
+    function pWeave(w) {
+      return {
+        dur: 520,
+        start: function () { walking(true); },
+        run: function (t) {
+          var e = easeInOut(t);
+          var p = pointOnLeg(w, e);
+          faceTowards(p.x - pos.x, p.y - pos.y);
+          pos.x = p.x;
+          pos.y = p.y;
+          setLegProgress(w, e);
+          setThread(0, 0, false);
+        },
+        end: function () { setLegProgress(w, 1); clearLegDash(w); walking(false); }
+      };
+    }
+
+    function pTieOff() {
+      return { dur: 170, run: function (t) { angle += Math.sin(t * Math.PI * 6) * 2.2; } };
+    }
+
+    /* Week 8: the web is finished, so drop further and pulse once. */
+    function pReveal() {
+      return {
+        dur: 1150,
+        start: function () {
+          walking(false);
+          if (caption) { caption.style.opacity = '1'; caption.style.transform = 'translateY(0)'; }
+        },
+        run: function (t) {
+          var e = easeOutCubic(t);
+          pos.x = 0;
+          pos.y = -46 + (HANG - -46) * e;
+          angle = Math.sin(t * Math.PI * 3) * 8;
+          setThread(ANCHOR.x, ANCHOR.y, true);
+          if (pulse) {
+            pulse.setAttribute('r', (18 + 150 * e).toFixed(1));
+            pulse.setAttribute('opacity', (0.55 * (1 - e)).toFixed(3));
+          }
+        },
+        end: function () { if (pulse) pulse.setAttribute('opacity', '0'); }
+      };
+    }
+
+    function idleAt(rope) {
+      var t0 = 0;
+      var nextHop = 0;
+      return {
+        idle: true,
+        start: function (now) {
+          t0 = now;
+          nextHop = now + 6500 + Math.random() * 4000;
+          walking(false);
+        },
+        run: function (now) {
+          var phase = ((now - t0) / 2800) * Math.PI * 2;
+          var swing = (Math.sin(phase) * 9 * Math.PI) / 180;
+          pos.x = ANCHOR.x + Math.sin(swing) * rope;
+          pos.y = ANCHOR.y + Math.cos(swing) * rope;
+          angle = (swing * 180) / Math.PI;
+          setThread(ANCHOR.x, ANCHOR.y, true);
+          if (now > nextHop) {
+            nextHop = now + 6500 + Math.random() * 4000;
+            var targets = [];
+            for (var k = 1; k <= woven; k++) {
+              if (legs[k]) targets.push(legs[k].foot);
+            }
+            if (targets.length) hopTo(targets[Math.floor(Math.random() * targets.length)]);
+          }
+        }
+      };
+    }
+
+    /* ---- sequence ------------------------------------------------------ */
+
+    function buildSequence() {
+      var seq = [pDrop()];
+      for (var k = 1; k <= woven; k++) {
+        if (!legs[k]) continue;
+        seq.push(pArcTo({ x: 0, y: 0 }, 240, 0));
+        seq.push(pWeave(k));
+        seq.push(pTieOff());
+      }
+      if (isComplete) {
+        seq.push(pArcTo({ x: 0, y: -46 }, 320, 0));
+        seq.push(pReveal());
+      } else {
+        seq.push(pArcTo({ x: ANCHOR.x, y: ANCHOR.y + HANG }, 480, 26));
+      }
+      return seq;
+    }
+
+    function finalState() {
+      for (var k = 1; k <= woven; k++) {
+        if (!legs[k]) continue;
+        setLegProgress(k, 1);
+        clearLegDash(k);
+      }
+      if (caption) { caption.style.opacity = '1'; caption.style.transform = 'translateY(0)'; }
+      pos.x = ANCHOR.x;
+      pos.y = ANCHOR.y + HANG;
+      angle = 0;
+      paint();
+      setThread(ANCHOR.x, ANCHOR.y, true);
+    }
+
+    // Hide the legs that are about to be woven, so they get drawn on screen.
+    for (var j = 1; j <= woven; j++) {
+      if (legs[j]) setLegProgress(j, 0);
+    }
+    if (caption) { caption.style.opacity = '0'; caption.style.transform = 'translateY(6px)'; }
+    if (pulse) pulse.setAttribute('opacity', '0');
+    paint();
+    setThread(0, TOP, true);
+
+    if (reduce) {
+      finalState();
+      return;
+    }
+
+    var seq = buildSequence();
+    var idle = idleAt(HANG);
+    var index = -1;
+    var phaseStart = 0;
+    var current = null;
+    var raf = null;
+    var running = false;
+    var started = false;
+
+    function step(now) {
+      if (!running) return;
+      if (current === null) {
+        index++;
+        current = index < seq.length ? seq[index] : idle;
+        phaseStart = now;
+        if (current.start) current.start(now);
+      }
+      if (current.idle) {
+        current.run(now);
+        paint();
+        raf = window.requestAnimationFrame(step);
+        return;
+      }
+      var t = Math.min(1, (now - phaseStart) / current.dur);
+      current.run(t);
+      paint();
+      if (t >= 1) {
+        if (current.end) current.end();
+        current = null;
+      }
+      raf = window.requestAnimationFrame(step);
+    }
+
+    function hopTo(foot) {
+      seq = [
+        pArcTo({ x: foot[0], y: foot[1] }, 430, 34),
+        pTieOff(),
+        pArcTo({ x: ANCHOR.x, y: ANCHOR.y + HANG }, 520, -30)
+      ];
+      index = -1;
+      current = null;
+    }
+
+    function play() {
+      if (running) return;
+      running = true;
+      started = true;
+      raf = window.requestAnimationFrame(step);
+    }
+    function stop() {
+      running = false;
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = null;
+    }
+
+    // Click a woven week and the weaver walks over to it.
+    var clickable = 0;
+    Object.keys(legs).forEach(function (key) {
+      var k = parseInt(key, 10);
+      var L = legs[k];
+      if (!L.footEl || k > woven) return;
+      clickable++;
+      L.footEl.style.cursor = 'pointer';
+      L.footEl.addEventListener('click', function () {
+        if (!started) return;
+        hopTo(L.foot);
+        if (!running) play();
+      });
+    });
+    // Only advertise the trick once there is a woven week to click.
+    if (hint) hint.hidden = clickable === 0;
+
+    // Only animate while the figure is actually on screen.
+    try {
+      var io = new window.IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) play();
+          else stop();
+        });
+      }, { threshold: 0.15 });
+      if (scene) io.observe(scene);
+      else play();
+    } catch (e) {
+      play();
+    }
+  }
+
   function init() {
+    var currentWeek = computeCurrentWeek();
     fillConfig();
-    applyWeekState();
+    applyWeekState(currentWeek);
+    try {
+      initSpiderWeave(currentWeek);
+    } catch (err) {
+      /* the weaver is decorative — never let it break the page */
+    }
   }
 
   if (document.readyState === 'loading') {

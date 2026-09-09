@@ -13,9 +13,7 @@
   --muted: oklch(0.70 0.03 30);
   --accent: oklch(0.55 0.22 25);
   --accent2: oklch(0.68 0.11 235);
-  --web: oklch(0.04 0 0);
   --line-node: oklch(0.88 0.02 40 / 0.6);
-  --web-node: oklch(0.66 0.19 25 / 0.85);
   --eye-fill: oklch(0.97 0.01 40 / 0.06);
   --eye-line: oklch(0.03 0 0 / 0.92);
 
@@ -102,9 +100,17 @@ a.site-nav__name:hover { color: var(--accent); }
   pointer-events: none;
 }
 .hero__art { pointer-events: none; }
-.hero__art--eye-right { position: absolute; right: -190px; top: 10px; width: 640px; height: 360px; }
-.hero__art--eye-left  { position: absolute; left: -78px;  top: 26px; width: 640px; height: 360px; }
-.hero__art--web       { position: absolute; inset: 0; width: 100%; height: 100%; left: -355px; top: 14px; opacity: 0.95; }
+/* Two eyes, one either side of the headline. Sized in % of the hero so they
+   scale with it and get *smaller* as the window narrows — at fixed pixel
+   widths they crowded the title on a laptop. */
+.hero__eye {
+  position: absolute;
+  width: 56%;
+  height: auto;
+  aspect-ratio: 544 / 320;
+}
+.hero__eye--left  { left: -9%;  top: 50%; transform: translateY(-54%) rotate(-6deg); }
+.hero__eye--right { right: -9%; top: 50%; transform: translateY(-54%) rotate(6deg); }
 .hero__content { position: relative; max-width: 620px; }
 
 .hero__course {
@@ -169,6 +175,24 @@ a.site-nav__name:hover { color: var(--accent); }
   font-style: italic; font-size: 15px; color: var(--muted);
   margin-top: 4px; text-align: center;
 }
+#reveal-caption { transition: opacity 700ms ease-out, transform 700ms ease-out; }
+.weeks-figure__hint {
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); opacity: 0.5; margin-top: 14px; text-align: center;
+}
+
+/* The weaver — a spider that draws one leg per elapsed week and then hangs
+   under the hub. Purely decorative; see initSpiderWeave() in site.js. */
+#spider { pointer-events: none; }
+#spider .sp-leg { transform-box: fill-box; transform-origin: 50% 50%; }
+#spider.walking .sp-leg { animation: spLeg 240ms ease-in-out infinite alternate; }
+#spider.walking .sp-leg:nth-child(2n) { animation-delay: 120ms; }
+@keyframes spLeg { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+#spider .sp-abdomen {
+  transform-box: fill-box; transform-origin: 50% 50%;
+  animation: spBreath 3.4s ease-in-out infinite alternate;
+}
+@keyframes spBreath { from { transform: scale(1); } to { transform: scale(1.06); } }
 
 .week-grid {
   display: grid;
@@ -213,11 +237,13 @@ a.week-cell__title:hover { color: var(--accent); }
 .member__links { font-size: 12.5px; margin-top: 10px; }
 
 /* --- Post cards --------------------------------------------------------- */
-.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+/* One card per taught week, so the logbook is a complete grid from day one
+   and each week's slot is visible before its post exists. */
+.post-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 
 .post-card {
-  background: var(--bg-panel); border-radius: 12px; padding: 24px;
-  display: flex; flex-direction: column; gap: 16px;
+  background: var(--bg-panel); border-radius: 12px; padding: 20px;
+  display: flex; flex-direction: column; gap: 9px;
   box-shadow: 0 0 0 1px var(--accent) inset;
   color: inherit;
   transition: transform 140ms ease, box-shadow 140ms ease;
@@ -225,29 +251,27 @@ a.week-cell__title:hover { color: var(--accent); }
 a.post-card:hover { color: inherit; transform: translateY(-2px); box-shadow: 0 0 0 1.5px var(--accent) inset; }
 .post-card__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .post-card__week {
-  font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
 }
-.post-card__theme {
-  font-size: 10.5px; letter-spacing: 0.04em; color: var(--accent);
-  background: oklch(0.55 0.20 25 / 0.16);
-  border: 1px solid var(--accent); border-radius: 100px; padding: 3px 10px;
+.post-card__status {
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 100px; padding: 2px 8px; white-space: nowrap;
 }
-.post-card__title { font-weight: 600; font-size: 16px; }
-.post-card__dek { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.post-card__theme { font-size: 11.5px; letter-spacing: 0.02em; color: var(--muted); }
+.post-card__title { font-weight: 600; font-size: 15px; line-height: 1.35; }
+.post-card__dek { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
 
 .post-card--empty {
   background: none;
   border: 1px dashed var(--line);
   box-shadow: none;
-  justify-content: center; gap: 10px;
-  opacity: 0.6;
 }
 .post-card--empty .post-card__week { color: var(--muted); }
-.post-card--empty .post-card__theme {
-  color: var(--muted); background: none;
-  border: 1px dashed var(--line);
+.post-card--empty .post-card__status {
+  color: var(--muted); border: 1px dashed var(--line);
 }
-.post-card--empty .post-card__title { font-size: 14px; color: var(--muted); font-weight: 400; }
+.post-card--empty .post-card__title { color: var(--muted); opacity: 0.55; }
 
 /* --- Article (weekly post) ---------------------------------------------- */
 .post-header { padding: 64px var(--pad-x) 0; }
@@ -388,27 +412,43 @@ a.post-card:hover { color: inherit; transform: translateY(-2px); box-shadow: 0 0
   html { scroll-behavior: auto; }
   .reveal-caption { animation: none; }
   a.post-card:hover { transform: none; }
+  #reveal-caption { transition: none; }
+  #spider .sp-leg, #spider .sp-abdomen { animation: none !important; }
 }
 
 /* --- Responsive --------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .hero__eye { width: 50%; }
+  .hero__eye--left  { left: -7%; }
+  .hero__eye--right { right: -7%; }
+}
+
 @media (max-width: 900px) {
   :root { --pad-x: 28px; }
   .hero { padding: 72px var(--pad-x) 84px; min-height: 0; }
   .hero__title { font-size: 60px; }
-  .hero__art--eye-right { right: -280px; }
-  .hero__art--eye-left { display: none; }
+  .hero__eye { width: 44%; }
+  .hero__eye--left  { left: -5%;  top: 42%; }
+  .hero__eye--right { right: -5%; top: 42%; }
   .post-header__title { font-size: 32px; }
   .post-header { padding-top: 44px; }
   .section { padding: 56px var(--pad-x); }
-  .team-grid, .post-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .week-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .site-nav { padding: 24px var(--pad-x); }
   .site-nav__links { gap: 22px; }
 }
 
+@media (max-width: 620px) {
+  .hero__eye { width: 42%; }
+  .hero__eye--left  { left: -4%;  top: 24%; }
+  .hero__eye--right { right: -4%; top: 24%; }
+}
+
 @media (max-width: 520px) {
   .hero__title { font-size: 46px; }
   .hero__title-box { padding: 14px 24px; }
-  .week-grid { grid-template-columns: 1fr; }
+  .week-grid, .post-grid { grid-template-columns: 1fr; }
 }

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 02 · What Survives a Shuffle · Varmel</title>
+<meta name="description" content="Twelve numbers on the Marvel Wikipedia network, each shuffle-tested against a degree-preserving null and a random graph. Clustering and reciprocity are real structure; the disassortativity is not.">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Week 02 · What survives a shuffle">
+<meta property="og:description" content="Which properties of the Marvel network survive a degree-preserving shuffle — and which turn out to be the degree sequence talking.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231d0f0d'/><circle cx='16' cy='16' r='10' fill='none' stroke='%23b8574a' stroke-width='1.5'/><circle cx='16' cy='5' r='3' fill='%23e0523f'/><circle cx='26' cy='21' r='2.6' fill='%236aa6d8'/><circle cx='16' cy='16' r='3' fill='%23f7efe9'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link sans" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <!-- ===================== NAV ===================== -->
+  <header class="site-nav">
+    <div class="site-nav__brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="15" r="8" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="4" r="2" fill="var(--accent)"></circle>
+        <circle cx="15" cy="15" r="2.2" fill="var(--accent2)"></circle>
+        <circle cx="24" cy="19" r="1.6" fill="var(--text)"></circle>
+      </svg>
+      <a class="sans site-nav__name" href="../index.html" data-site="team-name">Varmel</a>
+    </div>
+    <nav class="sans site-nav__links" aria-label="Main">
+      <a href="../index.html">Home</a>
+      <a class="is-current" href="../index.html#posts">Posts</a>
+      <a href="../index.html#team">Team</a>
+      <a href="https://github.com/movega/02805-Social-graphs-and-interactions" data-site="repo-link">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+  <!-- ===================== POST HEADER ===================== -->
+  <article>
+  <header class="post-header">
+    <div class="post-header__inner">
+      <div class="post-header__kicker">
+        <span class="sans post-header__week">Week 02</span>
+        <span class="sans post-header__theme">Models &amp; null models</span>
+      </div>
+
+      <h1 class="serif post-header__title">What survives a shuffle</h1>
+
+      <p class="post-header__dek">We took twelve numbers off the Marvel network and asked each one the same question: would a network that only copied the degree sequence produce you anyway? Eight said no. Two said yes — and one of those was a result we had been ready to write up as a finding.</p>
+
+      <div class="sans post-header__meta">
+        <span>Published 9 September 2026</span>
+        <span>By <span data-site="team-name">Varmel</span></span>
+        <span>Dataset: week-1 release · 303 nodes · 1,784 directed edges</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== POST BODY ===================== -->
+  <div class="post-body">
+    <div class="post-body__inner">
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat__value">12</div><div class="stat__label">Numbers tested</div></div>
+        <div class="stat"><div class="stat__value">1,000</div><div class="stat__label">Shuffles per null</div></div>
+        <div class="stat"><div class="stat__value">8</div><div class="stat__label">Survive</div></div>
+        <div class="stat"><div class="stat__value">4</div><div class="stat__label">Say nothing new</div></div>
+      </div>
+
+      <h2>What we asked</h2>
+
+      <p>Last week we measured things. This week we tried to break them.</p>
+
+      <p>Every number you can compute on a network has a boring explanation available: <strong>the degrees alone force it</strong>. Spider-Man has 106 links. Given that, a certain amount of clustering, a certain shortness of paths and a certain number of triangles are unavoidable in <em>any</em> network — including one where the links were dealt at random. A measurement only becomes a claim about the Marvel universe once you have shown that a network which copies the degree sequence and nothing else does <em>not</em> reproduce it.</p>
+
+      <p>So: <strong>which of our numbers survive a degree-preserving shuffle?</strong> The survivors are structure. The rest are the degree sequence talking.</p>
+
+      <h2>What we did</h2>
+
+      <ol>
+        <li>Built three graphs, because different quantities need different ones: the <strong>undirected giant component</strong> (277 nodes, 1,421 links) for clustering, paths and cores; the <strong>whole undirected roster</strong> (303, 1,434) for isolates and components, since the giant component has no isolates by construction; and the <strong>directed graph as harvested</strong> (303, 1,784) for reciprocity.</li>
+        <li>Picked twelve quantities and wrote each as a function of a graph, so the measured value and the shuffled values go through identical code. No separate code path is the only way we trust the comparison.</li>
+        <li>Generated <strong>1,000 draws from each of two nulls</strong>. The degree-preserving one rewires pairs of links with <code>double_edge_swap</code>, ten times the link count, which leaves every degree exactly as it was. The permissive one is <code>G(n, m)</code>: same nodes, same number of links, nothing else fixed. For the directed graph we used <code>directed_edge_swap</code>, which holds in- and out-degree separately.</li>
+        <li>Reported a z-score and a <strong>two-sided empirical p-value</strong> for each. With 1,000 draws the smallest p we can report is 1/1001 ≈ 0.001, so "p &lt; 0.001" below means "no shuffle in a thousand got this far", not "p = 0".</li>
+        <li>Ran the <strong>configuration model</strong> as a third null on clustering alone, because it is the null most people reach for first and it gives a different answer. Working out why turned into half this post.</li>
+      </ol>
+
+      <h2>The headline: clustering is real</h2>
+
+      <p>The Marvel network's average clustering coefficient is <strong>0.320</strong>. A random graph with the same number of nodes and links gives 0.037 — a factor of nine, which is the comparison you see quoted everywhere and which proves almost nothing, because <code>G(n, m)</code> also destroys the degree sequence.</p>
+
+      <p>Hold the degrees fixed and the null gets much stronger: shuffles land at <strong>0.155 ± 0.009</strong>. So roughly <em>half</em> the gap between random and real is explained by the fact that Marvel has hubs at all. The other half is not:</p>
+
+      <figure>
+        <img src="../assets/img/week2_clustering_nulls.png" alt="Histogram of average clustering under three null models. G(n,m) draws cluster around 0.037, the configuration model around 0.111, degree-preserving edge swaps around 0.155. A red vertical line marks the measured value, 0.320, far to the right of all three distributions.">
+        <figcaption>Fig. 1 — Average clustering under three nulls, 1,000 draws each. The measured 0.320 is out of reach of all of them, but note how much of the distance from <code>G(n, m)</code> the degree-preserving null already covers on its own. The gap between the two degree-preserving nulls — configuration model 0.111, edge swaps 0.155 — is not a fact about Marvel. It is an artefact, and the next section is about where it comes from.</figcaption>
+      </figure>
+
+      <p>Which gives us the paragraph the exercise asks for:</p>
+
+      <blockquote>The giant component's average clustering is 0.320. Against 1,000 degree-preserving rewirings of the same graph — the null that holds every character's link count fixed and randomises only who links to whom — the shuffled networks average 0.155 (sd 0.009), putting the observed value 18 standard deviations above the null mean, with no shuffle in a thousand reaching it (p &lt; 0.001). Marvel characters are therefore more clustered than their popularity alone requires, though this says nothing about <em>why</em>: co-appearance, shared teams and editors working through one story at a time would all produce it.</blockquote>
+
+      <h2>Two degree-preserving nulls, two answers</h2>
+
+      <p>The configuration model and edge swaps are both sold as "keep the degree sequence, randomise the rest". They disagree by 0.044 in clustering — five standard deviations of either one's spread. One of them is wrong about its own premise.</p>
+
+      <p>It is the configuration model, and the reason is bookkeeping. It pairs up link stubs at random, which produces self-loops and repeated pairs; you then delete those to get a simple graph, and the degree sequence you were preserving quietly stops being preserved. In our case it keeps <strong>1,318 of 1,421 links on average</strong> — it throws away 103, about 7%, every single draw. Never once did a draw come back intact.</p>
+
+      <p>And it does not lose them evenly:</p>
+
+      <figure>
+        <img src="../assets/img/week2_config_dropped.png" alt="Two panels. Left: histogram of links surviving simplification in the configuration model, centred near 1,318, with a red line at the real value of 1,421 far to the right — no draw comes close. Right: mean degree lost plotted against real degree on a log axis; the curve is flat near zero for most characters and rises steeply at the right, with Spider-Man at degree 106 losing about 29.">
+        <figcaption>Fig. 2 — Why the configuration model disagrees. Left: it never returns all 1,421 links. Right: the losses land almost entirely on the hubs. Spider-Man, with 106 links, loses 29 of them per draw; the long tail of characters with a handful of links each loses essentially nothing.</figcaption>
+      </figure>
+
+      <p>Spider-Man loses <strong>29 of his 106 links</strong> in an average draw. Hulk loses 12.8 of 65, Wolverine 12.0 of 63, Doctor Strange 10.2 of 57. That is the mechanism: a stub belonging to a high-degree node has many chances to be paired with another stub of the same node, or with the same partner twice, so hubs are exactly where the duplicates form and exactly where the deletions bite. The "degree-preserving" null hands you back a graph whose hubs have been quietly shaved — and a graph with weaker hubs has less clustering. Hence 0.111 instead of 0.155.</p>
+
+      <div class="callout">
+        <div class="sans callout__label">The practical version</div>
+        <p>If you use the configuration model on a network with a heavy tail, your null is biased against the very structure hubs create, and every z-score you compute comes out too large. Edge swaps do not have this problem: they preserve every degree exactly, by construction, in every draw. We used swaps for everything in the table below.</p>
+      </div>
+
+      <h2>The whole battery</h2>
+
+      <figure>
+        <img src="../assets/img/week2_zscores.png" alt="Horizontal bar chart of z-scores for twelve network quantities under two nulls. Gold bars show large z-scores against G(n,m) for almost everything. Blue bars, against the degree-preserving shuffle, are large for clustering, transitivity, triangles, reciprocity and giant component size, but fall inside the shaded two-standard-deviation band for degree assortativity and diameter. Hub's share of links and isolated characters are labelled 'fixed by this null'.">
+        <figcaption>Fig. 3 — Twelve quantities, two nulls. Gold is the permissive comparison, blue the one that matters. Anything whose blue bar lands in the shaded band is a number the degree sequence already accounts for.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Measured</th>
+              <th>Degree-preserving</th>
+              <th>z</th>
+              <th>p</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Average clustering</td><td>0.320</td><td>0.155 ± 0.009</td><td>+18.3</td><td>&lt; 0.001</td><td>Survives</td></tr>
+            <tr><td>Transitivity</td><td>0.182</td><td>0.118 ± 0.004</td><td>+14.8</td><td>&lt; 0.001</td><td>Survives</td></tr>
+            <tr><td>Triangles</td><td>1,835</td><td>1,185 ± 44</td><td>+14.8</td><td>&lt; 0.001</td><td>Survives</td></tr>
+            <tr><td>Reciprocity</td><td>0.392</td><td>0.064 ± 0.007</td><td>+46.2</td><td>&lt; 0.001</td><td>Survives</td></tr>
+            <tr><td>Giant component size</td><td>277</td><td>285.9 ± 0.5</td><td>−19.4</td><td>&lt; 0.001</td><td>Survives</td></tr>
+            <tr><td>Max k-core</td><td>10</td><td>9.00 ± 0.12</td><td>+8.4</td><td>0.015</td><td>Survives</td></tr>
+            <tr><td>Mean shortest path</td><td>2.674</td><td>2.602 ± 0.014</td><td>+5.1</td><td>&lt; 0.001</td><td>Survives, barely matters</td></tr>
+            <tr><td>Components</td><td>19</td><td>18.05 ± 0.23</td><td>+4.1</td><td>0.050</td><td>Borderline</td></tr>
+            <tr><td>Degree assortativity</td><td>−0.105</td><td>−0.122 ± 0.011</td><td>+1.5</td><td>0.140</td><td>Explained by degrees</td></tr>
+            <tr><td>Diameter</td><td>6</td><td>5.47 ± 0.54</td><td>+1.0</td><td>0.448</td><td>Explained by degrees</td></tr>
+            <tr><td>Hub's share of links</td><td>0.037</td><td colspan="3">identical in all 1,000 draws</td><td>Untestable</td></tr>
+            <tr><td>Isolated characters</td><td>17</td><td colspan="3">identical in all 1,000 draws</td><td>Untestable</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Two of those verdicts deserve their hedges. <strong>Mean shortest path</strong> clears significance comfortably and is still uninteresting: 2.674 against 2.602 is a difference of seven hundredths of a hop. With 1,000 draws we can resolve a gap that small, which is a statement about our sample size rather than about Marvel. <strong>Components</strong> lands on p = 0.050 exactly — 49 of 1,000 shuffles reached 19 components or more. We are not going to build an argument on a number that would flip with a different random seed.</p>
+
+      <h2>What surprised us: we nearly published an artefact</h2>
+
+      <p>The Marvel network's degree assortativity is <strong>−0.105</strong>. Negative assortativity means hubs attach to non-hubs: the popular characters link out to obscure ones rather than to each other. It is a genuinely interesting-sounding fact about a fictional universe — the A-list holds the map together by reaching down into the C-list — and last week's finding that the rim reaches in and the centre never reaches back made us want it to be true.</p>
+
+      <p>The degree-preserving shuffles average <strong>−0.122</strong>. The real value sits 1.5 standard deviations <em>above</em> that, p = 0.14. In other words the network is, if anything, very slightly <em>less</em> disassortative than its own degree sequence forces it to be.</p>
+
+      <figure>
+        <img src="../assets/img/week2_null_panels.png" alt="Six small histograms comparing measured values against both nulls. In transitivity, reciprocity, isolated characters and hub's share, the red measured line sits far outside the blue degree-preserving distribution. In degree assortativity the red line falls inside the blue distribution. In mean shortest path the red line sits just outside a narrow gold distribution and well right of the blue one.">
+        <figcaption>Fig. 4 — Six of the twelve, so the bars in Fig. 3 are not taken on trust. Look at <em>Degree assortativity</em>: the red line is inside the blue histogram. That is what a number with no story behind it looks like. Dashed lines mark the two quantities a degree-preserving shuffle cannot move at all.</figcaption>
+      </figure>
+
+      <p>There is no mystery about why. A network with one node of degree 106 in a population of 277 <em>cannot</em> be assortative: there is nobody for Spider-Man to be similar to. He has 106 links to spend and only three other characters above degree 55, so the overwhelming majority of his links must go to characters far less connected than he is, whatever the stories say. The disassortativity is arithmetic, not sociology. Against the wrong null — <code>G(n, m)</code>, where assortativity sits at −0.007 — it looks like a solid finding at z = −3.9. Against the right one it evaporates.</p>
+
+      <p>The same trap catches the <strong>diameter</strong>. Six hops across the Marvel universe, versus 4.4 in a random graph, reads like a finding about how the universe is shaped. Degree-preserving shuffles give 5.47 ± 0.54, and 6 is an unremarkable draw from that (p = 0.45).</p>
+
+      <h2>What a shuffle cannot tell you</h2>
+
+      <p>Two rows in the table have no z-score, and that is the honest answer rather than a gap in the analysis.</p>
+
+      <p><strong>The hub's share of links</strong> — Spider-Man's 3.7% of all link endpoints in the giant component — is a function of the degree sequence and nothing else. A null that fixes the degree sequence returns the identical number 1,000 times out of 1,000. Testing it against that null is not a weak test, it is <em>no</em> test: the question "is Spider-Man's dominance more than his degree implies?" is malformed, because his dominance <em>is</em> his degree. Against <code>G(n, m)</code> it scores z = 54.6, which sounds impressive and only restates that the real network has a heavy tail.</p>
+
+      <p><strong>The 17 isolated characters</strong> from last week are the same story: a shuffle cannot change how many nodes have degree zero. <code>G(n, m)</code> essentially never produces an isolate at this density (0.02 per draw against our 17), so the permissive null rates them at z = 118 — a huge number that tells you only that we did not deal these links at random.</p>
+
+      <p>Worth noting what <em>did</em> survive in that same corner of the table: the giant component holds <strong>277</strong> characters where shuffles give 285.9 ± 0.5, nearly twenty standard deviations low. Given exactly these degrees, the network should be better connected than it is. The nine-character <em>Strikeforce: Morituri</em> island we found last week is a real structural feature — its 22 links could have tied it into the main body and did not.</p>
+
+      <h2>Caveats</h2>
+
+      <ul>
+        <li>Ten times the link count in swaps is the course's rule of thumb, not a convergence proof. We did not test whether the swap chain has mixed; a longer chain could move the borderline verdicts.</li>
+        <li>Twelve quantities tested at once means twelve chances to clear p = 0.05 by luck. The survivors at p &lt; 0.001 are safe from this, but <em>Components</em> at p = 0.050 and <em>Max k-core</em> at p = 0.015 would not survive a correction for multiple testing, and we have not applied one.</li>
+        <li>Both nulls destroy everything except what they explicitly preserve. "Survives a degree-preserving shuffle" means "not explained by the degree sequence" — not "explained by the stories". Article length, editorial habit and team membership are all still in play, and week 1 showed article length alone correlates with degree at ρ = 0.82.</li>
+        <li>A <code>G(n, m)</code> draw is not always connected, so mean shortest path and diameter are computed on each draw's own largest component. That biases both slightly downwards for the permissive null and is one more reason the gold bars in Fig. 3 should not be read too closely.</li>
+        <li>Reciprocity is measured on the directed graph, where the degree-preserving null holds in- and out-degree separately. That is the right null for it, but it is a different, stricter null than the undirected rows use, so the z-scores are not strictly comparable across the table.</li>
+      </ul>
+
+      <h2>Reproduce it</h2>
+
+      <p>Data: the frozen week-1 release, 303 nodes and 1,784 directed edges. Everything above comes out of one script:</p>
+
+      <pre><code>python analysis_week2.py          # 1000 replicates per null (about 15 minutes)
+python analysis_week2.py --fast   # 200 replicates, for iterating
+python analysis_week2.py --json   # also dump every number to week2_numbers.json</code></pre>
+
+      <p>Built with NetworkX, NumPy and Matplotlib. One detail worth passing on: a quantity the null fixes by construction gives 1,000 identical draws, and NumPy's variance on identical floats comes back as about 1e-18 of round-off rather than a hard zero. Divide by that and the hub's share of links reports a confident, meaningless z of 1.00. We now treat a standard deviation that small as zero and print "fixed by the null" instead, which is how the two untestable rows in the table got their honest verdict.</p>
+
+    </div>
+  </div>
+  </article>
+
+  <nav class="sans post-nav" aria-label="Post navigation">
+    <a href="week1.html">← Week 01</a>
+    <a href="../index.html#posts">All posts</a>
+    <span style="color:var(--muted); font-weight:400;">Week 03 · coming soon</span>
+  </nav>
+
+  </main>
+
+  <div class="spacer"></div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" style="margin-top:64px;">
+    <div class="sans site-footer__note">© <span data-site="team-name">Varmel</span> · 02805 Social Graphs and Interactions · DTU</div>
+    <a href="https://github.com/movega/02805-Social-graphs-and-interactions" class="sans site-footer__link" data-site="repo-link">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <span data-site="repo-label">movega/02805-Social-graphs-and-interactions</span>
+    </a>
+  </footer>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

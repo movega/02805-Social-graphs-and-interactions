@@ -38,13 +38,13 @@ correction, so the floor at 1000 draws is 1/1001 ≈ 0.001.
 1. **Clustering is real, and the usual comparison overstates it by half.** 0.320
    measured; 0.037 under `G(n,m)`; **0.155 under the degree-preserving null**. Half the
    famous "9× a random graph" gap is just the existence of hubs. The remaining half is
-   structure (z = 18.3, p < 0.001).
+   structure (z = 18.2, p < 0.001).
 2. **The disassortativity is an artefact.** −0.105 measured, −0.122 under the null,
    z = 1.5, p = 0.14. With one node at degree 106 in a population of 277 there is
    nobody for Spider-Man to be similar to, so the negative value is arithmetic. Against
    `G(n,m)` it reads as a solid z = −3.9 finding, which is the trap.
 3. **The diameter goes the same way.** 6 measured, 5.47 ± 0.54 under the null, p = 0.45.
-4. **Reciprocity is the strongest survivor.** 0.392 against 0.064, z = 46.
+4. **Reciprocity is the strongest survivor.** 0.392 against 0.063, z = 46.
 5. **The giant component is too small.** 277 against 285.9 ± 0.5, z = −19.4. Given these
    degrees the network should be better connected than it is — week 1's nine-character
    *Strikeforce: Morituri* island is a genuine structural feature, not a degree effect.

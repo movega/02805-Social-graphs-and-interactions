@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 02 · What Survives a Shuffle · Varmel</title>
-<meta name="description" content="Twelve numbers on the Marvel Wikipedia network, each shuffle-tested against a degree-preserving null and a random graph. Clustering and reciprocity are real structure; the disassortativity is not.">
+<meta name="description" content="We built a thousand alternate Marvel universes where everyone keeps their fame but the connections are redealt, then checked which of our twelve findings still looked special. Eight did; two did not.">
 <meta name="color-scheme" content="dark">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Week 02 · What survives a shuffle">
-<meta property="og:description" content="Which properties of the Marvel network survive a degree-preserving shuffle — and which turn out to be the degree sequence talking.">
+<meta property="og:description" content="A thousand alternate Marvel universes, one strict rule: everybody keeps their fame. Which of our findings survive the shuffle?">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231d0f0d'/><circle cx='16' cy='16' r='10' fill='none' stroke='%23b8574a' stroke-width='1.5'/><circle cx='16' cy='5' r='3' fill='%23e0523f'/><circle cx='26' cy='21' r='2.6' fill='%236aa6d8'/><circle cx='16' cy='16' r='3' fill='%23f7efe9'/></svg>">
 
@@ -56,12 +56,12 @@
 
       <h1 class="serif post-header__title">What survives a shuffle</h1>
 
-      <p class="post-header__dek">We took twelve numbers off the Marvel network and asked each one the same question: would a network that only copied the degree sequence produce you anyway? Eight said no. Two said yes — and one of those was a result we had been ready to write up as a finding.</p>
+      <p class="post-header__dek">We built a thousand alternate Marvel universes. In every one of them each character keeps exactly the fame they have in ours &mdash; Spider-Man is always the most linked-to person on the map &mdash; but who knows whom gets dealt out afresh. Then we asked which of our twelve findings still looked special. Eight did. Two turned out to be things the alternate universes managed just as well as ours &mdash; one of them more strongly &mdash; including a result we had been ready to write up as a discovery.</p>
 
       <div class="sans post-header__meta">
         <span>Published 9 September 2026</span>
         <span>By <span data-site="team-name">Varmel</span></span>
-        <span>Dataset: week-1 release · 303 nodes · 1,784 directed edges</span>
+        <span>Dataset: week-1 release &middot; 303 nodes &middot; 1,784 directed edges</span>
       </div>
     </div>
   </header>
@@ -71,147 +71,177 @@
     <div class="post-body__inner">
 
       <div class="stat-row">
-        <div class="stat"><div class="stat__value">12</div><div class="stat__label">Numbers tested</div></div>
-        <div class="stat"><div class="stat__value">1,000</div><div class="stat__label">Shuffles per null</div></div>
-        <div class="stat"><div class="stat__value">8</div><div class="stat__label">Survive</div></div>
-        <div class="stat"><div class="stat__value">4</div><div class="stat__label">Say nothing new</div></div>
+        <div class="stat"><div class="stat__value">12</div><div class="stat__label">Things measured</div></div>
+        <div class="stat"><div class="stat__value">1,000</div><div class="stat__label">Alternate universes</div></div>
+        <div class="stat"><div class="stat__value">8</div><div class="stat__label">Hold up</div></div>
+        <div class="stat"><div class="stat__value">4</div><div class="stat__label">Prove nothing</div></div>
       </div>
 
       <h2>What we asked</h2>
 
-      <p>Last week we measured things. This week we tried to break them.</p>
+      <p>A quick reminder of what we are working with. We have 303 Marvel characters who have a Wikipedia article, and we drew a line between two of them whenever one article links to the other. That gives us a map of who is connected to whom &mdash; 1,784 links in total. Last week we measured things on that map. This week we tried to work out which of those measurements actually <em>mean</em> anything.</p>
 
-      <p>Every number you can compute on a network has a boring explanation available: <strong>the degrees alone force it</strong>. Spider-Man has 106 links. Given that, a certain amount of clustering, a certain shortness of paths and a certain number of triangles are unavoidable in <em>any</em> network — including one where the links were dealt at random. A measurement only becomes a claim about the Marvel universe once you have shown that a network which copies the degree sequence and nothing else does <em>not</em> reproduce it.</p>
+      <p>Here is the problem. Take any interesting-sounding fact: Marvel characters are <strong>clustered</strong>, meaning that if two characters both link to Spider-Man, they are unusually likely to link to each other as well. Friends of friends are friends. That sounds like a finding about how stories are written.</p>
 
-      <p>So: <strong>which of our numbers survive a degree-preserving shuffle?</strong> The survivors are structure. The rest are the degree sequence talking.</p>
+      <p>But it might not be a finding at all. Spider-Man alone is linked to by 106 of the other 302 characters. When one person is that famous, a lot of connections get funnelled through him, and <em>any</em> map with such lopsided fame will look clustered &mdash; even one where the links were thrown down completely at random. The clustering might be a consequence of the fame, not of the storytelling.</p>
+
+      <p>So the real question for this week is: <strong>which of our numbers are about Marvel, and which are just about who happens to be famous?</strong></p>
+
+      <h2>The trick: a thousand alternate universes</h2>
+
+      <p>There is a clean way to separate the two, and it is essentially the multiverse.</p>
+
+      <p>We take our map and open a portal to an alternate timeline, under one strict rule: <strong>everybody keeps their exact fame</strong>. Spider-Man still has 106 connections in the alternate universe, Hulk still has 65, and the hundred-odd characters with two or three connections still have two or three. What changes is only <em>who</em> those connections point at &mdash; they get dealt out at random. Then we measure the same thing over there, and repeat the whole business a thousand times.</p>
+
+      <p>Now the logic does the work for us:</p>
+
+      <ul>
+        <li>If our number looks perfectly ordinary among those thousand universes, then <strong>fame alone explains it</strong>. It is not a fact about Marvel; it is a fact about the fame counts, and we would have got it in any universe built from them.</li>
+        <li>If not one of the thousand universes gets anywhere near our number, then <strong>something in our universe is genuinely doing it</strong>. That is a real finding.</li>
+      </ul>
+
+      <p>We also built a second, much looser kind of universe for comparison, where characters do not even keep their fame &mdash; the only thing preserved is the total number of links, dealt out completely blind. This is the comparison that gets published most often, and as you will see below, it is far too easy to beat.</p>
+
+      <div class="callout">
+        <div class="sans callout__label">Two numbers you will see below</div>
+        <p>We report each result two ways. The <strong>distance</strong> says how far our value sits from the average of the shuffled universes, measured in units of how much those universes wobble on their own; anything past about 2 is outside the normal range of variation, and 18 is nowhere near it. And we simply <strong>count how many of the thousand universes matched or beat our value</strong> &mdash; if the answer is "none of 1,000", our universe is doing something they cannot.</p>
+      </div>
 
       <h2>What we did</h2>
 
       <ol>
-        <li>Built three graphs, because different quantities need different ones: the <strong>undirected giant component</strong> (277 nodes, 1,421 links) for clustering, paths and cores; the <strong>whole undirected roster</strong> (303, 1,434) for isolates and components, since the giant component has no isolates by construction; and the <strong>directed graph as harvested</strong> (303, 1,784) for reciprocity.</li>
-        <li>Picked twelve quantities and wrote each as a function of a graph, so the measured value and the shuffled values go through identical code. No separate code path is the only way we trust the comparison.</li>
-        <li>Generated <strong>1,000 draws from each of two nulls</strong>. The degree-preserving one rewires pairs of links with <code>double_edge_swap</code>, ten times the link count, which leaves every degree exactly as it was. The permissive one is <code>G(n, m)</code>: same nodes, same number of links, nothing else fixed. For the directed graph we used <code>directed_edge_swap</code>, which holds in- and out-degree separately.</li>
-        <li>Reported a z-score and a <strong>two-sided empirical p-value</strong> for each. With 1,000 draws the smallest p we can report is 1/1001 ≈ 0.001, so "p &lt; 0.001" below means "no shuffle in a thousand got this far", not "p = 0".</li>
-        <li>Ran the <strong>configuration model</strong> as a third null on clustering alone, because it is the null most people reach for first and it gives a different answer. Working out why turned into half this post.</li>
+        <li>Built three versions of the map, because different questions need different ones: the <strong>main connected mass</strong> of 277 characters (for anything about clustering, distances and dense cores); the <strong>whole roster</strong> of 303 (for counting the loners, who by definition are missing from the connected mass); and the <strong>map with arrows kept</strong>, since a Wikipedia link points one way and it matters whether the other article links back.</li>
+        <li>Wrote each of the twelve measurements as a single piece of code that takes a map and returns a number, then ran our map and every alternate universe through the identical code. Using one code path for both is the only reason we trust the comparison.</li>
+        <li>Generated <strong>1,000 alternate universes of each kind</strong>. The fame-preserving ones are made by repeatedly picking two links and swapping their endpoints, which cannot change anybody's total (<code>double_edge_swap</code>, run ten times as many swaps as there are links). The blind ones are drawn from scratch with the same number of links (<code>G(n, m)</code>).</li>
+        <li>Because we ran a thousand universes, the strongest thing we can ever say is "none of the thousand managed it". We never claim more than that.</li>
+        <li>Tried a <strong>third, popular way of building the alternate universe</strong> as a cross-check &mdash; and it gave a different answer. Working out which one was lying took up half of this post.</li>
       </ol>
 
-      <h2>The headline: clustering is real</h2>
+      <h2>The headline: the clustering is real</h2>
 
-      <p>The Marvel network's average clustering coefficient is <strong>0.320</strong>. A random graph with the same number of nodes and links gives 0.037 — a factor of nine, which is the comparison you see quoted everywhere and which proves almost nothing, because <code>G(n, m)</code> also destroys the degree sequence.</p>
+      <p>Our map's clustering score is <strong>0.320</strong>. In the blind universes, where nobody keeps their fame, it is <strong>0.037</strong> &mdash; about nine times smaller. That factor of nine is the number you will see quoted in a hundred write-ups, and it is close to meaningless, because those universes threw away the fame counts along with everything else.</p>
 
-      <p>Hold the degrees fixed and the null gets much stronger: shuffles land at <strong>0.155 ± 0.009</strong>. So roughly <em>half</em> the gap between random and real is explained by the fact that Marvel has hubs at all. The other half is not:</p>
+      <p>Keep the fame and the comparison gets much more honest. Those universes score <strong>0.155</strong>. So roughly <em>half</em> the famous gap between "random" and "real" is simply the fact that Marvel has superstars in it. That half is not a discovery.</p>
 
-      <figure>
-        <img src="../assets/img/week2_clustering_nulls.png" alt="Histogram of average clustering under three null models. G(n,m) draws cluster around 0.037, the configuration model around 0.111, degree-preserving edge swaps around 0.155. A red vertical line marks the measured value, 0.320, far to the right of all three distributions.">
-        <figcaption>Fig. 1 — Average clustering under three nulls, 1,000 draws each. The measured 0.320 is out of reach of all of them, but note how much of the distance from <code>G(n, m)</code> the degree-preserving null already covers on its own. The gap between the two degree-preserving nulls — configuration model 0.111, edge swaps 0.155 — is not a fact about Marvel. It is an artefact, and the next section is about where it comes from.</figcaption>
-      </figure>
-
-      <p>Which gives us the paragraph the exercise asks for:</p>
-
-      <blockquote>The giant component's average clustering is 0.320. Against 1,000 degree-preserving rewirings of the same graph — the null that holds every character's link count fixed and randomises only who links to whom — the shuffled networks average 0.155 (sd 0.009), putting the observed value 18 standard deviations above the null mean, with no shuffle in a thousand reaching it (p &lt; 0.001). Marvel characters are therefore more clustered than their popularity alone requires, though this says nothing about <em>why</em>: co-appearance, shared teams and editors working through one story at a time would all produce it.</blockquote>
-
-      <h2>Two degree-preserving nulls, two answers</h2>
-
-      <p>The configuration model and edge swaps are both sold as "keep the degree sequence, randomise the rest". They disagree by 0.044 in clustering — five standard deviations of either one's spread. One of them is wrong about its own premise.</p>
-
-      <p>It is the configuration model, and the reason is bookkeeping. It pairs up link stubs at random, which produces self-loops and repeated pairs; you then delete those to get a simple graph, and the degree sequence you were preserving quietly stops being preserved. In our case it keeps <strong>1,318 of 1,421 links on average</strong> — it throws away 103, about 7%, every single draw. Never once did a draw come back intact.</p>
-
-      <p>And it does not lose them evenly:</p>
+      <p>The other half is:</p>
 
       <figure>
-        <img src="../assets/img/week2_config_dropped.png" alt="Two panels. Left: histogram of links surviving simplification in the configuration model, centred near 1,318, with a red line at the real value of 1,421 far to the right — no draw comes close. Right: mean degree lost plotted against real degree on a log axis; the curve is flat near zero for most characters and rises steeply at the right, with Spider-Man at degree 106 losing about 29.">
-        <figcaption>Fig. 2 — Why the configuration model disagrees. Left: it never returns all 1,421 links. Right: the losses land almost entirely on the hubs. Spider-Man, with 106 links, loses 29 of them per draw; the long tail of characters with a handful of links each loses essentially nothing.</figcaption>
+        <img src="../assets/img/week2_clustering_nulls.png" alt="Histogram of average clustering under three kinds of alternate universe. The blind G(n,m) universes cluster around 0.037, the configuration model around 0.111, the fame-preserving edge swaps around 0.155. A red vertical line marks our real value, 0.320, far to the right of all three.">
+        <figcaption>Fig. 1 &mdash; Where a thousand alternate universes land, three different ways of building them, against our own value in red. Our 0.320 is out of reach of all of them &mdash; but notice how much of the distance the fame-preserving universes (blue) already cover compared with the blind ones (gold). The gap between the blue and violet piles is not a fact about Marvel at all; it is a mistake, and it is what the next section is about.</figcaption>
       </figure>
 
-      <p>Spider-Man loses <strong>29 of his 106 links</strong> in an average draw. Hulk loses 12.8 of 65, Wolverine 12.0 of 63, Doctor Strange 10.2 of 57. That is the mechanism: a stub belonging to a high-degree node has many chances to be paired with another stub of the same node, or with the same partner twice, so hubs are exactly where the duplicates form and exactly where the deletions bite. The "degree-preserving" null hands you back a graph whose hubs have been quietly shaved — and a graph with weaker hubs has less clustering. Hence 0.111 instead of 0.155.</p>
+      <p>Not one of the thousand fame-preserving universes came close to 0.320. So Marvel characters really are more tightly knit than their fame alone requires. What we emphatically have <em>not</em> shown is why: characters appearing in the same comics, sharing a team, or simply being written up by the same editor working through one storyline would all produce this, and we cannot tell those apart from the link map.</p>
+
+      <p>For the record, here is the same result in the language a paper would use &mdash; the exercise asks for it, and you can safely skip it:</p>
+
+      <blockquote>The giant component's average clustering is 0.320. Against 1,000 degree-preserving rewirings of the same graph &mdash; the null that holds every character's link count fixed and randomises only who links to whom &mdash; the shuffled networks average 0.155 (sd 0.009), putting the observed value 18 standard deviations above the null mean, with no shuffle in a thousand reaching it (p &lt; 0.001). Marvel characters are therefore more clustered than their popularity alone requires, though this says nothing about <em>why</em>.</blockquote>
+
+      <h2>One of our portals was leaking</h2>
+
+      <p>There are two standard recipes for "keep everyone's fame, shuffle the rest", and we ran both. They disagreed: <strong>0.111 against 0.155</strong>. Since both claim to do the same thing, one of them was breaking its own promise.</p>
+
+      <p>It was the popular one, and the reason is almost funny. That recipe works by giving each character a bundle of loose link-ends &mdash; 106 of them for Spider-Man &mdash; and then tying loose ends together at random. Do that and you inevitably get some links that loop from a character back to themselves, and some pairs joined twice over. Neither is allowed on our map, so you delete them. And the moment you delete them, the fame you promised to preserve is gone.</p>
+
+      <p>It is not a small leak, and it does not fall evenly:</p>
+
+      <figure>
+        <img src="../assets/img/week2_config_dropped.png" alt="Two panels. Left: histogram of how many links survive in the configuration model, centred near 1,318, with a red line at our real 1,421 far to the right, unreached by any of the thousand draws. Right: average number of links lost plotted against a character's real link count on a logarithmic axis; the curve is flat near zero for most characters and climbs steeply at the right, with Spider-Man at 106 links losing about 29.">
+        <figcaption>Fig. 2 &mdash; The leak. Left: out of 1,421 links, that recipe hands back about 1,318, and in a thousand tries it never once returned them all. Right: who pays for it. The hundreds of minor characters lose essentially nothing; the superstars lose a chunk of themselves on the way through.</figcaption>
+      </figure>
+
+      <p>Spider-Man arrives in those universes missing <strong>29 of his 106 links</strong>. Hulk loses 12.8 of 65, Wolverine 12.0 of 63, Doctor Strange 10.2 of 57. The reason is simple once you see it: the more loose ends you are holding, the more likely two of them get tied to each other, so the superstars are exactly where the illegal links form and exactly where the deleting happens. That recipe quietly shaves the hubs &mdash; and a Marvel universe with weaker superstars has less clustering. Hence 0.111 instead of 0.155.</p>
 
       <div class="callout">
-        <div class="sans callout__label">The practical version</div>
-        <p>If you use the configuration model on a network with a heavy tail, your null is biased against the very structure hubs create, and every z-score you compute comes out too large. Edge swaps do not have this problem: they preserve every degree exactly, by construction, in every draw. We used swaps for everything in the table below.</p>
+        <div class="sans callout__label">Why this matters beyond us</div>
+        <p>If you use that recipe on any network with a few big hubs, your comparison universe is biased against exactly the structure hubs create, so everything you measure looks more impressive than it is. The swapping method has no such problem: it cannot change anyone's total, ever, because it only ever trades endpoints. Every result below uses swapping.</p>
       </div>
 
-      <h2>The whole battery</h2>
+      <h2>The full scoreboard</h2>
 
       <figure>
-        <img src="../assets/img/week2_zscores.png" alt="Horizontal bar chart of z-scores for twelve network quantities under two nulls. Gold bars show large z-scores against G(n,m) for almost everything. Blue bars, against the degree-preserving shuffle, are large for clustering, transitivity, triangles, reciprocity and giant component size, but fall inside the shaded two-standard-deviation band for degree assortativity and diameter. Hub's share of links and isolated characters are labelled 'fixed by this null'.">
-        <figcaption>Fig. 3 — Twelve quantities, two nulls. Gold is the permissive comparison, blue the one that matters. Anything whose blue bar lands in the shaded band is a number the degree sequence already accounts for.</figcaption>
+        <img src="../assets/img/week2_zscores.png" alt="Horizontal bar chart of how far our value sits from each kind of alternate universe, for twelve measurements. Gold bars, against the blind universes, are large for almost everything. Blue bars, against the fame-preserving universes, are large for clustering, transitivity, triangles, both-ways links and the size of the main group, but fall inside the shaded band of normal variation for degree assortativity and diameter. Two rows are labelled 'fixed by this null'.">
+        <figcaption>Fig. 3 &mdash; All twelve measurements. Gold is the easy comparison, blue is the one that counts. Any blue bar sitting inside the shaded strip is a number that fame already accounts for &mdash; no Marvel content required.</figcaption>
       </figure>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Quantity</th>
-              <th>Measured</th>
-              <th>Degree-preserving</th>
-              <th>z</th>
-              <th>p</th>
+              <th>What we measured</th>
+              <th>Our universe</th>
+              <th>Shuffled ones</th>
+              <th>Distance</th>
+              <th>Shuffles that matched it</th>
               <th>Verdict</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Average clustering</td><td>0.320</td><td>0.155 ± 0.009</td><td>+18.3</td><td>&lt; 0.001</td><td>Survives</td></tr>
-            <tr><td>Transitivity</td><td>0.182</td><td>0.118 ± 0.004</td><td>+14.8</td><td>&lt; 0.001</td><td>Survives</td></tr>
-            <tr><td>Triangles</td><td>1,835</td><td>1,185 ± 44</td><td>+14.8</td><td>&lt; 0.001</td><td>Survives</td></tr>
-            <tr><td>Reciprocity</td><td>0.392</td><td>0.064 ± 0.007</td><td>+46.2</td><td>&lt; 0.001</td><td>Survives</td></tr>
-            <tr><td>Giant component size</td><td>277</td><td>285.9 ± 0.5</td><td>−19.4</td><td>&lt; 0.001</td><td>Survives</td></tr>
-            <tr><td>Max k-core</td><td>10</td><td>9.00 ± 0.12</td><td>+8.4</td><td>0.015</td><td>Survives</td></tr>
-            <tr><td>Mean shortest path</td><td>2.674</td><td>2.602 ± 0.014</td><td>+5.1</td><td>&lt; 0.001</td><td>Survives, barely matters</td></tr>
-            <tr><td>Components</td><td>19</td><td>18.05 ± 0.23</td><td>+4.1</td><td>0.050</td><td>Borderline</td></tr>
-            <tr><td>Degree assortativity</td><td>−0.105</td><td>−0.122 ± 0.011</td><td>+1.5</td><td>0.140</td><td>Explained by degrees</td></tr>
-            <tr><td>Diameter</td><td>6</td><td>5.47 ± 0.54</td><td>+1.0</td><td>0.448</td><td>Explained by degrees</td></tr>
-            <tr><td>Hub's share of links</td><td>0.037</td><td colspan="3">identical in all 1,000 draws</td><td>Untestable</td></tr>
-            <tr><td>Isolated characters</td><td>17</td><td colspan="3">identical in all 1,000 draws</td><td>Untestable</td></tr>
+            <tr><td>Average clustering</td><td>0.320</td><td>0.155</td><td>+18.2</td><td>none of 1,000</td><td>Real</td></tr>
+            <tr><td>Transitivity</td><td>0.182</td><td>0.118</td><td>+14.8</td><td>none of 1,000</td><td>Real</td></tr>
+            <tr><td>Triangles</td><td>1,835</td><td>1,185</td><td>+14.8</td><td>none of 1,000</td><td>Real</td></tr>
+            <tr><td>Both-ways links</td><td>0.392</td><td>0.063</td><td>+46.2</td><td>none of 1,000</td><td>Real</td></tr>
+            <tr><td>Size of the main group</td><td>277</td><td>285.9</td><td>&minus;19.4</td><td>none of 1,000</td><td>Real</td></tr>
+            <tr><td>Densest inner ring</td><td>10</td><td>9.0</td><td>+8.4</td><td>14 of 1,000</td><td>Real</td></tr>
+            <tr><td>Average hops apart</td><td>2.674</td><td>2.602</td><td>+5.1</td><td>none of 1,000</td><td>Real, but tiny</td></tr>
+            <tr><td>Separate groups</td><td>19</td><td>18.1</td><td>+4.1</td><td>49 of 1,000</td><td>Too close to call</td></tr>
+            <tr><td>Do the popular link to the popular?</td><td>&minus;0.105</td><td>&minus;0.122</td><td>+1.5</td><td>139 of 1,000</td><td>Just popularity</td></tr>
+            <tr><td>Widest gap in the network</td><td>6</td><td>5.5</td><td>+1.0</td><td>447 of 1,000</td><td>Just popularity</td></tr>
+            <tr><td>Spider-Man's share of all links</td><td>3.7%</td><td colspan="3">the same in all 1,000 universes</td><td>Can't be tested</td></tr>
+            <tr><td>Characters with no links at all</td><td>17</td><td colspan="3">the same in all 1,000 universes</td><td>Can't be tested</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>Two of those verdicts deserve their hedges. <strong>Mean shortest path</strong> clears significance comfortably and is still uninteresting: 2.674 against 2.602 is a difference of seven hundredths of a hop. With 1,000 draws we can resolve a gap that small, which is a statement about our sample size rather than about Marvel. <strong>Components</strong> lands on p = 0.050 exactly — 49 of 1,000 shuffles reached 19 components or more. We are not going to build an argument on a number that would flip with a different random seed.</p>
+      <p>Plain-English translations for the less obvious rows: <em>transitivity</em> and <em>triangles</em> are two more ways of asking the friends-of-friends question. <em>Both-ways links</em> counts how often two articles link to each other rather than just one way. <em>Average hops apart</em> is how many steps it takes to get from one character to another. <em>Densest inner ring</em> asks how deep the tightly-connected core goes. <em>Separate groups</em> counts the isolated pockets that never touch the main mass.</p>
 
-      <h2>What surprised us: we nearly published an artefact</h2>
+      <p>Two of those verdicts are deliberately hedged. <strong>Average hops apart</strong> beats every single shuffle and is still not worth much: 2.674 against 2.602 is a difference of seven hundredths of one step. With a thousand universes we can detect a gap that small, which says more about how many universes we built than about Marvel. <strong>Separate groups</strong> had 49 of the 1,000 shuffles reach or beat it, right on the conventional borderline, and we are not going to build an argument on a number that would change with a different roll of the dice.</p>
 
-      <p>The Marvel network's degree assortativity is <strong>−0.105</strong>. Negative assortativity means hubs attach to non-hubs: the popular characters link out to obscure ones rather than to each other. It is a genuinely interesting-sounding fact about a fictional universe — the A-list holds the map together by reaching down into the C-list — and last week's finding that the rim reaches in and the centre never reaches back made us want it to be true.</p>
+      <h2>What surprised us: the discovery that wasn't</h2>
 
-      <p>The degree-preserving shuffles average <strong>−0.122</strong>. The real value sits 1.5 standard deviations <em>above</em> that, p = 0.14. In other words the network is, if anything, very slightly <em>less</em> disassortative than its own degree sequence forces it to be.</p>
+      <p>Here is the one we nearly got wrong.</p>
+
+      <p>We measured whether famous characters link to other famous characters, or reach down to obscure ones instead. The answer came out clearly negative: <strong>the superstars link downwards</strong>. That is a lovely story about a fictional universe &mdash; the A-list holds the whole map together by reaching into the C-list &mdash; and it fitted beautifully with what we found last week, that the outer rim reaches inwards and the centre never reaches back. We were ready to write it up.</p>
+
+      <p>Then we looked at the alternate universes. They do the same thing, slightly <em>more</em> strongly than ours does. 139 of the 1,000 matched or beat our value, which is about as unremarkable as a result can be.</p>
 
       <figure>
-        <img src="../assets/img/week2_null_panels.png" alt="Six small histograms comparing measured values against both nulls. In transitivity, reciprocity, isolated characters and hub's share, the red measured line sits far outside the blue degree-preserving distribution. In degree assortativity the red line falls inside the blue distribution. In mean shortest path the red line sits just outside a narrow gold distribution and well right of the blue one.">
-        <figcaption>Fig. 4 — Six of the twelve, so the bars in Fig. 3 are not taken on trust. Look at <em>Degree assortativity</em>: the red line is inside the blue histogram. That is what a number with no story behind it looks like. Dashed lines mark the two quantities a degree-preserving shuffle cannot move at all.</figcaption>
+        <img src="../assets/img/week2_null_panels.png" alt="Six small histograms comparing our measured value against both kinds of alternate universe. For transitivity, both-ways links, loners and Spider-Man's share, the red line sits far outside the blue pile. For degree assortativity the red line falls inside the blue pile. For average hops the red line sits just outside a narrow gold pile and well to the right of the blue one.">
+        <figcaption>Fig. 4 &mdash; Six of the twelve up close, so the bars in Fig. 3 are not taken on trust. Look at the second panel along, labelled <em>Degree assortativity</em> &mdash; that is the do-the-popular-link-to-the-popular question. The red line is sitting <em>inside</em> the blue pile. That is what a number with no story behind it looks like. The dashed lines mark the two things a fame-preserving shuffle cannot change at all.</figcaption>
       </figure>
 
-      <p>There is no mystery about why. A network with one node of degree 106 in a population of 277 <em>cannot</em> be assortative: there is nobody for Spider-Man to be similar to. He has 106 links to spend and only three other characters above degree 55, so the overwhelming majority of his links must go to characters far less connected than he is, whatever the stories say. The disassortativity is arithmetic, not sociology. Against the wrong null — <code>G(n, m)</code>, where assortativity sits at −0.007 — it looks like a solid finding at z = −3.9. Against the right one it evaporates.</p>
+      <p>And once you see why, it stops being mysterious. Spider-Man has 106 connections to spend in a population of 277, and only three other characters are even above 55. There is almost nobody at his level for him to connect to, so the overwhelming majority of his links <em>must</em> land on characters far less famous than he is. It is not editorial taste and it is not storytelling. It is counting. Against the easy comparison, where fame is thrown away, this same measurement looks like a solid finding. Against the honest one, it evaporates.</p>
 
-      <p>The same trap catches the <strong>diameter</strong>. Six hops across the Marvel universe, versus 4.4 in a random graph, reads like a finding about how the universe is shaped. Degree-preserving shuffles give 5.47 ± 0.54, and 6 is an unremarkable draw from that (p = 0.45).</p>
+      <p>The <strong>widest gap in the network</strong> falls into the same trap. It takes 6 steps to cross the Marvel universe at its widest, against about 4.4 in the blind universes, which reads like a fact about the shape of the thing. The fame-preserving universes average 5.5, and 447 of the 1,000 hit 6 or more. Nothing to see.</p>
 
-      <h2>What a shuffle cannot tell you</h2>
+      <h2>What no shuffle can tell you</h2>
 
-      <p>Two rows in the table have no z-score, and that is the honest answer rather than a gap in the analysis.</p>
+      <p>Two rows in the table have no distance at all, and that is an honest answer rather than a hole in the analysis.</p>
 
-      <p><strong>The hub's share of links</strong> — Spider-Man's 3.7% of all link endpoints in the giant component — is a function of the degree sequence and nothing else. A null that fixes the degree sequence returns the identical number 1,000 times out of 1,000. Testing it against that null is not a weak test, it is <em>no</em> test: the question "is Spider-Man's dominance more than his degree implies?" is malformed, because his dominance <em>is</em> his degree. Against <code>G(n, m)</code> it scores z = 54.6, which sounds impressive and only restates that the real network has a heavy tail.</p>
+      <p><strong>Spider-Man's share of all links</strong> &mdash; 3.7% of every connection on the main map runs through him &mdash; is simply a restatement of his fame. A shuffle that promises to preserve everybody's fame therefore hands the identical number back a thousand times out of a thousand. This is not a weak test; it is not a test at all. Asking "is Spider-Man more dominant than his fame implies?" is a broken question, because his dominance <em>is</em> his fame. Compare it against the blind universes instead and it scores spectacularly &mdash; and means nothing more than "Marvel has superstars and random link-dealing does not".</p>
 
-      <p><strong>The 17 isolated characters</strong> from last week are the same story: a shuffle cannot change how many nodes have degree zero. <code>G(n, m)</code> essentially never produces an isolate at this density (0.02 per draw against our 17), so the permissive null rates them at z = 118 — a huge number that tells you only that we did not deal these links at random.</p>
+      <p><strong>The 17 characters with no links at all</strong>, whom we spent last week's post on, are the same story. No amount of reshuffling who-knows-whom can give a connection to someone who has none. The blind universes essentially never produce a single loner, so they rate our 17 as astonishing, which again tells you only that we did not deal these links at random.</p>
 
-      <p>Worth noting what <em>did</em> survive in that same corner of the table: the giant component holds <strong>277</strong> characters where shuffles give 285.9 ± 0.5, nearly twenty standard deviations low. Given exactly these degrees, the network should be better connected than it is. The nine-character <em>Strikeforce: Morituri</em> island we found last week is a real structural feature — its 22 links could have tied it into the main body and did not.</p>
+      <p>But look at what <em>did</em> survive right next to those two. The main connected mass holds <strong>277 characters, where the shuffles reliably produce about 286</strong> &mdash; and not one of the thousand came in as low as ours. Given exactly this distribution of fame, our Marvel universe ought to be better joined-up than it actually is. The nine characters from <em>Strikeforce: Morituri</em> we found last week, talking only to each other and to nobody else, are a real feature of this universe: their 22 links could easily have tied them into the main body, and in a thousand alternate universes they mostly would have. Here, they didn't.</p>
 
       <h2>Caveats</h2>
 
       <ul>
-        <li>Ten times the link count in swaps is the course's rule of thumb, not a convergence proof. We did not test whether the swap chain has mixed; a longer chain could move the borderline verdicts.</li>
-        <li>Twelve quantities tested at once means twelve chances to clear p = 0.05 by luck. The survivors at p &lt; 0.001 are safe from this, but <em>Components</em> at p = 0.050 and <em>Max k-core</em> at p = 0.015 would not survive a correction for multiple testing, and we have not applied one.</li>
-        <li>Both nulls destroy everything except what they explicitly preserve. "Survives a degree-preserving shuffle" means "not explained by the degree sequence" — not "explained by the stories". Article length, editorial habit and team membership are all still in play, and week 1 showed article length alone correlates with degree at ρ = 0.82.</li>
-        <li>A <code>G(n, m)</code> draw is not always connected, so mean shortest path and diameter are computed on each draw's own largest component. That biases both slightly downwards for the permissive null and is one more reason the gold bars in Fig. 3 should not be read too closely.</li>
-        <li>Reciprocity is measured on the directed graph, where the degree-preserving null holds in- and out-degree separately. That is the right null for it, but it is a different, stricter null than the undirected rows use, so the z-scores are not strictly comparable across the table.</li>
+        <li>Ten swaps per link is the course's rule of thumb for "shuffled enough", not a proof. We did not check whether more swapping would move the two borderline verdicts.</li>
+        <li>Testing twelve things at once means twelve chances to get lucky. The results at "none of 1,000" are safe from that, but <em>Separate groups</em> (49 of 1,000) and <em>Densest inner ring</em> (14 of 1,000) would not survive a proper correction for multiple testing, and we did not apply one.</li>
+        <li>"Survives the shuffle" means "fame alone does not explain it". It does not mean "the stories explain it". Article length, how thorough an editor was, and team membership are all still live possibilities &mdash; last week we found article length alone tracks fame closely.</li>
+        <li>A blind universe is not always fully joined up, so anything about distances is measured on its largest piece. That nudges those two gold bars in Fig. 3 downwards and is one more reason not to read them too closely.</li>
+        <li>The both-ways-links result uses the arrow-preserving map, where the shuffle holds incoming and outgoing counts separately. That is the right comparison for it, but it is a stricter one than the other rows use, so its distance is not directly comparable with theirs.</li>
       </ul>
 
       <h2>Reproduce it</h2>
 
-      <p>Data: the frozen week-1 release, 303 nodes and 1,784 directed edges. Everything above comes out of one script:</p>
+      <p>Data: the frozen week-1 release, 303 characters and 1,784 links. Every number above comes out of one script:</p>
 
-      <pre><code>python analysis_week2.py          # 1000 replicates per null (about 15 minutes)
-python analysis_week2.py --fast   # 200 replicates, for iterating
+      <pre><code>python analysis_week2.py          # 1000 universes of each kind (about 15 minutes)
+python analysis_week2.py --fast   # 200, for iterating
 python analysis_week2.py --json   # also dump every number to week2_numbers.json</code></pre>
 
-      <p>Built with NetworkX, NumPy and Matplotlib. One detail worth passing on: a quantity the null fixes by construction gives 1,000 identical draws, and NumPy's variance on identical floats comes back as about 1e-18 of round-off rather than a hard zero. Divide by that and the hub's share of links reports a confident, meaningless z of 1.00. We now treat a standard deviation that small as zero and print "fixed by the null" instead, which is how the two untestable rows in the table got their honest verdict.</p>
+      <p>Built with NetworkX, NumPy and Matplotlib. One trap worth passing on to anyone doing the same exercise: when a shuffle pins a value, all thousand universes return the identical number, and asking a computer for the spread of a thousand identical numbers does not give you zero &mdash; it gives you a speck of rounding error. Divide by that speck and Spider-Man's share of the links came back looking like a confident, entirely fictional result. We now treat a spread that small as the zero it really is, and print "can't be tested" instead. That is how the last two rows of the table got their honest verdict.</p>
 
     </div>
   </div>

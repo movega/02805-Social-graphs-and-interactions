@@ -14,9 +14,8 @@ var SITE = {
   repoLabel: 'balpaula/02805-Social-graphs-and-interactions',
   members: [
     // Roles below are a first guess — swap them around as you like.
-    { name: 'Alvaro Vega',    role: 'Network analysis', link: '' },
-    { name: 'Oier Garcia',    role: 'Visualization',    link: '' },
-    { name: 'Paula Balcells', role: 'Writing',          link: '' }
+    { name: 'Alvaro Vega', role: 'Network analysis', link: '' },
+    { name: 'Oier Garcia', role: 'Visualization',    link: '' }
   ],
 
   // ---- Course calendar ---------------------------------------------------

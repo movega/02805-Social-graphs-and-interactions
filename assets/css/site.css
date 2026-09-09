@@ -220,7 +220,14 @@ a.week-cell__title:hover { color: var(--accent); }
 .week-project__title { font-style: italic; font-size: 14.5px; color: var(--muted); opacity: 0.62; }
 
 /* --- Team --------------------------------------------------------------- */
-.team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+/* Two members, capped so the cards keep their proportions instead of
+   stretching across the whole page. */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 720px;
+}
 .member { padding: 26px; border-radius: 12px; background: var(--bg-panel); }
 .member__badge {
   width: 46px; height: 46px; border-radius: 50%;
@@ -249,6 +256,17 @@ a.week-cell__title:hover { color: var(--accent); }
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
 a.post-card:hover { color: inherit; transform: translateY(-2px); box-shadow: 0 0 0 1.5px var(--accent) inset; }
+/* The week's emblem. Single-tone via currentColor, so a published card lights
+   it up in the accent and a placeholder leaves it as a faint outline. */
+.post-card__glyph {
+  width: 44px; height: 44px;
+  flex: none; align-self: flex-start;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+.post-card--empty .post-card__glyph { color: var(--muted); opacity: 0.45; }
+a.post-card:hover .post-card__glyph { color: var(--text); }
+
 .post-card__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .post-card__week {
   font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);

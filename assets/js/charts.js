@@ -495,6 +495,315 @@
     return draw;
   }
 
+  /* ---- week 3: single points of failure --------------------------------- */
+  /* One bar per articulation point: how many characters lose their only way
+     into the main group when this one goes. */
+
+  function cutpoints(host, rows) {
+    var body = div('chart__plot', host);
+    var legend = div('chart__legend', host);
+    [['real', 'In the betweenness top 10'], ['deg', 'Outside it']].forEach(function (k) {
+      var s = div('chart__key chart__key--static', legend);
+      s.innerHTML = '<span class="chart__swatch" style="background:' + C[k[0]] + '"></span>' + k[1];
+    });
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(300, body.clientWidth || host.clientWidth || 700);
+      var narrow = W < 560;
+      var labelW = narrow ? 118 : 170;
+      var rowH = narrow ? 40 : 30;
+      var m = { t: 6, r: 12, b: 34, l: labelW };
+      var H = m.t + rows.length * rowH + m.b;
+      var iw = W - m.l - m.r;
+      var maxLost = 0;
+      rows.forEach(function (r) { if (r.lost.length > maxLost) maxLost = r.lost.length; });
+      var span = narrow ? maxLost : maxLost * 2.1;     // leave room for the names
+      var X = function (v) { return m.l + v / span * iw; };
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img',
+                            'aria-label': 'Characters cut off by removing each single point of failure' }, body);
+
+      for (var t = 0; t <= maxLost; t++) {
+        el('line', { x1: X(t), y1: m.t, x2: X(t), y2: m.t + rows.length * rowH,
+                     stroke: C.line, 'stroke-width': 1, opacity: t ? 0.5 : 0.9 }, svg);
+        el('text', { x: X(t), y: m.t + rows.length * rowH + 16, 'text-anchor': 'middle',
+                     class: 'chart__tick' }, svg).textContent = t;
+      }
+
+      rows.forEach(function (r, i) {
+        var yc = m.t + i * rowH + rowH / 2;
+        // name, and the betweenness rank beside it (under it when narrow)
+        el('text', { x: labelW - 10, y: yc + (narrow ? -2 : 4), 'text-anchor': 'end',
+                     class: 'chart__rowlabel' }, svg)
+          .textContent = narrow ? r.name : r.name + '  ·  #' + r.bet_rank;
+        if (narrow) {
+          el('text', { x: labelW - 10, y: yc + 12, 'text-anchor': 'end', class: 'chart__tick' }, svg)
+            .textContent = 'betweenness #' + r.bet_rank;
+        }
+        var bar = el('rect', { x: X(0), y: yc - 7, width: Math.max(2, X(r.lost.length) - X(0)),
+                               height: 14, rx: 2, fill: r.bet_rank <= 10 ? C.real : C.deg,
+                               opacity: 0.9 }, svg);
+        if (!narrow) {
+          el('text', { x: X(r.lost.length) + 8, y: yc + 4, class: 'chart__tick' }, svg)
+            .textContent = r.lost.join(', ');
+        }
+        var hit = el('rect', { x: 0, y: yc - rowH / 2, width: W, height: rowH,
+                               fill: 'transparent' }, svg);
+        hoverable(hit, host, function () {
+          return '<strong>' + r.name + '</strong><br>' +
+                 r.degree + ' links (#' + r.deg_rank + ') · betweenness #' + r.bet_rank + '<br>' +
+                 'Remove them and ' + (r.lost.length === 1 ? 'this one falls' : 'these ' + r.lost.length + ' fall') +
+                 ' off:<br><em>' + r.lost.join(', ') + '</em>';
+        });
+        bar.style.pointerEvents = 'none';
+      });
+
+      el('text', { x: m.l + iw / 2, y: H - 3, 'text-anchor': 'middle', class: 'chart__axis' }, svg)
+        .textContent = 'Characters cut off from everyone else';
+    }
+
+    return draw;
+  }
+
+  /* ---- week 3: attack curves -------------------------------------------- */
+  /* Size of the main group as characters are removed, one line per order of
+     removal. Move along the chart to see who has just been taken out. */
+
+  function attackCurves(host, data) {
+    var off = {};
+    var body = div('chart__plot', host);
+    var legend = div('chart__legend', host);
+    var STEPS = 240;
+
+    data.series.forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'chart__key';
+      b.type = 'button';
+      b.innerHTML = '<span class="chart__swatch" style="background:' + C[s.colour] + '"></span>' +
+                    s.label + ' <span class="chart__keynum">' + s.halving + '</span>';
+      b.setAttribute('aria-pressed', 'true');
+      b.addEventListener('click', function () {
+        off[s.key] = !off[s.key];
+        b.classList.toggle('is-off', !!off[s.key]);
+        b.setAttribute('aria-pressed', off[s.key] ? 'false' : 'true');
+        draw();
+      });
+      legend.appendChild(b);
+    });
+    var rk = div('chart__key chart__key--static', legend);
+    var randHalf = data.random.mean.findIndex(function (v) { return v < 0.5; });
+    rk.innerHTML = '<span class="chart__swatch" style="background:' + C.muted + ';opacity:.5"></span>' +
+                   'Random order <span class="chart__keynum">' + randHalf + '</span>';
+
+    function at(arr, i) { return arr[Math.min(i, arr.length - 1)]; }
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(300, body.clientWidth || host.clientWidth || 700);
+      var H = W < 520 ? 280 : 340;
+      var m = { t: 12, r: 14, b: 40, l: 44 };
+      var iw = W - m.l - m.r, ih = H - m.t - m.b;
+      var X = function (s) { return m.l + s / STEPS * iw; };
+      var Y = function (v) { return m.t + ih - v * ih; };
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img',
+                            'aria-label': 'Size of the main group as characters are removed in four different orders' }, body);
+
+      [0, 0.25, 0.5, 0.75, 1].forEach(function (v) {
+        el('line', { x1: m.l, y1: Y(v), x2: m.l + iw, y2: Y(v), stroke: C.line, 'stroke-width': 1,
+                     opacity: v === 0.5 ? 1 : 0.5, 'stroke-dasharray': v === 0.5 ? '2 3' : null }, svg);
+        el('text', { x: m.l - 8, y: Y(v) + 4, 'text-anchor': 'end', class: 'chart__tick' }, svg)
+          .textContent = Math.round(v * 100) + '%';
+      });
+      niceTicks(0, STEPS, W < 520 ? 4 : 6).forEach(function (s) {
+        el('text', { x: X(s), y: m.t + ih + 18, 'text-anchor': 'middle', class: 'chart__tick' }, svg)
+          .textContent = s;
+      });
+
+      // the random band
+      var top = [], bottom = [];
+      for (var i = 0; i <= STEPS; i++) {
+        top.push(X(i) + ',' + Y(at(data.random.hi, i)));
+        bottom.unshift(X(i) + ',' + Y(at(data.random.lo, i)));
+      }
+      el('polygon', { points: top.concat(bottom).join(' '), fill: C.muted, opacity: 0.16 }, svg);
+      var mean = [];
+      for (i = 0; i <= STEPS; i++) mean.push(X(i) + ',' + Y(at(data.random.mean, i)));
+      el('polyline', { points: mean.join(' '), fill: 'none', stroke: C.muted, 'stroke-width': 1.6,
+                       'stroke-dasharray': '5 4' }, svg);
+
+      var live = data.series.filter(function (s) { return !off[s.key]; });
+      // betweenness drawn last so it sits on top
+      live.slice().reverse().forEach(function (s) {
+        var pts = [];
+        for (var j = 0; j <= STEPS; j++) pts.push(X(j) + ',' + Y(at(s.curve, j)));
+        el('polyline', { points: pts.join(' '), fill: 'none', stroke: C[s.colour],
+                         'stroke-width': 2.2, 'stroke-linejoin': 'round' }, svg);
+        el('circle', { cx: X(s.halving), cy: Y(at(s.curve, s.halving)), r: 4, fill: C[s.colour],
+                       stroke: C.panel, 'stroke-width': 1.5 }, svg);
+      });
+
+      // crosshair
+      var guide = el('line', { x1: 0, y1: m.t, x2: 0, y2: m.t + ih, stroke: C.muted,
+                               'stroke-width': 1, opacity: 0 }, svg);
+      var dots = live.map(function (s) {
+        return el('circle', { r: 4.5, fill: C[s.colour], stroke: C.panel, 'stroke-width': 1.5,
+                              opacity: 0 }, svg);
+      });
+      var overlay = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+      var step = 0;
+
+      function place(ev) {
+        var t = ev.touches ? ev.touches[0] : ev;
+        var r = svg.getBoundingClientRect();
+        var px = (t.clientX - r.left) * (W / r.width);
+        step = Math.max(0, Math.min(STEPS, Math.round((px - m.l) / iw * STEPS)));
+        guide.setAttribute('x1', X(step));
+        guide.setAttribute('x2', X(step));
+        guide.setAttribute('opacity', 0.8);
+        live.forEach(function (s, k) {
+          dots[k].setAttribute('cx', X(step));
+          dots[k].setAttribute('cy', Y(at(s.curve, step)));
+          dots[k].setAttribute('opacity', 1);
+        });
+      }
+
+      overlay.addEventListener('mouseleave', function () {
+        guide.setAttribute('opacity', 0);
+        dots.forEach(function (d) { d.setAttribute('opacity', 0); });
+      });
+      overlay.addEventListener('mousemove', place);
+      overlay.addEventListener('touchstart', place, { passive: true });
+      hoverable(overlay, host, function () {
+        var html = '<strong>After ' + step + ' removal' + (step === 1 ? '' : 's') + '</strong>';
+        live.forEach(function (s) {
+          html += '<br>' + s.label + ': ' + Math.round(at(s.curve, step) * 277) + ' left';
+          if (step > 0 && s.order[step - 1]) html += ' <em>(− ' + s.order[step - 1] + ')</em>';
+        });
+        html += '<br>Random order: ' + Math.round(at(data.random.mean, step) * 277) + ' left, on average';
+        return html;
+      });
+
+      el('text', { x: m.l + iw / 2, y: H - 4, 'text-anchor': 'middle', class: 'chart__axis' }, svg)
+        .textContent = 'Characters removed';
+    }
+
+    return draw;
+  }
+
+  /* ---- week 3: the map after the break ---------------------------------- */
+  /* Each piece laid out on its own. Click a group in the key to pick it out. */
+
+  function seamsMap(host, data) {
+    var focus = null;
+    var body = div('chart__plot', host);
+    var legend = div('chart__legend', host);
+    var groups = [{ g: 'main', label: 'Still holding together', size: data.main, colour: 'real' }];
+    data.pockets.forEach(function (p, i) {
+      groups.push({ g: i, label: p.label, size: p.size, colour: p.colour, pocket: p });
+    });
+    var dustN = data.nodes.filter(function (n) { return n.g === 'dust'; }).length;
+    groups.push({ g: 'dust', label: 'Scattered', size: dustN, colour: 'muted' });
+
+    groups.forEach(function (grp) {
+      var b = document.createElement('button');
+      b.className = 'chart__key';
+      b.type = 'button';
+      b.innerHTML = '<span class="chart__swatch" style="background:' + C[grp.colour] + '"></span>' +
+                    grp.label + ' <span class="chart__keynum">' + grp.size + '</span>';
+      b.addEventListener('click', function () {
+        focus = focus === grp.g ? null : grp.g;
+        Array.prototype.forEach.call(legend.querySelectorAll('.chart__key'), function (o) {
+          o.classList.remove('is-off');
+        });
+        if (focus !== null) {
+          Array.prototype.forEach.call(legend.querySelectorAll('.chart__key'), function (o, j) {
+            if (groups[j].g !== focus) o.classList.add('is-off');
+          });
+        }
+        draw();
+      });
+      legend.appendChild(b);
+    });
+
+    function groupOf(n) {
+      for (var i = 0; i < groups.length; i++) if (groups[i].g === n.g) return groups[i];
+      return groups[groups.length - 1];
+    }
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(300, body.clientWidth || host.clientWidth || 700);
+      var narrow = W < 560;
+      var x0 = -1.08, x1 = 1.55, y0 = -1.2, y1 = 0.95;
+      var H = Math.round(W * (y1 - y0) / (x1 - x0));
+      var X = function (v) { return (v - x0) / (x1 - x0) * W; };
+      var Y = function (v) { return (y1 - v) / (y1 - y0) * H; };
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img',
+                            'aria-label': 'The network after the ' + data.break + ' best bridges are removed, split into the pieces it falls into' }, body);
+
+      function dim(g) { return focus !== null && g !== focus; }
+
+      var eg = el('g', { stroke: 'var(--line-node)', 'stroke-width': 0.7 }, svg);
+      data.edges.forEach(function (e) {
+        var a = data.nodes[e[0]], b = data.nodes[e[1]];
+        el('line', { x1: X(a.x), y1: Y(a.y), x2: X(b.x), y2: Y(b.y),
+                     opacity: dim(a.g) ? 0.04 : 0.28 }, eg);
+      });
+
+      data.nodes.forEach(function (n) {
+        var grp = groupOf(n);
+        var c = el('circle', { cx: X(n.x), cy: Y(n.y), r: Math.min(9, 2.4 + Math.sqrt(n.k) * 0.55),
+                               fill: C[grp.colour], stroke: C.panel, 'stroke-width': 0.8,
+                               opacity: dim(n.g) ? 0.12 : 0.95 }, svg);
+        hoverable(c, host, function () {
+          var html = '<strong>' + n.name + '</strong><br>' + n.k + ' links in the full network<br>' + grp.label;
+          if (n.left) html += '<br>cut loose after ' + n.left + ' removals';
+          if (grp.pocket && grp.pocket.bridges.length) {
+            html += '<br><em>was held on by ' + grp.pocket.bridges.slice(0, 3).join(', ') + '</em>';
+          }
+          return html;
+        });
+      });
+
+      // group titles, placed above each piece like the static figure
+      groups.forEach(function (grp) {
+        if (grp.g === 'dust') return;
+        var xs = [], ys = [];
+        data.nodes.forEach(function (n) { if (n.g === grp.g) { xs.push(n.x); ys.push(n.y); } });
+        if (!xs.length) return;
+        var tx = X(Math.min.apply(null, xs)) - 4;
+        var ty = Y(Math.max.apply(null, ys)) - (narrow ? 8 : 20);
+        var anchor = 'start';
+        if (grp.g === 'main') { tx = X(-1.04); ty = Y(0.8); }
+        else if (narrow) { tx = W - 2; anchor = 'end'; }   // a phone has no room to the right
+        // colour via style: the .chart__note class sets fill, which beats an attribute
+        var title = el('text', { x: tx, y: ty, class: 'chart__note', 'text-anchor': anchor,
+                                 opacity: dim(grp.g) ? 0.3 : 1 }, svg);
+        title.style.fill = C[grp.colour];
+        title.textContent = grp.label;
+        if (!narrow && grp.pocket && grp.pocket.sub) {
+          var sub = el('text', { x: tx, y: ty + 14, class: 'chart__tick',
+                                 opacity: dim(grp.g) ? 0.3 : 1 }, svg);
+          sub.textContent = grp.pocket.sub;
+          // the column is narrower than the static figure: trim to fit, full text on hover
+          var room = W - tx - 6, full = grp.pocket.sub, cut = full.length;
+          if (sub.getComputedTextLength && sub.getComputedTextLength() > room) {
+            el('title', {}, sub).textContent = full;
+            while (cut > 8 && sub.getComputedTextLength() > room) {
+              cut -= 2;
+              sub.firstChild.nodeValue = full.slice(0, cut).replace(/[\s,]+$/, '') + '…';
+            }
+          }
+        }
+      });
+    }
+
+    return draw;
+  }
+
   /* ---- boot ------------------------------------------------------------- */
 
   function mount(data) {
@@ -533,6 +842,24 @@
         });
         var drawPts = leakScatter(bottom, data.leak);
         draw = function () { drawKept(); drawPts(); };
+      } else if (kind === 'cutpoints') {
+        draw = cutpoints(host, data.cutpoints);
+      } else if (kind === 'attacks') {
+        draw = attackCurves(host, data.attacks);
+      } else if (kind === 'attack-nulls') {
+        var parts = ['degree', 'betweenness'].map(function (key) {
+          var box = div('chart chart--stacked', host);
+          var spec = data.nulls[key];
+          spec.nrep = data.nrep;
+          return histChart(box, spec, {
+            height: 220, hint: 'int',
+            xlabel: 'Removals until half the main group is gone, removing by ' + key,
+            alt: 'Removals needed to halve the main group, by ' + key + ', across ' + data.nrep + ' shuffled universes'
+          });
+        });
+        draw = function () { parts.forEach(function (f) { f(); }); };
+      } else if (kind === 'seams') {
+        draw = seamsMap(host, data.seams);
       }
 
       if (!draw) return;

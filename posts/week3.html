@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 03 · Who Holds the Marvel Universe Together · Varmel</title>
+<meta name="description" content="We took Marvel characters out of the network one by one, in four different orders of importance, and watched it fall apart. Losing the most famous hurts exactly as much as their fame predicts. Losing the bridges tears it apart sooner.">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Week 03 · Who holds the Marvel universe together?">
+<meta property="og:description" content="Remove the famous and the universe shrugs. Remove the bridges and it tears apart sooner, and among the first pieces to go are Marvel's old alternate universes.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231d0f0d'/><circle cx='16' cy='16' r='10' fill='none' stroke='%23b8574a' stroke-width='1.5'/><circle cx='16' cy='5' r='3' fill='%23e0523f'/><circle cx='26' cy='21' r='2.6' fill='%236aa6d8'/><circle cx='16' cy='16' r='3' fill='%23f7efe9'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link sans" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <!-- ===================== NAV ===================== -->
+  <header class="site-nav">
+    <div class="site-nav__brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="15" r="8" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="4" r="2" fill="var(--accent)"></circle>
+        <circle cx="15" cy="15" r="2.2" fill="var(--accent2)"></circle>
+        <circle cx="24" cy="19" r="1.6" fill="var(--text)"></circle>
+      </svg>
+      <a class="sans site-nav__name" href="../index.html" data-site="team-name">Varmel</a>
+    </div>
+    <nav class="sans site-nav__links" aria-label="Main">
+      <a href="../index.html">Home</a>
+      <a class="is-current" href="../index.html#posts">Posts</a>
+      <a href="../index.html#team">Team</a>
+      <a href="https://github.com/movega/02805-Social-graphs-and-interactions" data-site="repo-link">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+  <!-- ===================== POST HEADER ===================== -->
+  <article>
+  <header class="post-header">
+    <div class="post-header__inner">
+      <div class="post-header__kicker">
+        <span class="sans post-header__week">Week 03</span>
+        <span class="sans post-header__theme">Who matters, and why</span>
+      </div>
+
+      <h1 class="serif post-header__title">Who holds the Marvel universe together?</h1>
+
+      <p class="post-header__dek">We started pulling characters out of the Marvel universe, one at a time, always taking whoever mattered most at that moment &mdash; and we tried four different ideas of what &ldquo;mattering&rdquo; means. Taking out the most famous hurts exactly as much as their fame predicts, and not an ounce more. Taking out the <em>bridges</em> tears it apart sooner than it should. And one of the first pieces to tear away is a pocket of the alternate universes Marvel once ran as whole separate lines.</p>
+
+      <div class="sans post-header__meta">
+        <span>Published 16 September 2026</span>
+        <span>By <span data-site="team-name">Varmel</span></span>
+        <span>Dataset: week-1 release &middot; 303 nodes &middot; 1,784 directed edges</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== POST BODY ===================== -->
+  <div class="post-body">
+    <div class="post-body__inner">
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat__value">13</div><div class="stat__label">Single points of failure</div></div>
+        <div class="stat"><div class="stat__value">5</div><div class="stat__label">The most any one can cut off</div></div>
+        <div class="stat"><div class="stat__value">63</div><div class="stat__label">Removals to halve it</div></div>
+        <div class="stat"><div class="stat__value">0/100</div><div class="stat__label">Shuffles that broke as fast</div></div>
+      </div>
+
+      <h2>What we asked</h2>
+
+      <p>Same map as the last two weeks: 303 Marvel characters with a Wikipedia article, and a line between two of them whenever one article links to the other. Leave out the loners and the one sealed-off island we met in week 1, and what remains is one big connected mass of <strong>277 characters and 1,421 links</strong>. Everyone in it can reach everyone else by hopping along links.</p>
+
+      <p>Everybody already knows who is <em>popular</em> on that map. Spider-Man is linked to by more than a third of it. This week's question is different, and blunter: <strong>which characters is the map actually relying on?</strong> Who would you have to take away before the Marvel universe stopped being one universe?</p>
+
+      <p>Popular and load-bearing are not the same thing. A character with a hundred connections might sit in the middle of a crowd where everyone also knows everyone else &mdash; remove them and nobody notices. A character with a handful of connections might be the only way from one corner of the universe to another.</p>
+
+      <h2>Four ways to be important</h2>
+
+      <p>Network science has several standard ways of scoring how important someone is, and each one answers a different question. We used four:</p>
+
+      <ul>
+        <li><strong>Degree</strong> &mdash; how many other characters you are linked with. Pure popularity.</li>
+        <li><strong>Betweenness</strong> &mdash; how often you sit on the shortest route between two <em>other</em> characters. This is the bridge score: high if lots of journeys across the universe have to pass through you.</li>
+        <li><strong>Closeness</strong> &mdash; how few hops you are from everyone else, on average. High if you are near the middle of the map.</li>
+        <li><strong>PageRank</strong> &mdash; the idea Google was built on: you matter if the characters linking <em>to</em> you matter. This is the one score that uses the direction of the links.</li>
+      </ul>
+
+      <h2>What we did</h2>
+
+      <ol>
+        <li><strong>One at a time.</strong> Removed each character on their own and checked whether anyone else lost their last connection to the main mass.</li>
+        <li><strong>In sequence.</strong> For each of the four scores, removed the top-scoring character, <em>recomputed the scores on what was left</em>, removed the new top one, and kept going. Recomputing matters: once Spider-Man is gone, the next most important bridge is not necessarily the one that was second while he was there. We tracked how big the main connected mass was after every single removal.</li>
+        <li><strong>At random,</strong> for comparison: the same process with characters picked blindly, 1,000 times over.</li>
+        <li><strong>Compared to what.</strong> Ran the degree and betweenness attacks on 100 of last week's alternate universes &mdash; the shuffled maps where every character keeps exactly their number of links but who-links-to-whom is dealt out at random. If our universe falls apart the same way those do, the fame counts explain it. If it falls apart faster, something in the real wiring is doing it.</li>
+        <li>Looked at <strong>where the map tears</strong>, and checked every group we name against the characters' Wikipedia pages.</li>
+      </ol>
+
+      <h2>No single character holds it up</h2>
+
+      <p>Start with the simplest test. Of the 277 characters, only <strong>13</strong> are single points of failure &mdash; remove one of them and somebody else is cut off. Remove anyone else and the only character the universe loses is the one you removed.</p>
+
+      <p>And even the worst of the thirteen barely matters:</p>
+
+      <figure>
+        <img src="../assets/img/week3_cutpoints.png" alt="Horizontal bar chart of the thirteen single points of failure. Spider-Man cuts off five characters, Black Widow three, Doctor Strange two, and the other ten one each. Bars are red for characters in the betweenness top ten and blue for the rest; next to each bar are the names of the characters who fall off.">
+        <div class="chart" data-chart="cutpoints"></div>
+        <figcaption>Fig. 1 &mdash; Every character whose removal cuts somebody else off, with who falls off with them. The number after each name is their rank by betweenness, the bridge score. Everyone not on this chart can be removed without disconnecting anybody. <span class="figcaption__hint">Hover a row to see the character's link count and exactly who they were holding on.</span></figcaption>
+      </figure>
+
+      <p>Take away Spider-Man, the biggest hub in the universe, and you lose five characters: Enigma, Ethan Edwards, Helix, Phil Grayfield and Thunderclap. If those names ring a bell, it is because they are five of the eighteen <strong>&ldquo;pendants&rdquo; from our week-1 post</strong> &mdash; characters connected to the universe by a single thread. In fact, across all thirteen single points of failure, exactly nineteen characters can be cut off: those same eighteen pendants, plus one more we will come back to.</p>
+
+      <p>Two things stand out. Second place goes to <strong>Black Widow</strong>, who is only 23rd by number of links. And six of the ten best bridges by betweenness &mdash; <strong>Hulk, Wolverine, She-Hulk, Hercules, Phoenix and U.S. Agent</strong> &mdash; cut off nobody at all. They sit on an enormous number of shortest routes, but every one of those routes has a detour.</p>
+
+      <h2>Pulling characters out in sequence</h2>
+
+      <p>Removing one character proves the universe has no single weak point. So we kept going.</p>
+
+      <figure>
+        <img src="../assets/img/week3_attack_curves.png" alt="Line chart of the size of the main connected group against the number of characters removed, for four orders of removal and a random baseline. All four targeted orders fall much faster than random. Betweenness, in red, is the fastest to halve the group, at 63 removals, followed by degree at 73, closeness at 78 and PageRank at 79. Random removal needs about 128.">
+        <div class="chart" data-chart="attacks"></div>
+        <figcaption>Fig. 2 &mdash; How much of the main mass survives as characters are taken out, always removing whoever currently scores highest. The dots mark the moment it drops below half its size. The grey dashed line and band are 1,000 runs of removing characters at random. <span class="figcaption__hint">Move along the chart to see who has just been removed in each order; click a name in the key to hide that line.</span></figcaption>
+      </figure>
+
+      <p>Three things are going on in that picture.</p>
+
+      <p><strong>For a long time, all four orders are the same attack.</strong> Six of the first ten characters removed are identical under degree and under betweenness &mdash; Spider-Man, Hulk, Wolverine, Doctor Strange, Deadpool, She-Hulk &mdash; and they first disagree at the seventh (degree picks Phoenix, betweenness picks Hercules). After ten removals every order still has about 93% of the universe connected: taking out Marvel's ten biggest names costs it twenty characters, the ten you removed and ten more who were hanging off them.</p>
+
+      <p><strong>Any targeted order is far worse than random.</strong> Picking characters blindly, you need to remove about <strong>128</strong> of them before half the universe is gone. Picking by any of the four scores, you need between 63 and 79. That part is not surprising: the important characters really are more important.</p>
+
+      <p><strong>Around fifty removals, betweenness pulls away.</strong> After 53 removals the betweenness attack has left 163 characters connected where the degree attack still has 183; after 74 it is 88 against 132. Betweenness halves the universe at <strong>63</strong> removals, degree at 73, closeness at 78 and PageRank &mdash; the one score that cares about link direction &mdash; last, at 79. Once the first few dozen stars are gone, the most popular character left is often no longer the one standing between two parts of the map, and that is where the two attacks part ways.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Remove characters by</th><th>The question the score answers</th><th>Removals until half is gone</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Betweenness</td><td>Who do routes across the universe pass through?</td><td>63</td></tr>
+            <tr><td>Degree</td><td>Who is linked with the most characters?</td><td>73</td></tr>
+            <tr><td>Closeness</td><td>Who is fewest hops from everyone?</td><td>78</td></tr>
+            <tr><td>PageRank</td><td>Who is linked to by the characters that matter?</td><td>79</td></tr>
+            <tr><td>Nothing (random)</td><td>&mdash;</td><td>128.5 on average (1,000 runs)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Compared to what?</h2>
+
+      <p>Here is the catch we learned about last week. Of course removing the hubs breaks the universe &mdash; hubs are where the links are. Any map with Marvel's lopsided fame would fall apart the same way, even one where the links were dealt at random. So the curves in Fig. 2 are not, on their own, a finding about Marvel.</p>
+
+      <p>To find out whether they are, we took 100 of the alternate universes from week 2 &mdash; everyone keeps their exact number of links, but who they are linked to is shuffled &mdash; and ran the same two attacks on each of them.</p>
+
+      <figure>
+        <img src="../assets/img/week3_attack_nulls.png" alt="Two histograms of how many removals it takes to halve the main group in 100 shuffled universes. Left, removing by degree: the shuffled universes cluster around 75 and our universe's value, 73, sits inside the pile, with 22 of 100 as low. Right, removing by betweenness: the shuffled universes cluster around 72 and our value, 63, sits to the left of all of them.">
+        <div class="chart" data-chart="attack-nulls"></div>
+        <figcaption>Fig. 3 &mdash; How many removals it takes to halve the main mass, in 100 shuffled universes, against ours. Removing by popularity (degree), our universe is ordinary. Removing by bridges (betweenness), it halves sooner than any of the hundred. Blue piles are the shuffled universes, the red line is ours. <span class="figcaption__hint">Hover a bar to see how many universes landed there.</span></figcaption>
+      </figure>
+
+      <p><strong>Removing by popularity: nothing to see.</strong> Our universe halves after 73 removals; the shuffled ones average 75.1, and 22 of the 100 broke just as fast or faster. The Marvel universe is exactly as robust to losing its stars as a universe with the same stars and random wiring would be. Its tolerance for losing Spider-Man, Hulk and Wolverine is a fact about how many links they have, not about how Marvel is put together.</p>
+
+      <p><strong>Removing by bridges: a real difference.</strong> Our universe halves after 63 removals; the shuffled ones need 72.5 on average, and <strong>not one of the hundred broke as fast as ours</strong>. The real Marvel universe has seams that a random wiring with the same fame does not have.</p>
+
+      <p>But &ldquo;halved&rdquo; is just one moment in the collapse, so we checked two others &mdash; and the answer changes in an interesting way:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Removing by bridges, until&hellip;</th><th>Our universe</th><th>Shuffled ones</th><th>Shuffles that were as fast</th><th>Verdict</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>only 60% is left</td><td>53</td><td>64.4</td><td>none of 100</td><td>Real</td></tr>
+            <tr><td>only 50% is left</td><td>63</td><td>72.5</td><td>none of 100</td><td>Real</td></tr>
+            <tr><td>only 40% is left</td><td>74</td><td>76.1</td><td>26 of 100</td><td>No difference</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Our universe does not fall apart <em>further</em> than the shuffled ones. It falls apart <strong>sooner</strong>. Early on, whole groups of characters come away from it in one piece, while a shuffled universe &mdash; which has no groups, only fame &mdash; just keeps shedding characters one or two at a time. By the time either is down to 40%, the shuffles have caught up. That is exactly what a universe with a few distinct neighbourhoods, held on by a few bridges, should look like, and it is what the next section is about.</p>
+
+      <p>That fits with what we found in week 2. Our universe's characters cluster together far more than chance allows, and its main mass is smaller than the shuffles say it should be. A universe made of tight neighbourhoods is exactly the kind that is held together by a few bridges between them. We have not proven that the clustering is <em>why</em>, but the two findings point the same way.</p>
+
+      <blockquote>Removing nodes adaptively in order of betweenness, the undirected giant component (n = 277) falls below half its size after 63 removals. Across 100 degree-preserving rewirings the same attack needs 72.5 (sd 3.3); none of the 100 broke as quickly, the strongest statement 100 draws allow (empirical p = 0.01, z = &minus;2.9). The degree-ordered attack gives 73 against 75.1 (sd 2.1), with 22 of 100 rewirings as fast (p = 0.34). The betweenness effect holds at a 60% threshold (53 against 64.4, sd 3.6, none of 100) but not at 40% (74 against 76.1, sd 2.4, 26 of 100 as fast). The network is no more fragile to the loss of its hubs than its degree sequence implies; under the loss of its brokers it fragments earlier than the null, though not more completely.</blockquote>
+
+      <h2>Where it tears</h2>
+
+      <p>So what exactly are those seams? We stopped the betweenness attack at its most destructive moment &mdash; after 74 removals, when the second-biggest piece is as big as it ever gets &mdash; and looked at what the universe had broken into.</p>
+
+      <figure>
+        <img src="../assets/img/week3_seams_map.png" alt="Network map of what remains after 74 removals, each piece drawn separately. On the left, a red group of 88 characters still holding together. On the right, three separate pieces: a violet cosmic block of 31, a blue group of 24 labelled Canada and the teen teams, and a small gold group of 8 labelled other futures, other universes. Below, 52 grey dots for characters left alone or in pairs.">
+        <div class="chart" data-chart="seams"></div>
+        <figcaption>Fig. 4 &mdash; The universe after its 74 best bridges are gone, each surviving piece drawn on its own. Colours show which piece a character ended up in; dot size shows how many links they had in the full universe. <span class="figcaption__hint">Hover any dot for the character's name and when they were cut loose; click a group in the key to pick it out.</span></figcaption>
+      </figure>
+
+      <p>Eighty-eight characters still hold together. Fifty-two are left alone or in pairs. And three real groups have broken away:</p>
+
+      <p><strong>Other futures, other universes (8 characters).</strong> The cleanest seam of all, and it comes loose after 61 removals. Doom 2099, Hulk 2099 and Ravage 2099 are from Marvel 2099, the line set in the far future. Justice, Nightmask and Mark Hazzard: Merc are from the New Universe, a separate imprint Marvel ran from 1986 to 1989. Killraven fights in post-apocalyptic alternate futures, and Starr the Slayer was reintroduced in <em>newuniversal</em>, the New Universe's 2006 reboot. What held the New Universe characters on was mostly <strong>Star Brand</strong> &mdash; the New Universe's own flagship character, and the 56th bridge removed.</p>
+
+      <p><strong>Canada and the teen teams (24 characters).</strong> The first sizeable group to go, after only 53 removals. Mostly Alpha Flight, Marvel's Canadian team (Northstar, Puck, Guardian, Vindicator, Wild Child), and the youth teams: the Young Avengers (Hulkling, Speed, Iron Lad), the Runaways (Alex Wilder, Chase Stein), and students at the X-Men's school (Anole, Rockslide, Hellion, Surge) &mdash; plus a couple of stray characters, like the Ultimate-universe versions of Wolverine and Iron Man. They were attached largely through Wolverine, Hulk and the adult X-Men.</p>
+
+      <p><strong>The cosmic block (31 characters).</strong> Breaks away at the peak. Mostly the space side of Marvel: the Eternals (Ajak, Ikaris, Makkari, Thena), the Shi'ar and the Starjammers (Gladiator, Vulcan, Raza Longknife, Ch'od, Korvus), the Guardians of the Galaxy (Star-Lord, Rocket Raccoon, Bug) and the Kree (Mahr Vehl, Genis-Vell). This one is the loosest label of the three: it also swept up Black Widow's Russian circle, Jessica Jones and Gwenpool, who are here because of who they happened to be linked through, not because they are cosmic.</p>
+
+      <details class="sans" style="font-size:13.5px; color:var(--muted); margin:0 0 22px;">
+        <summary style="cursor:pointer; color:var(--text);">The 74 characters removed, in order</summary>
+        <p style="font-size:13.5px; line-height:1.7; margin-top:10px;">1.&nbsp;Spider-Man &middot; 2.&nbsp;Hulk &middot; 3.&nbsp;Wolverine &middot; 4.&nbsp;Doctor Strange &middot; 5.&nbsp;Deadpool &middot; 6.&nbsp;She-Hulk &middot; 7.&nbsp;Hercules &middot; 8.&nbsp;Phoenix &middot; 9.&nbsp;Cloak and Dagger &middot; 10.&nbsp;Black Panther &middot; 11.&nbsp;Quasar &middot; 12.&nbsp;Hank Pym &middot; 13.&nbsp;Scarlet Witch &middot; 14.&nbsp;Black Widow &middot; 15.&nbsp;Moon Knight &middot; 16.&nbsp;Cable &middot; 17.&nbsp;Deathlok &middot; 18.&nbsp;Storm &middot; 19.&nbsp;Emma Frost &middot; 20.&nbsp;Cyclops &middot; 21.&nbsp;Iron Fist &middot; 22.&nbsp;Luke Cage &middot; 23.&nbsp;Nova &middot; 24.&nbsp;Rachel Summers &middot; 25.&nbsp;Betsy Braddock &middot; 26.&nbsp;Jean Grey &middot; 27.&nbsp;Quicksilver &middot; 28.&nbsp;Adam Warlock &middot; 29.&nbsp;War Machine &middot; 30.&nbsp;Black Bolt &middot; 31.&nbsp;U.S. Agent &middot; 32.&nbsp;Human Torch &middot; 33.&nbsp;Venom &middot; 34.&nbsp;Black Cat &middot; 35.&nbsp;Ares &middot; 36.&nbsp;Eddie Brock &middot; 37.&nbsp;Spider-Woman (Jessica Drew) &middot; 38.&nbsp;Franklin Richards &middot; 39.&nbsp;Captain Marvel &middot; 40.&nbsp;Mockingbird &middot; 41.&nbsp;Anya Corazon &middot; 42.&nbsp;Misty Knight &middot; 43.&nbsp;Outlaw &middot; 44.&nbsp;Noh-Varr &middot; 45.&nbsp;Man-Thing &middot; 46.&nbsp;Darkhawk &middot; 47.&nbsp;Patsy Walker &middot; 48.&nbsp;Blade &middot; 49.&nbsp;Human Torch (android) &middot; 50.&nbsp;Garrison Kane &middot; 51.&nbsp;Abomination &middot; 52.&nbsp;Phyla-Vell &middot; 53.&nbsp;Leech &middot; 54.&nbsp;Vance Astrovik &middot; 55.&nbsp;Jericho Drumm &middot; 56.&nbsp;Star Brand &middot; 57.&nbsp;Captain Universe &middot; 58.&nbsp;Spider-Woman (Gwen Stacy) &middot; 59.&nbsp;Shang-Chi &middot; 60.&nbsp;Mayday Parker &middot; 61.&nbsp;Ghost Rider &middot; 62.&nbsp;Spider-Girl &middot; 63.&nbsp;Elsa Bloodstone &middot; 64.&nbsp;Moondragon &middot; 65.&nbsp;Ghost Rider (Danny Ketch) &middot; 66.&nbsp;Jeffrey Mace &middot; 67.&nbsp;Rom the Space Knight &middot; 68.&nbsp;Blue Diamond &middot; 69.&nbsp;Frankenstein&#x27;s Monster &middot; 70.&nbsp;Frog-Man &middot; 71.&nbsp;Spider-Woman &middot; 72.&nbsp;Ms. Marvel &middot; 73.&nbsp;John Jameson &middot; 74.&nbsp;Sabra</p>
+      </details>
+
+      <p>Week 1 found one island that was already completely cut off from the Marvel universe: the nine characters of <em>Strikeforce: Morituri</em>, a series that ran in its own continuity. This week's clean seam is the same story, one layer deeper. Marvel 2099 and the New Universe were separate lines too; they just happened to keep a few threads to the main universe, and those threads are exactly what a bridge-hunting attack finds.</p>
+
+      <h2>What surprised us: a corner of the universe held on by a disclaimer</h2>
+
+      <p>Go back to Fig. 1 and look at Black Widow, second only to Spider-Man. Remove her and three characters fall off: Blue Eagle, Rockman and The Witness. Those are the nineteenth character we promised &mdash; Rockman is not a week-1 pendant, because he has two links &mdash; and the reason they hang off Black Widow of all people is worth reading.</p>
+
+      <p><strong>Rockman</strong> is a hero from 1941, from the Golden Age comics of Marvel's predecessor Timely, and <strong>The Witness</strong> is another Timely hero of the same era. Rockman's Wikipedia article describes their revival in the 2008 series <em>The Twelve</em>, where a group of Golden Age heroes is captured together &mdash; among them &ldquo;The Black Widow (unrelated to the modern character of that name)&rdquo;. That 1940s Black Widow is not in our dataset. But the phrase <em>the modern character</em> links to Natasha Romanova&rsquo;s page, the Black Widow who is.</p>
+
+      <p>So a whole little corner of Golden Age Marvel is connected to the modern universe by a link whose entire job is to say the two are <em>unrelated</em>. The third, <strong>Blue Eagle</strong>, comes from an alternate universe, and is attached to Black Widow by a single sentence: in 2021's <em>Heroes Reborn</em>, she and Hawkeye kill him and take his wings.</p>
+
+      <p>It is a good reminder of what this map really is. A link on Wikipedia is an editor deciding a sentence needed a link. Sometimes that sentence is a team roster. Sometimes it is a disclaimer.</p>
+
+      <h2>Caveats</h2>
+
+      <ul>
+        <li>One hundred shuffled universes means the strongest thing we can say is &ldquo;none of the hundred&rdquo;, so the betweenness result is at the limit of what the test could show, not an overwhelming one. We also looked at three thresholds, which is three chances to find something. A thousand shuffles would take about ten times as long; we did not run them.</li>
+        <li>&ldquo;Half the main mass gone&rdquo; is a threshold we picked, and it matters. Betweenness is the fastest of the four orders at every threshold from 60% down to 25%, but above about two thirds betweenness, degree and PageRank are tied to within a removal or two, with closeness a few behind. And the comparison with the shuffled universes holds at 60% and 50% but not at 40%, as the table above shows &mdash; so the claim is about <em>when</em> the universe comes apart, not how completely.</li>
+        <li>Removing whoever currently scores highest is a greedy strategy, not the most efficient way to break a network. Finding the true smallest set of characters whose removal splits the universe is a much harder problem, and some cleverer order would do even better than betweenness.</li>
+        <li>The groups in Fig. 4 depend on the exact order of removals, including how ties between equal scores are broken. The eight-character group of other futures and other universes is clean; the other two are &ldquo;mostly&rdquo; groups, and we have said so.</li>
+        <li>Everything except PageRank ignores the direction of links: two characters count as connected if either article links to the other.</li>
+        <li>The shuffled universes keep everyone's link count but nothing else. They do not keep the clustering, so we cannot say from this test alone whether the extra fragility comes from the clustering or from something else about which characters get linked.</li>
+      </ul>
+
+      <h2>Reproduce it</h2>
+
+      <p>Data: the frozen week-1 release, 303 characters and 1,784 links. Every number above comes out of one script:</p>
+
+      <pre><code>python analysis_week3.py          # 100 shuffled universes (about 4 minutes on 12 cores)
+python analysis_week3.py --fast   # 20, for iterating
+python analysis_week3.py --json   # also dump every number to week3_numbers.json</code></pre>
+
+      <p>Built with NetworkX, NumPy and Matplotlib. The betweenness attack is the slow part &mdash; betweenness has to be recomputed from scratch after every removal &mdash; so the shuffled universes run in parallel, one per processor core. Every tie between equal scores is broken the same way every time, so the removal order, and the groups in Fig. 4, come out identical on every run.</p>
+
+    </div>
+  </div>
+  </article>
+
+  <nav class="sans post-nav" aria-label="Post navigation">
+    <a href="week2.html">← Week 02</a>
+    <a href="../index.html#posts">All posts</a>
+    <span style="color:var(--muted); font-weight:400;">Week 04 · coming soon</span>
+  </nav>
+
+  </main>
+
+  <div class="spacer"></div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" style="margin-top:64px;">
+    <div class="sans site-footer__note">© <span data-site="team-name">Varmel</span> · 02805 Social Graphs and Interactions · DTU</div>
+    <a href="https://github.com/movega/02805-Social-graphs-and-interactions" class="sans site-footer__link" data-site="repo-link">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <span data-site="repo-label">movega/02805-Social-graphs-and-interactions</span>
+    </a>
+  </footer>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/charts.js" data-src="../assets/data/week3_charts.json"></script>
+</body>
+</html>

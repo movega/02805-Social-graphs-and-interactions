@@ -172,6 +172,21 @@
 
       <p>What we should <em>not</em> do is read the borders. At a run-to-run agreement of 0.70, a character sitting just inside one group in this run may well sit just inside another in the next. The sensible claim is "Marvel has roughly this many clusters and here is their rough shape", not "here is the roster".</p>
 
+      <h2>Try it yourself</h2>
+
+      <p>Modularity is the number this whole post turns on, and reading a definition of it does very little. So here is a piece of the network small enough to sort by hand: <strong>32 Marvel characters</strong> and the 110 links between them, taken eight at a time from each of the four biggest groups.</p>
+
+      <p>Pick a colour, then click or drag across the characters to sort them. Your score updates as you go. Links that stay inside a group light up; links that cross between groups stay grey, and every one of those costs you.</p>
+
+      <figure>
+        <div class="chart" data-chart="puzzle" data-key="marvel.puzzle"></div>
+        <figcaption>Fig. 5 &mdash; The same measurement the algorithm optimises, with you doing the optimising. The markers on the bar are the three numbers worth knowing: nothing, noise, and Louvain.</figcaption>
+      </figure>
+
+      <p>Two things usually happen. The first is that getting <em>above the noise line</em> is easy &mdash; a couple of obvious splits and you are past 0.239, which is what a network with no groups in it scores. The second is that the last stretch up to 0.386 is fiddly, and the moves that get you there are not the ones you would have guessed: shunting a single well-connected character across a border can be worth more than tidying up five obvious ones.</p>
+
+      <p>That is the honest feel of the thing. The algorithm is not finding a truth, it is climbing a score, and near the top there are many arrangements worth almost exactly the same &mdash; which is precisely why two runs of it disagree as much as they do.</p>
+
       <h2>Where the whole idea breaks: people in two places</h2>
 
       <p>Everything above forces every person into exactly one group. That is what a partition means, and it is obviously wrong for both networks. Aristotle belongs to the Greeks and to the scholastics who spent a thousand years arguing with him. Wolverine is an X-Man and an Avenger.</p>

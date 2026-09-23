@@ -937,6 +937,179 @@
     return 'var(--team-' + (i % 10) + ')';
   }
 
+  /* ---- the explorable: beat the algorithm -------------------------------- */
+  /* Modularity is the number the whole post turns on, and reading a definition
+     of it does very little. So: here is a small piece of the network, here are
+     four colours, sort it yourself and watch the score move. */
+
+  function puzzle(host, spec) {
+    var N = spec.nodes.length;
+    var groups = spec.groups;
+    var assign = new Array(N).fill(0);
+    var active = 0;
+    var painting = false;
+    var revealed = false;
+    var beaten = false;
+
+    // adjacency, so scoring a move is instant
+    var degree = new Array(N).fill(0);
+    spec.links.forEach(function (L) { degree[L[0]]++; degree[L[1]]++; });
+    var m = spec.links.length;
+
+    /* Q = sum over groups of (links inside / m) - (degree in group / 2m)^2 */
+    function score() {
+      var inside = new Array(groups).fill(0);
+      var dsum = new Array(groups).fill(0);
+      for (var i = 0; i < N; i++) dsum[assign[i]] += degree[i];
+      for (var e = 0; e < m; e++) {
+        var a = assign[spec.links[e][0]], b = assign[spec.links[e][1]];
+        if (a === b) inside[a]++;
+      }
+      var q = 0;
+      for (var g = 0; g < groups; g++) {
+        q += inside[g] / m - Math.pow(dsum[g] / (2 * m), 2);
+      }
+      return q;
+    }
+
+    var controls = div('chart__controls chart__controls--game', host);
+    div('chart__label', controls, 'Paint with:');
+    var swatches = [];
+    for (var g = 0; g < groups; g++) {
+      (function (gi) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chart__paint' + (gi === 0 ? ' is-on' : '');
+        b.style.setProperty('--paint', teamColour(gi));
+        b.setAttribute('aria-label', 'Group ' + (gi + 1));
+        b.addEventListener('click', function () {
+          active = gi;
+          swatches.forEach(function (o) { o.classList.remove('is-on'); });
+          b.classList.add('is-on');
+        });
+        swatches.push(b);
+        controls.appendChild(b);
+      })(g);
+    }
+
+    function button(label, fn) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chart__toggle';
+      b.textContent = label;
+      b.addEventListener('click', fn);
+      controls.appendChild(b);
+      return b;
+    }
+    button('Start over', function () {
+      assign = new Array(N).fill(0); revealed = false; beaten = false; draw();
+    });
+    button('Shuffle', function () {
+      for (var i = 0; i < N; i++) assign[i] = Math.floor(Math.random() * groups);
+      revealed = false; draw();
+    });
+    var revealBtn = button("Show Louvain's answer", function () {
+      for (var i = 0; i < N; i++) assign[i] = spec.nodes[i].a;
+      revealed = true; draw();
+    });
+
+    var board = div('chart__scoreboard', host);
+    var body = div('chart__plot', host);
+    var note = div('chart__gamenote', host);
+
+    function drawBoard(q) {
+      board.innerHTML = '';
+      var hi = Math.max(spec.louvainQ, q, 0.45);
+      var rows = [
+        ['Everyone in one group', 0, C.muted],
+        ['A network with no groups', spec.nullQ, C.er],
+        ["Louvain's best", spec.louvainQ, C.deg]
+      ];
+      var mine = div('chart__myscore', board);
+      mine.innerHTML = '<span class="chart__myscore-label">Your score</span>' +
+        '<span class="chart__myscore-value"' +
+        (q >= spec.louvainQ ? ' data-win="1"' : '') + '>' + q.toFixed(3) + '</span>';
+
+      var meter = div('chart__meter', board);
+      var fill = div('chart__meter-fill', meter);
+      fill.style.width = Math.max(0, Math.min(100, q / hi * 100)) + '%';
+      if (q >= spec.louvainQ) fill.classList.add('is-win');
+      rows.forEach(function (r, ri) {
+        var t = div('chart__meter-tick' + (ri === 0 ? ' is-first' : ''), meter);
+        t.style.left = Math.max(0, Math.min(100, r[1] / hi * 100)) + '%';
+        t.style.setProperty('--tick', r[2]);
+        t.innerHTML = '<span>' + r[0] + '<br>' + r[1].toFixed(3) + '</span>';
+      });
+    }
+
+    function draw() {
+      var q = score();
+      drawBoard(q);
+      if (q >= spec.louvainQ && !revealed) {
+        beaten = true;
+        note.innerHTML = '<strong>You matched it.</strong> Whatever you just did by eye, ' +
+          'Louvain does by trying every single move in turn until none of them helps.';
+      } else if (revealed) {
+        note.innerHTML = 'That is the best of 200 runs on this subnetwork. ' +
+          'Notice it is not a tidy answer either &mdash; a few characters sit in a ' +
+          'group you would not have put them in.';
+      } else if (beaten) {
+        note.innerHTML = '';
+      } else {
+        note.innerHTML = 'Sort the ' + N + ' characters into ' + groups +
+          ' groups so that links stay inside a group. Beat <strong>' +
+          spec.louvainQ.toFixed(3) + '</strong> and you have matched the algorithm.';
+      }
+
+      body.innerHTML = '';
+      var W = Math.max(280, body.clientWidth || host.clientWidth || 640);
+      var H = Math.round(Math.min(520, Math.max(320, W * 0.66)));
+      var pad = 22;
+      var xs = spec.nodes.map(function (n) { return n.x; });
+      var ys = spec.nodes.map(function (n) { return n.y; });
+      var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+      var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+      var sc = Math.min((W - 2 * pad) / (x1 - x0 || 1), (H - 2 * pad) / (y1 - y0 || 1));
+      var X = function (v) { return (v - x0) * sc + (W - (x1 - x0) * sc) / 2; };
+      var Y = function (v) { return H - ((v - y0) * sc + (H - (y1 - y0) * sc) / 2); };
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H,
+                            class: 'chart__board',
+                            role: 'img', 'aria-label': 'Sort ' + N + ' characters into ' +
+                              groups + ' groups' }, body);
+
+      spec.links.forEach(function (L) {
+        var a = spec.nodes[L[0]], b = spec.nodes[L[1]];
+        var same = assign[L[0]] === assign[L[1]];
+        el('line', { x1: X(a.x), y1: Y(a.y), x2: X(b.x), y2: Y(b.y),
+                     stroke: same ? teamColour(assign[L[0]]) : C.line,
+                     'stroke-width': same ? 1.6 : 1,
+                     opacity: same ? 0.75 : 0.3 }, svg);
+      });
+
+      spec.nodes.forEach(function (n, i) {
+        var c = el('circle', { cx: X(n.x), cy: Y(n.y),
+                               r: 7 + Math.min(7, n.k * 0.5),
+                               fill: teamColour(assign[i]),
+                               stroke: 'var(--bg)', 'stroke-width': 1.5,
+                               class: 'chart__pawn' }, svg);
+        function paint() {
+          if (assign[i] === active) return;
+          assign[i] = active; revealed = false; draw();
+        }
+        c.addEventListener('mousedown', function (ev) { painting = true; paint(); ev.preventDefault(); });
+        c.addEventListener('mouseenter', function () { if (painting) paint(); });
+        c.addEventListener('touchstart', function (ev) { paint(); ev.preventDefault(); }, { passive: false });
+        hoverable(c, host, function () {
+          return '<strong>' + n.n + '</strong><br>' + n.k + ' links in this puzzle';
+        });
+      });
+    }
+
+    window.addEventListener('mouseup', function () { painting = false; });
+    return draw;
+  }
+
   /* ---- boot ------------------------------------------------------------- */
 
   function mount(data) {
@@ -950,7 +1123,9 @@
       var key = host.getAttribute('data-key');
       var slice = pick(data, key);
 
-      if (kind === 'netmap') {
+      if (kind === 'puzzle') {
+        draw = puzzle(host, slice);
+      } else if (kind === 'netmap') {
         draw = netmap(host, slice, {
           minLabel: +(host.getAttribute('data-min-label') || 20),
           ratio: +(host.getAttribute('data-ratio') || 0.82),

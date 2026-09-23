@@ -399,6 +399,71 @@ a.post-card:hover .post-card__glyph { color: var(--text); }
   .chart__toggle, .chart__chip, .chart__key { transition: none; }
 }
 
+/* --- The explorable: sort the network yourself -------------------------- */
+.chart__controls--game { align-items: center; gap: 10px; margin-bottom: 14px; }
+
+.chart__paint {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--paint); border: 2px solid transparent;
+  cursor: pointer; padding: 0; flex: none;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+.chart__paint:hover { transform: scale(1.12); }
+.chart__paint.is-on { border-color: var(--text); transform: scale(1.12); }
+
+.chart__scoreboard { margin-bottom: 18px; }
+.chart__myscore { display: flex; align-items: baseline; gap: 12px; margin-bottom: 30px; }
+.chart__myscore-label {
+  font-family: "Manrope", system-ui, sans-serif; font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.chart__myscore-value {
+  font-family: "Oswald", "Arial Narrow", sans-serif; font-size: 34px;
+  line-height: 1; color: var(--text); font-variant-numeric: tabular-nums;
+}
+.chart__myscore-value[data-win] { color: var(--accent); }
+
+.chart__meter {
+  position: relative; height: 10px; border-radius: 100px;
+  background: var(--bg-panel); border: 1px solid var(--line);
+}
+.chart__meter-fill {
+  height: 100%; border-radius: 100px; background: var(--accent2);
+  transition: width 160ms ease;
+}
+.chart__meter-fill.is-win { background: var(--accent); }
+.chart__meter-tick { position: absolute; top: -4px; width: 0; height: 18px; }
+.chart__meter-tick::before {
+  content: ""; position: absolute; left: -1px; top: 0;
+  width: 2px; height: 18px; background: var(--tick); opacity: 0.85;
+}
+.chart__meter-tick span {
+  position: absolute; top: 20px; left: 0; transform: translateX(-50%);
+  font-family: "Manrope", system-ui, sans-serif; font-size: 9.5px;
+  line-height: 1.35; color: var(--muted); text-align: center;
+  white-space: nowrap;
+}
+.chart__meter-tick.is-first span { transform: none; text-align: left; }
+
+.chart__board { cursor: crosshair; user-select: none; }
+.chart__pawn { cursor: pointer; transition: r 120ms ease; }
+.chart__pawn:hover { stroke: var(--text); }
+
+.chart__gamenote {
+  font-family: "Manrope", system-ui, sans-serif; font-size: 13px;
+  line-height: 1.6; color: var(--muted); margin-top: 14px;
+}
+.chart__gamenote strong { color: var(--text); }
+
+@media (max-width: 520px) {
+  .chart__meter-tick span { font-size: 8.5px; }
+  .chart__myscore-value { font-size: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart__paint, .chart__meter-fill, .chart__pawn { transition: none; }
+}
+
 /* --- Article (weekly post) ---------------------------------------------- */
 .post-header { padding: 64px var(--pad-x) 0; }
 .post-header__inner { max-width: var(--measure); margin: 0 auto; }

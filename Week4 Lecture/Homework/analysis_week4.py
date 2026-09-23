@@ -542,6 +542,61 @@ def nulls_payload(res):
     }
 
 
+def puzzle_payload(res, n_per_group=8, n_groups=4, seed=3):
+    """Data for the explorable: a subnetwork small enough to sort by hand.
+
+    Two things had to be got right for this to be a game rather than a shrug.
+    Picking by overall degree gathers every hub in the network, and hubs all link
+    to each other, so the subnetwork comes out as a blob with nothing to find:
+    Louvain scores 0.26 against a null of 0.21 and the reader cannot feel the
+    difference. Picking by degree *within* each community instead keeps each
+    group internally dense, and the gap opens to 0.39 against 0.25.
+    """
+    G, part, deg, meta = res["G"], res["part"], res["deg"], res["meta"]
+    picked = []
+    for c in part[:n_groups]:
+        inner = G.subgraph(c)
+        picked += sorted(c, key=lambda x: -inner.degree(x))[:n_per_group]
+    S = G.subgraph(picked).copy()
+    S = S.subgraph(max(nx.connected_components(S), key=len)).copy()
+
+    # what the algorithm manages on this same subnetwork
+    best, bestQ = None, -1.0
+    for i in range(200):
+        pp = nxc.louvain_communities(S, seed=i, weight=None)
+        q = nxc.modularity(S, pp, weight=None)
+        if q > bestQ:
+            best, bestQ = pp, q
+
+    # and what a network with no groups in it scores, same size
+    rng = np.random.default_rng(seed)
+    nullqs = []
+    for i in range(300):
+        H = null_swap(S, rng)
+        nullqs.append(nxc.modularity(H, nxc.louvain_communities(H, seed=i, weight=None),
+                                     weight=None))
+
+    pos = nx.spring_layout(S, seed=seed, k=1.5 / np.sqrt(S.number_of_nodes()),
+                           iterations=400, weight=None)
+    order = list(S)
+    idx = {n: i for i, n in enumerate(order)}
+    answer = {}
+    for gi, c in enumerate(sorted(best, key=len, reverse=True)):
+        for n in c:
+            answer[n] = gi
+
+    return {
+        "n": S.number_of_nodes(), "m": S.number_of_edges(),
+        "groups": len(best),
+        "louvainQ": round(float(bestQ), 4),
+        "nullQ": round(float(np.mean(nullqs)), 4),
+        "nodes": [{"n": meta[n]["name"], "x": round(float(pos[n][0]), 3),
+                   "y": round(float(pos[n][1]), 3), "k": S.degree(n),
+                   "a": answer[n]} for n in order],
+        "links": [[idx[u], idx[v]] for u, v in S.edges()],
+    }
+
+
 # --- 7. Main ---------------------------------------------------------------
 
 # Our names for the groups, read off their biggest members. These are a label we
@@ -624,6 +679,7 @@ def main():
             "n": mG.number_of_nodes(), "m": mG.number_of_edges(),
             "map": map_payload(marvel, mpos),
             "nulls": nulls_payload(marvel),
+            "puzzle": puzzle_payload(marvel),
             "nmi": {"pairs": _hist(marvel["nmi_pairs"], 28),
                     "median": round(float(np.median(marvel["nmi_pairs"])), 4),
                     "min": round(float(marvel["nmi_pairs"].min()), 4),

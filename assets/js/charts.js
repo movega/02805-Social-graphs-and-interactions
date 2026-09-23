@@ -108,6 +108,15 @@
     return /Triangles|size|Separate|Densest|Widest|Characters/i.test(label) ? 'int' : null;
   }
 
+  /* A mount can say data-key="philosophers.nulls" and get that slice. Week 2's
+     page predates this and names its charts by kind alone, which still works. */
+  function pick(data, path) {
+    if (!path) return null;
+    return path.split('.').reduce(function (o, k) {
+      return (o === null || o === undefined) ? o : o[k];
+    }, data);
+  }
+
   /* ---- tooltip ---------------------------------------------------------- */
 
   var tip = null;
@@ -245,7 +254,7 @@
             hoverable(rect, host, function () {
               return '<strong>' + s.label + '</strong><br>' +
                      fmt(s.edges[b], opts.hint) + ' to ' + fmt(s.edges[b + 1], opts.hint) +
-                     '<br>' + s.counts[b] + ' of ' + spec.nrep.toLocaleString('en-GB') + ' universes';
+                     '<br>' + s.counts[b] + ' of ' + spec.nrep.toLocaleString('en-GB') + ' ' + (opts.unit || 'universes');
             });
           })(s, b);
         }
@@ -260,7 +269,8 @@
                                 fill: 'transparent' }, svg);
         hoverable(hitp, host, function () {
           return '<strong>' + s.label + '</strong><br>identical in all ' +
-                 spec.nrep.toLocaleString('en-GB') + ' universes<br>' + fmt(s.pin, opts.hint);
+                 spec.nrep.toLocaleString('en-GB') + ' ' + (opts.unit || 'universes') +
+                 '<br>' + fmt(s.pin, opts.hint);
         });
       });
 
@@ -804,6 +814,129 @@
     return draw;
   }
 
+  /* ---- network map ------------------------------------------------------ */
+  /* A drawn network, coloured by community. The links go into two <path>
+     elements rather than nine thousand <line>s, which is the difference between
+     this rendering in a frame and locking the tab. */
+
+  function netmap(host, spec, opts) {
+    opts = opts || {};
+    var focus = null;
+    var legend = div('chart__legend chart__legend--teams', host);
+    var body = div('chart__plot', host);
+
+    spec.communities.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chart__key';
+      b.innerHTML = '<span class="chart__swatch" style="background:' + teamColour(c.i) +
+                    '"></span>' + c.name + ' <span class="chart__keynum">' + c.size + '</span>';
+      b.title = c.top.join(', ');
+      b.addEventListener('click', function () {
+        focus = (focus === c.i) ? null : c.i;
+        Array.prototype.forEach.call(legend.querySelectorAll('.chart__key'),
+          function (o) { o.classList.remove('is-on'); });
+        if (focus !== null) b.classList.add('is-on');
+        draw();
+      });
+      legend.appendChild(b);
+    });
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(280, body.clientWidth || host.clientWidth || 700);
+      var H = Math.round(Math.min(620, Math.max(340, W * (opts.ratio || 0.72))));
+      var pad = 16;
+
+      var ns = spec.nodes;
+      // Fit to where the network actually is. A handful of nodes trail far out on
+      // single links, and scaling to the full extent shrinks the part anyone wants
+      // to look at into the middle third. Fit the bulk, clamp the stragglers.
+      function span(key) {
+        var v = ns.map(function (n) { return n[key]; }).sort(function (a, b) { return a - b; });
+        var lo = v[Math.floor(v.length * 0.015)], hi = v[Math.ceil(v.length * 0.985) - 1];
+        return (hi > lo) ? [lo, hi] : [v[0], v[v.length - 1] + 1e-9];
+      }
+      var xr = span('x'), yr = span('y');
+      var x0 = xr[0], x1 = xr[1], y0 = yr[0], y1 = yr[1];
+      var sc = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+      var ox = (W - (x1 - x0) * sc) / 2 - x0 * sc;
+      var oy = (H - (y1 - y0) * sc) / 2 - y0 * sc;
+      var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+      var X = function (v) { return clamp(v * sc + ox, 2, W - 2); };
+      var Y = function (v) { return clamp(H - (v * sc + oy), 2, H - 2); };
+
+      var kmax = ns.reduce(function (m, n) { return Math.max(m, n.k); }, 1);
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H,
+                            role: 'img', 'aria-label': opts.alt || 'Network map' }, body);
+
+      // links, batched: one path for ties inside a group, one for ties across
+      var inside = [], across = [];
+      spec.links.forEach(function (L) {
+        var a = ns[L[0]], b = ns[L[1]];
+        if (focus !== null && a.c !== focus && b.c !== focus) return;
+        var d = 'M' + X(a.x).toFixed(1) + ' ' + Y(a.y).toFixed(1) +
+                'L' + X(b.x).toFixed(1) + ' ' + Y(b.y).toFixed(1);
+        (L[2] ? inside : across).push(d);
+      });
+      if (across.length) {
+        el('path', { d: across.join(''), stroke: C.line, 'stroke-width': 0.5,
+                     fill: 'none', opacity: 0.35 }, svg);
+      }
+      if (inside.length) {
+        el('path', { d: inside.join(''), stroke: C.muted, 'stroke-width': 0.5,
+                     fill: 'none', opacity: 0.28 }, svg);
+      }
+
+      var g = el('g', {}, svg);
+      ns.forEach(function (n) {
+        var dim = focus !== null && n.c !== focus;
+        var c = el('circle', {
+          cx: X(n.x).toFixed(1), cy: Y(n.y).toFixed(1),
+          r: (1.7 + 5.2 * Math.sqrt(n.k / kmax)).toFixed(2),
+          fill: teamColour(n.c), opacity: dim ? 0.12 : 0.92
+        }, g);
+        if (!dim) {
+          hoverable(c, host, function () {
+            var com = spec.communities[n.c];
+            return '<strong>' + n.n + '</strong><br>' +
+                   n.k + ' links<br>' +
+                   (com ? com.name : '') +
+                   (n.s !== undefined ? '<br>stays put in ' + Math.round(n.s * 100) +
+                                        '% of runs' : '');
+          });
+        }
+      });
+
+      // One name per group, placed over the group's own mass rather than on its
+      // biggest member: every group's hub is pulled into the same crowded middle,
+      // so labelling them where they sit stacks the names on top of each other.
+      spec.communities.forEach(function (c) {
+        if (focus !== null && c.i !== focus) return;
+        if (c.size < (opts.minLabel || 20)) return;
+        var top = null, xs = [], ys = [];
+        ns.forEach(function (n) {
+          if (n.c !== c.i) return;
+          if (!top || n.k > top.k) top = n;
+          xs.push(n.x); ys.push(n.y);
+        });
+        if (!top) return;
+        xs.sort(function (a, b) { return a - b; });
+        ys.sort(function (a, b) { return a - b; });
+        var mid = function (a) { return a[Math.floor(a.length / 2)]; };
+        el('text', { x: X(mid(xs)), y: Y(mid(ys)), 'text-anchor': 'middle',
+                     class: 'chart__mapname' }, svg).textContent = top.n;
+      });
+    }
+
+    return draw;
+  }
+
+  function teamColour(i) {
+    return 'var(--team-' + (i % 10) + ')';
+  }
+
   /* ---- boot ------------------------------------------------------------- */
 
   function mount(data) {
@@ -814,7 +947,24 @@
       var fig = host.closest('figure');
       var draw = null;
 
-      if (kind === 'clustering') {
+      var key = host.getAttribute('data-key');
+      var slice = pick(data, key);
+
+      if (kind === 'netmap') {
+        draw = netmap(host, slice, {
+          minLabel: +(host.getAttribute('data-min-label') || 20),
+          ratio: +(host.getAttribute('data-ratio') || 0.82),
+          alt: host.getAttribute('data-alt') || ''
+        });
+      } else if (kind === 'hist') {
+        slice.nrep = slice.nrep || data.nrep;
+        draw = histChart(host, slice, {
+          height: 300,
+          xlabel: host.getAttribute('data-xlabel') || '',
+          unit: host.getAttribute('data-unit') || 'shuffled networks',
+          alt: host.getAttribute('data-alt') || ''
+        });
+      } else if (kind === 'clustering') {
         var spec = data.clustering;
         spec.nrep = data.nrep;
         draw = histChart(host, spec, {

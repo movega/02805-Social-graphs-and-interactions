@@ -16,6 +16,20 @@
   --line-node: oklch(0.88 0.02 40 / 0.6);
   --chart-gold: oklch(0.68 0.12 85);      /* the blind G(n,m) null */
   --chart-violet: oklch(0.66 0.14 300);   /* the leaky configuration model */
+
+  /* Community colours, shared by the PNG figures and the interactive maps.
+     Warm reds and golds against cool blues and violets, all legible on the
+     dark page and separable for the common colour-vision deficiencies. */
+  --team-0: oklch(0.62 0.19 28);
+  --team-1: oklch(0.80 0.13 64);
+  --team-2: oklch(0.58 0.10 100);
+  --team-3: oklch(0.76 0.13 140);
+  --team-4: oklch(0.56 0.10 178);
+  --team-5: oklch(0.86 0.08 208);
+  --team-6: oklch(0.60 0.15 250);
+  --team-7: oklch(0.74 0.12 292);
+  --team-8: oklch(0.53 0.13 325);
+  --team-9: oklch(0.80 0.10 355);
   --eye-fill: oklch(0.97 0.01 40 / 0.06);
   --eye-line: oklch(0.03 0 0 / 0.92);
 
@@ -302,6 +316,13 @@ a.post-card:hover .post-card__glyph { color: var(--text); }
 .chart__rowlabel { font-size: 11.5px; fill: var(--text); font-family: "Manrope", system-ui, sans-serif; }
 .chart__pinned { font-size: 10.5px; fill: var(--accent2); font-style: italic; font-family: "Manrope", system-ui, sans-serif; }
 .chart__clip { font-size: 10px; fill: var(--bg); font-weight: 700; font-family: "Manrope", system-ui, sans-serif; }
+.chart__mapname {
+  font-size: 10.5px; fill: var(--text); font-weight: 600;
+  font-family: "Manrope", system-ui, sans-serif;
+  paint-order: stroke; stroke: var(--bg-panel); stroke-width: 2.6px;
+}
+.chart__legend--teams { gap: 6px 14px; margin-bottom: 12px; margin-top: 0; }
+.chart__legend--teams .chart__key.is-on { color: var(--accent); }
 .chart__note { font-size: 11px; fill: var(--text); font-weight: 600; font-family: "Manrope", system-ui, sans-serif; }
 
 .chart__plot rect, .chart__plot circle { transition: opacity 120ms ease; }

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 04 · Schools, Not Centuries · Varmel</title>
+<meta name="description" content="A community-finding algorithm sorts 1,374 philosophers into nine traditions. Checked against the labels Wikipedia already had, the groups turn out to be schools rather than centuries — and the algorithm agrees with itself more than with any of them.">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Week 04 · Schools, not centuries">
+<meta property="og:description" content="Community detection on two networks, only one of which has an answer key."> 
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231d0f0d'/><circle cx='16' cy='16' r='10' fill='none' stroke='%23b8574a' stroke-width='1.5'/><circle cx='16' cy='5' r='3' fill='%23e0523f'/><circle cx='26' cy='21' r='2.6' fill='%236aa6d8'/><circle cx='16' cy='16' r='3' fill='%23f7efe9'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link sans" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <!-- ===================== NAV ===================== -->
+  <header class="site-nav">
+    <div class="site-nav__brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="15" r="8" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="4" r="2" fill="var(--accent)"></circle>
+        <circle cx="15" cy="15" r="2.2" fill="var(--accent2)"></circle>
+        <circle cx="24" cy="19" r="1.6" fill="var(--text)"></circle>
+      </svg>
+      <a class="sans site-nav__name" href="../index.html" data-site="team-name">Varmel</a>
+    </div>
+    <nav class="sans site-nav__links" aria-label="Main">
+      <a href="../index.html">Home</a>
+      <a class="is-current" href="../index.html#posts">Posts</a>
+      <a href="../index.html#team">Team</a>
+      <a href="https://github.com/movega/02805-Social-graphs-and-interactions" data-site="repo-link">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+  <!-- ===================== POST HEADER ===================== -->
+  <article>
+  <header class="post-header">
+    <div class="post-header__inner">
+      <div class="post-header__kicker">
+        <span class="sans post-header__week">Week 04</span>
+        <span class="sans post-header__theme">Communities &amp; backbones</span>
+      </div>
+
+      <h1 class="serif post-header__title">Schools, not centuries</h1>
+
+      <p class="post-header__dek">We turned a community-finding algorithm loose on 1,374 philosophers and asked it to sort them into groups. It came back with 9 of them, and they are immediately recognisable: the Greeks, the scholastics, the Islamic golden age, the Germans. Then we checked its work against the labels Wikipedia already had, and that is where it got interesting.</p>
+
+      <div class="sans post-header__meta">
+        <span>Published 23 September 2026</span>
+        <span>By <span data-site="team-name">Varmel</span></span>
+        <span>Datasets: week-4 philosophers · week-4 weighted Marvel</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== POST BODY ===================== -->
+  <div class="post-body">
+    <div class="post-body__inner">
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat__value">9</div><div class="stat__label">Groups found</div></div>
+        <div class="stat"><div class="stat__value">0.508</div><div class="stat__label">Score (Q)</div></div>
+        <div class="stat"><div class="stat__value">0.222</div><div class="stat__label">Same score, no groups</div></div>
+        <div class="stat"><div class="stat__value">0.41</div><div class="stat__label">Agreement with the centuries</div></div>
+      </div>
+
+      <h2>What we asked</h2>
+
+      <p>Everything so far has been about the shape of a network as a whole. This week the question narrows: <strong>does the network fall into groups, and if it does, are they the right ones?</strong></p>
+
+      <p>The first half of that is easy to answer and almost worthless on its own. Point any community-finding algorithm at any network and it will hand you groups. It will hand you groups if you feed it noise. So the interesting half is the second one, and it has an awkward problem: to know whether the groups are <em>right</em>, you need to already know the answer.</p>
+
+      <p>Which is why this post runs two networks side by side. One of them comes with an answer key.</p>
+
+      <h2>Two networks, one with the answers in the back</h2>
+
+      <p>The <strong>philosophers</strong> network is this week's shared dataset: 1,444 people with a Wikipedia article who were born before 1900, linked when one article links to the other. Crucially, Wikipedia already sorts them two ways that have nothing to do with links — each philosopher carries the <em>century</em> they were born in, and 322 of them also carry a <em>subfield</em> (logician, ethicist, metaphysician, and so on). That is our answer key.</p>
+
+      <p>The <strong>Marvel</strong> network is ours, the one the rest of this site is about: 303 characters, same link rule. It has no answer key at all. Nobody has labelled these characters by team in our data, and the whole point of the exercise is that we would like to know whether the algorithm can recover something like teams anyway.</p>
+
+      <p>So: calibrate on the philosophers, where we can mark the homework, and carry the calibration over to Marvel, where we cannot. Both networks get identical treatment — same algorithm, same number of runs, same null models, links counted once each regardless of how many times one article links to another.</p>
+
+      <div class="callout">
+        <div class="sans callout__label">The one number to know</div>
+        <p><strong>Modularity</strong>, written Q, scores a proposed set of groups. It counts what fraction of the links fall inside a group, then subtracts what you would expect from the link counts alone. Put everybody in one big group and Q is exactly 0. A good split of a genuinely clustered network lands somewhere around 0.4 to 0.7. The trap, which this post spends a section on, is that a network with no groups in it whatsoever does <em>not</em> score 0.</p>
+      </div>
+
+      <h2>What it found: traditions</h2>
+
+      <p>We used <strong>Louvain</strong>, the standard fast method. It works by repeatedly moving each person into whichever neighbouring group improves the score most, then collapsing each group into a single point and doing it again. It is quick, it scales, and it is sensitive to the order it happens to consider people in — which matters later.</p>
+
+      <p>Run it on the philosophers and the best of our 100 attempts scores <strong>Q = 0.508</strong>, splitting 1,374 philosophers into 9 groups:</p>
+
+      <figure>
+        <img src="../assets/img/week4_philosophers_map.png" alt="A force-directed drawing of the philosophers network, each point a philosopher and each colour one of the nine communities the algorithm found. Distinct coloured regions correspond to the Greeks, Christian theology, early modern Europe, German idealism, the analytic tradition, the Islamic golden age, Indian traditions and Chinese traditions.">
+        <div class="chart" data-chart="netmap" data-key="philosophers.map" data-min-label="60" data-ratio="0.74" data-alt="Interactive map of the philosophers network coloured by community"></div>
+        <figcaption>Fig. 1 &mdash; 1,374 philosophers, coloured by the group the algorithm put them in. It was given the links and nothing else: no dates, no nationalities, no subject labels. <span class="figcaption__hint">Hover any point for who it is; click a name in the key to isolate that tradition.</span></figcaption>
+      </figure>
+
+      <p>Nobody needs a statistician to see that this is not noise. The groups are the Greeks and Romans, Christian theology, the Islamic golden age, Indian traditions, Chinese traditions, early modern Europe, German idealism and the analytic tradition. That is a map of philosophy that a first-year undergraduate would recognise, drawn by something that has never read a word of any of it.</p>
+
+      <p>One caution before we go further, and it is the one the course makes a point of: <strong>those names are ours</strong>. The algorithm produced eight anonymous bags of philosophers plus a stray pair. We read the biggest members of each bag and wrote a label on it. The labels are a reading, not a result, and a different reader might carve them differently.</p>
+
+      <h2>Is it real? Half the score is free</h2>
+
+      <p>Q = 0.508 sounds good. The question we learned to ask two weeks ago is: compared to what?</p>
+
+      <p>So we rebuilt the network 500 times with the groups deliberately destroyed &mdash; once keeping every philosopher's exact number of links and shuffling who they connect to, and once dealing the links out completely at random &mdash; and ran the same algorithm on each. If a network with no communities in it still scores well, then a good score is not evidence of communities.</p>
+
+      <figure>
+        <img src="../assets/img/week4_modularity_nulls.png" alt="Two panels of histograms. For the philosophers, shuffled networks score around 0.22 and the real network scores 0.51. For Marvel, shuffled networks score around 0.25 and the real network scores 0.39.">
+        <div class="chart" data-chart="hist" data-key="philosophers.nulls" data-xlabel="Modularity Q — philosophers" data-alt="Modularity of the philosophers network against two null models"></div>
+        <div class="chart" data-chart="hist" data-key="marvel.nulls" data-xlabel="Modularity Q — Marvel" data-alt="Modularity of the Marvel network against two null models"></div>
+        <figcaption>Fig. 2 &mdash; What the same algorithm scores on networks built to have no groups at all. <span class="figcaption__hint">Hover a bar for the count; click a name in the key to hide that pile.</span></figcaption>
+      </figure>
+
+      <p>A shuffled philosophers network scores <strong>0.222</strong>, and a completely random one <strong>0.232</strong>. So of the 0.508 we measured, somewhere around 0.222 was going to happen whatever the data said. The real structure is the gap above that, and it is a big gap &mdash; no shuffle in 500 came close &mdash; but it is not the whole number, and quoting Q = 0.508 on its own would be quoting a number whose first 0.222 came for free.</p>
+
+      <p>Marvel tells the same story with less room to spare. It scores <strong>0.390</strong> against a shuffled <strong>0.248</strong>. Genuine structure, comfortably outside anything the nulls produced, but a smaller real margin than the philosophers have.</p>
+
+      <h2>Is it right? Not centuries, and not subjects</h2>
+
+      <p>Now the part only the philosophers can answer. We have the algorithm's groups and we have Wikipedia's labels, so we can ask how much they agree.</p>
+
+      <p>The measure is <strong>NMI</strong>, which runs from 0 (the two ways of sorting people have nothing to do with each other) to 1 (they are the same sorting). Against the century each philosopher was born in, the algorithm scores <strong>0.41</strong>. Against subfield, <strong>0.26</strong>.</p>
+
+      <p>Both of those are low, and the low numbers are the finding. <strong>The communities are not centuries.</strong> The Greeks-and-Romans group spans the better part of a thousand years; the Islamic golden age group runs from the 1st-to-10th-century list into the 11th-to-14th; the German group is 18th and 19th century together. Nor are they subjects: the 51 philosophers Wikipedia files as logicians are spread across seven of the nine groups, and the 39 ethicists across seven as well.</p>
+
+      <p>What the link structure actually picks up is neither of those. It is <em>who read whom</em> &mdash; schools, lineages, traditions of citation and commentary. That cuts across time, because a tradition is precisely a thing that persists through time, and it cuts across subject, because a school argues about everything.</p>
+
+      <h2>Would it say the same thing twice?</h2>
+
+      <p>Louvain depends on the order it happens to consider people in, so a single run is a sample, not an answer. We ran it 100 times on each network with a different starting order each time.</p>
+
+      <p>The scores barely move: 0.485 to 0.508 across 100 runs of the philosophers. The <em>groups</em> move quite a lot more. Two runs agree with each other at a median NMI of <strong>0.72</strong> &mdash; and that number deserves to be sat with, because it is the ceiling on everything else in this post.</p>
+
+      <p>Which philosophers move? Not the ones you would guess. Among the 52 with fifty links or more there is <strong>no relationship</strong> between how connected someone is and how reliably they get placed &mdash; the correlation is 0.08. Aristotle, the most linked person in the whole network at 300, keeps the same company in only <strong>42%</strong> of pairs of runs; Plato, at 218 links, manages 75%. The least settled of the well-connected are Galileo at 29%, Darwin at 30% and Spinoza at 36% &mdash; figures sitting on a seam between two traditions, who get filed on one side or the other depending on where the algorithm happened to start.</p>
+
+      <p>Copernicus is the one that stopped us. In the run we are showing he is filed with the <em>Greeks and Romans</em>, not with the early modern Europeans he was born among, and he only stays put 36% of the time. That is either a revealing fact about whose work his article actually connects to, or an artefact of a wobbly algorithm. We cannot tell which from the numbers alone, and that is rather the point of this section.</p>
+
+      <figure>
+        <img src="../assets/img/week4_agreement.png" alt="A bar chart comparing five agreement scores, and a histogram of agreement between pairs of runs. Two Louvain runs on the philosophers agree at about 0.72; Louvain against the century labels scores about 0.42; against subfields about 0.26; against the greedy algorithm about 0.54; two Louvain runs on Marvel about 0.70.">
+        <figcaption>Fig. 3 &mdash; How much the algorithm agrees with itself, set against how much it agrees with anything else. The top bar is the ceiling: no comparison below it can score higher than the algorithm's own reproducibility allows.</figcaption>
+      </figure>
+
+      <p>Read the figure top to bottom and the ranking is uncomfortable. <strong>The algorithm agrees with itself more than it agrees with any external truth we can check it against.</strong> It agrees with a different algorithm &mdash; greedy merging, which scores a worse 0.416 &mdash; at only 0.54. So when it disagrees with the century labels, part of that disagreement is a real finding about traditions, and part is just the algorithm being unable to make its own mind up. We cannot cleanly separate the two, and anyone who reports NMI against ground truth without reporting run-to-run NMI first is hiding that problem.</p>
+
+      <h2>Marvel, with the calibration in hand</h2>
+
+      <p>Now the network with no answer key. The best of 100 runs splits 277 characters into <strong>8 groups at Q = 0.390</strong>, and two runs agree at a median of 0.70 &mdash; almost exactly the philosophers' figure. Whatever credit we extend to one, we owe the other.</p>
+
+      <figure>
+        <img src="../assets/img/week4_marvel_map.png" alt="A force-directed drawing of the Marvel character network, each point a character and each colour one of the communities found. Distinct regions correspond to the X-Men, Spider-Man's corner of New York, the cosmic characters, the street-level heroes, and the occult characters.">
+        <div class="chart" data-chart="netmap" data-key="marvel.map" data-min-label="18" data-ratio="0.72" data-alt="Interactive map of the Marvel network coloured by community"></div>
+        <figcaption>Fig. 4 &mdash; 277 Marvel characters, same treatment. <span class="figcaption__hint">Hover any point for who it is; click a name in the key to isolate that group.</span></figcaption>
+      </figure>
+
+      <p>And it works. There is an X-Men group, a Spider-Man group heavy on his own villains and supporting cast, a cosmic group, a street-level New York group, an occult group. The algorithm has recovered something close to Marvel's editorial line-up from nothing but who links to whom &mdash; which, given that the imprint is literally organised into teams and titles, is about what you would hope.</p>
+
+      <p>What we should <em>not</em> do is read the borders. At a run-to-run agreement of 0.70, a character sitting just inside one group in this run may well sit just inside another in the next. The sensible claim is "Marvel has roughly this many clusters and here is their rough shape", not "here is the roster".</p>
+
+      <h2>Where the whole idea breaks: people in two places</h2>
+
+      <p>Everything above forces every person into exactly one group. That is what a partition means, and it is obviously wrong for both networks. Aristotle belongs to the Greeks and to the scholastics who spent a thousand years arguing with him. Wolverine is an X-Man and an Avenger.</p>
+
+      <p>So we also ran <strong>clique percolation</strong>, which builds groups out of overlapping triangles and lets people belong to several &mdash; or to none. The trade-off is brutal and worth seeing laid out:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Method</th><th>Groups</th><th>People placed</th><th>In more than one</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Louvain (philosophers)</td><td>9</td><td>all 1,374</td><td>0, by construction</td></tr>
+            <tr><td>Triangles, k = 3</td><td>19</td><td>1,189</td><td>29</td></tr>
+            <tr><td>k = 4</td><td>36</td><td>909</td><td>86</td></tr>
+            <tr><td>k = 5</td><td>40</td><td>555</td><td>112</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Tighten the definition of a group and it stops covering the network: at k = 5 it has an opinion about 555 of 1,374 philosophers and nothing to say about the rest. Loosen it and almost everyone is in, but the groups blur back together. Neither setting gives you what Louvain gives you, which is an answer for everybody &mdash; and Louvain buys that completeness by pretending nobody has two affiliations.</p>
+
+      <h2>One more trap, briefly</h2>
+
+      <p>Our data also says how many times each article links to each other article, so we could weight the links by that and score the same groups again. Doing so takes the philosophers from 0.508 to <strong>0.558</strong>.</p>
+
+      <p>That looks like better structure and it is nothing of the kind. Weighted and unweighted Q are not the same measurement &mdash; the weighted version divides by total link weight instead of total link count, so the two are on different scales and the numbers cannot be compared. We report it here only because the higher number is exactly the sort of thing that gets quoted as progress.</p>
+
+      <h2>Caveats</h2>
+
+      <ul>
+        <li>The biggest one is the run-to-run agreement of 0.72. Every comparison in this post inherits it as a ceiling, including the ones we drew conclusions from.</li>
+        <li>Our names for the groups are a reading of their largest members, not an output. We have not checked them against any philosophy reference, and a specialist would very likely quarrel with at least two.</li>
+        <li>The subfield comparison uses the 322 philosophers of 1,374 who carry a subfield label &mdash; under a quarter of them, and not a random quarter. The NMI of 0.26 describes that subset, not the network.</li>
+        <li>Louvain also produced one group of 2 on the philosophers. Small leftover groups are a normal by-product, and we have neither merged them away nor pretended they are traditions.</li>
+        <li>Both networks are networks of <em>articles</em>. A link means an editor wrote one, which tracks how Wikipedia is written at least as much as it tracks intellectual history or comics continuity.</li>
+        <li>Modularity has a known resolution limit: below a certain size it cannot see a group at all, and will fold it into a neighbour. Groups we report as absent may simply be too small for the method.</li>
+      </ul>
+
+      <h2>Reproduce it</h2>
+
+      <p>Data: the week-4 releases, 1,444 philosophers and the 303-character Marvel roster with link weights. Everything above comes out of one script, and both networks go through the identical pipeline:</p>
+
+      <pre><code>python analysis_week4.py          # 500 null draws, 100 Louvain runs
+python analysis_week4.py --fast   # 60 and 25, for iterating
+python analysis_week4.py --json   # also dump every number to week4_numbers.json</code></pre>
+
+      <p>Built with NetworkX, scikit-learn, NumPy and Matplotlib. One implementation note worth passing on: NetworkX uses edge weights by default, and both of this week's releases ship weights. Our first run was quietly computing weighted modularity while we described it as unweighted, which would have made the two networks incomparable with each other and with everything we published in week 2. Every Q above passes <code>weight=None</code> explicitly.</p>
+
+    </div>
+  </div>
+  </article>
+
+  <nav class="sans post-nav" aria-label="Post navigation">
+    <a href="week3.html">← Week 03</a>
+    <a href="../index.html#posts">All posts</a>
+    <span style="color:var(--muted); font-weight:400;">Week 05 · coming soon</span>
+  </nav>
+
+  </main>
+
+  <div class="spacer"></div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" style="margin-top:64px;">
+    <div class="sans site-footer__note">© <span data-site="team-name">Varmel</span> · 02805 Social Graphs and Interactions · DTU</div>
+    <a href="https://github.com/movega/02805-Social-graphs-and-interactions" class="sans site-footer__link" data-site="repo-link">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <span data-site="repo-label">movega/02805-Social-graphs-and-interactions</span>
+    </a>
+  </footer>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/charts.js" data-src="../assets/data/week4_charts.json"></script>
+</body>
+</html>

@@ -46,6 +46,16 @@ var SITE = {
       if (label && SITE.repoLabel) label.textContent = SITE.repoLabel;
     }
 
+    // "Latest post" pointed at whichever week was newest when someone last
+    // edited it by hand, and went stale the moment the next post landed. Point
+    // it at the last published card instead. The href in the HTML stays as a
+    // sensible fallback for a reader with JS off.
+    var latest = document.querySelector('[data-site="latest-post"]');
+    if (latest) {
+      var cards = document.querySelectorAll('a.post-card[href]');
+      if (cards.length) latest.setAttribute('href', cards[cards.length - 1].getAttribute('href'));
+    }
+
     for (i = 0; i < SITE.members.length; i++) {
       var m = SITE.members[i];
       var nameEl = document.querySelector('[data-member="' + (i + 1) + '-name"]');

@@ -42,7 +42,7 @@ NODES = os.path.join(DATA, "week1_nodes.tsv")
 def load_roster(path=NODES):
     """The 303 characters, keyed by node_id - the same key the text uses."""
     out, header = {}, None
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for line in f:
             if line.startswith("#"):
                 continue

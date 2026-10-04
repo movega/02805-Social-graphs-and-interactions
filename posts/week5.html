@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 05 · The Fight Is Somebody Else's · Varmel</title>
+<meta name="description" content="We labelled 1,555 Marvel links by reading the sentence each one came from, and found that enemies sit in different communities. Then we read the sentences. The effect was the other characters standing in them.">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Week 05 · The fight is somebody else's">
+<meta property="og:description" content="A significant result, and what was left of it after we read sixty-two sentences.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231d0f0d'/><circle cx='16' cy='16' r='10' fill='none' stroke='%23b8574a' stroke-width='1.5'/><circle cx='16' cy='5' r='3' fill='%23e0523f'/><circle cx='26' cy='21' r='2.6' fill='%236aa6d8'/><circle cx='16' cy='16' r='3' fill='%23f7efe9'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link sans" href="#main">Skip to content</a>
+
+<div class="page">
+
+  <!-- ===================== NAV ===================== -->
+  <header class="site-nav">
+    <div class="site-nav__brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="15" r="8" stroke="var(--line)" stroke-width="1"></circle>
+        <circle cx="15" cy="4" r="2" fill="var(--accent)"></circle>
+        <circle cx="15" cy="15" r="2.2" fill="var(--accent2)"></circle>
+        <circle cx="24" cy="19" r="1.6" fill="var(--text)"></circle>
+      </svg>
+      <a class="sans site-nav__name" href="../index.html" data-site="team-name">Varmel</a>
+    </div>
+    <nav class="sans site-nav__links" aria-label="Main">
+      <a href="../index.html">Home</a>
+      <a class="is-current" href="../index.html#posts">Posts</a>
+      <a href="../index.html#team">Team</a>
+      <a href="https://github.com/movega/02805-Social-graphs-and-interactions" data-site="repo-link">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+  <!-- ===================== POST HEADER ===================== -->
+  <article>
+  <header class="post-header">
+    <div class="post-header__inner">
+      <div class="post-header__kicker">
+        <span class="sans post-header__week">Week 05</span>
+        <span class="sans post-header__theme">NLP I · from language to numbers</span>
+      </div>
+
+      <h1 class="serif post-header__title">The fight is somebody else's</h1>
+
+      <p class="post-header__dek">This week the Marvel network got its text. We pulled the sentence behind every one of its links, labelled each one friend, foe or family from a word list, and asked whether enemies sit in different communities. They do, significantly. Then we read sixty-two of the sentences, and the result went away.</p>
+
+      <div class="sans post-header__meta">
+        <span>Published 5 October 2026</span>
+        <span>By <span data-site="team-name">Varmel</span></span>
+        <span>Datasets: week-5 Marvel pages · week-1 edges · week-4 communities</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== POST BODY ===================== -->
+  <div class="post-body">
+    <div class="post-body__inner">
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat__value">1,555</div><div class="stat__label">Links with a sentence</div></div>
+        <div class="stat"><div class="stat__value">11.7%</div><div class="stat__label">Links with no text at all</div></div>
+        <div class="stat"><div class="stat__value">37%</div><div class="stat__label">Labels that were right</div></div>
+        <div class="stat"><div class="stat__value">−0.01</div><div class="stat__label">What was left of the foe effect</div></div>
+      </div>
+
+      <h2>What we asked</h2>
+
+      <p>For four weeks this network has been a set of arrows. An arrow from Spider-Man to Venom means Spider-Man's Wikipedia article links to Venom's, and that is the entire content of it — the arrow does not say whether they are enemies, teammates, or father and son.</p>
+
+      <p>This week we got the text. Every one of the 303 characters comes with their full Wikipedia article, and somewhere in Spider-Man's article there is a sentence that mentions Venom. So the question almost writes itself: <strong>the network says A and B are connected, and A's page says why — can we just read the relationship off the prose?</strong></p>
+
+      <p>And if we can, there is an obvious thing to do with it. Last week we split this network into communities: an X-Men cluster, a Spider-Man cluster, a cosmic tier, a street-level New York group. Those are the groups the links fall into. So: <strong>do the enemies sit in different groups?</strong> It would be a satisfying thing to be true. Your friends are in your corner of the universe and your nemesis is somewhere else.</p>
+
+      <p>We got an answer. We are fairly sure it is not the answer.</p>
+
+      <h2>First: a tenth of the network isn't written down</h2>
+
+      <p>Before labelling anything we had to find, for each link, the sentence it came from. Take the source character's article, search it for the target's name, keep the sentence around the first hit. Straightforward, and it worked for 1,555 of the 1,762 links.</p>
+
+      <p>The other 207 — <strong>11.7% of the network</strong> — have no sentence, because the target is not named anywhere on the source's page. Not under a nickname, not as a substring, not once.</p>
+
+      <p>Take Anne Weying, who links to Deadpool. Her article is 4,488 characters long and the string "Deadpool" does not occur in it. The link is real: week 1 built the network from the rendered HTML, and there genuinely was a link there. It was in a navigation box at the bottom of the page — one of those grids of related characters that Wikipedia staples to an article — and this week's plain-text release strips exactly that furniture out.</p>
+
+      <p>So an eleventh of our network is links that nobody wrote a sentence about. That sounded like it might just be noise, until we crossed it with week 4's link weights, which count how many times one article links to another:</p>
+
+      <figure>
+        <img src="../assets/img/week5_visibility.png" alt="A bar chart. Links that week 4 weighted 1 are named in the prose 85% of the time; weight 2, 95%; weight 3, 97%; weight 4, 98%; weight 5, 96%; weight 6 or more, 100%.">
+        <figcaption>Fig. 1 &mdash; How often the target is actually named in the source's text, by how many times the source's article links to it.</figcaption>
+      </figure>
+
+      <p>It climbs almost perfectly: <strong>85% at weight 1, and 100% at weight 6 or more</strong>. A link with no sentence behind it is a link that was only ever made once, in a template. The text is not missing information about the network so much as telling us which parts of the network were an editorial afterthought — and that is worth knowing before anybody builds anything on top of those arrows.</p>
+
+      <h2>The method the exercise suggests</h2>
+
+      <p>For the 1,555 links that do have a sentence, we did the obvious thing. Three small word lists:</p>
+
+      <div class="callout">
+        <div class="sans callout__label">The lexicon</div>
+        <p><strong>foe</strong>: enemy, foe, nemesis, villain, rival, battle, fight, defeat, kill, murder, attack, destroy, revenge, clash.<br>
+        <strong>ally</strong>: ally, allies, friend, team, join, member, partner, aid, help, rescue, save, recruit.<br>
+        <strong>kin</strong>: married, wife, husband, son, daughter, brother, sister, father, mother, cousin, uncle, aunt, twin.</p>
+        <p>If the sentence contains a word from exactly one list, the link gets that label. If it hits two lists, we throw it out rather than guess — that cost us 208 links. The result: 240 foes, 305 allies, 99 family, and 703 sentences with nothing we could label.</p>
+      </div>
+
+      <p>Then the week-4 question. Across all the labelled links, <strong>43.0%</strong> connect two characters in different communities. Does that depend on the label?</p>
+
+      <p>It does, and beautifully. Foes cross a community boundary <strong>50.0%</strong> of the time. Allies, <strong>39.0%</strong>. Family, <strong>26.3%</strong>. Perfectly ordered, exactly as the story would have it.</p>
+
+      <p>And it is not an artefact of the network's shape, because we checked it the way we have checked everything since week 2. We shuffled the labels across the links ten thousand times — keeping the network, the communities, and the exact number of each label, and breaking only which link carries which label — and asked how often chance produces a gap that big.</p>
+
+      <p>Rarely. Foes land <strong>2.4 standard deviations</strong> above the shuffled mean (p = 0.020), family <strong>3.5 below</strong> (p = 0.0007). We had a result.</p>
+
+      <h2>Then we read the sentences</h2>
+
+      <p>The course page has a line about this that we would like to have taken more seriously before getting excited: <em>whatever you claim, inspect the text underneath it before you believe it.</em> So we pulled a random sample of the labelled sentences and read them one by one, asking a simple question: is the relationship this word describes actually <em>between these two characters</em>?</p>
+
+      <p>Mostly, no. Out of 62 sentences we read by hand, <strong>23 were right. 37%.</strong></p>
+
+      <p>And the failure is not random. Here is what it actually looks like:</p>
+
+      <div class="callout callout--warn">
+        <div class="sans callout__label">Four labels, as the machine saw them</div>
+        <p><strong>Ursa Major → War Machine</strong>, labelled <em>foe</em>:<br>
+        <span class="quote">"Ursa Major returns as part of the Winter Guard, <em>helping</em> them and War Machine <em>fight off</em> a Skrull attempt to steal Russian nuclear bombs."</span></p>
+        <p><strong>Dargo Ktor → Hercules</strong>, labelled <em>foe</em>:<br>
+        <span class="quote">"<em>Aided by</em> Hercules, Thaddeus Stark, and Deva Van Dyne, they reassembled the Avengers … and <em>fight</em> for good."</span></p>
+        <p><strong>Wolverine → Cable</strong>, labelled <em>kin</em>:<br>
+        <span class="quote">"Cable's <em>son</em> Genesis kidnaps Wolverine and attempts to re-bond adamantium to his skeleton."</span></p>
+        <p><strong>Blade → Spitfire</strong>, labelled <em>ally</em>:<br>
+        <span class="quote">"He soon afterwards <em>stakes</em> his new <em>teammate</em>, the vampire hero Spitfire."</span></p>
+      </div>
+
+      <p>The word is in the sentence. The fight is somebody else's. Marvel plot summaries name three or four characters per sentence, and the conflict word almost always belongs to a different pair than the one our link connects. Ursa Major and War Machine are on the same side, shooting at Skrulls. Cable's son is Genesis, not Wolverine.</p>
+
+      <p>That is worse than noise, because it is not symmetric. Of the 22 foe-labelled sentences we read, <strong>seven described the two characters fighting side by side</strong>. The foe bucket is not "enemies plus some junk" — it is roughly a third real enemies, a third real allies, and a third irrelevant.</p>
+
+      <h2>What's left</h2>
+
+      <p>If the problem is other characters crowding into the sentence, there is a blunt test for it. Throw away every sentence that names anybody else from the roster, keep only the ones about these two and nobody more, and run the identical measurement. That leaves 654 of the 1,555 — 42%.</p>
+
+      <figure>
+        <img src="../assets/img/week5_labels.png" alt="Two panels showing the share of links crossing a community boundary, by label, against the shuffled-label band. On the left, using every sentence: foe sits above the band at z=+2.38, kin far below at z=-3.46. On the right, using only sentences that name nobody else: foe sits exactly on the band mean at z=-0.01, ally inside it, and only kin remains below at z=-2.56.">
+        <div class="chart" data-chart="labelpanels" data-alt="Crossing rate by label, before and after restricting to pair-only sentences"></div>
+        <figcaption>Fig. 2 &mdash; The same measurement twice. Blue band: what shuffling the labels produces, ±2 standard deviations. <span class="figcaption__hint">Hover any label for its counts, z and p.</span></figcaption>
+      </figure>
+
+      <p><strong>The foe effect is gone.</strong> Not weakened — gone. It lands at 0.409 against a shuffled mean of 0.409: z = −0.01, p = 1.00. The cleanest null result we have ever produced. The finding we nearly published was the other characters standing in the sentence.</p>
+
+      <p>The family effect survives. On the pair-only sentences it is 0.220 against 0.411, z = −2.56, p = 0.013 — in effect size, slightly stronger than before. <strong>Family really does stay inside its community</strong>, and that one we believe, with the caveat that it now rests on 41 links.</p>
+
+      <p>Why does one survive and the other not, when we read both at around 45% correct? Because of what the errors do. The kin mistakes are mostly about <em>somebody else's</em> brother — random with respect to community boundaries, so they dilute a real effect toward the baseline without reversing it. The foe mistakes point the other way. Mixing enemies and allies in one bucket is not adding noise to a signal, it is averaging a signal with its own negation.</p>
+
+      <h2>What surprised us</h2>
+
+      <p>That the shuffle test passed. We have leaned on permutation nulls since week 2 and they have been the thing that kept us honest — they caught the free half of modularity last week. Here the null did its job perfectly and was no protection at all, because <strong>it was testing the wrong thing</strong>. It asked whether the labels were associated with the boundaries. They were. It had no way to ask whether the labels meant what we said they meant.</p>
+
+      <p>A null model validates a measurement against chance. It cannot validate a measurement against the world. The only thing that did that was reading sixty-two sentences, which took about forty minutes and cost us our result.</p>
+
+      <h2>Caveats</h2>
+
+      <ul>
+        <li>The labels are 37% correct on a hand-read sample of 62, and we read them ourselves, knowing what we hoped to find. A second reader would be the obvious fix and we did not have one.</li>
+        <li>We take one sentence per link, the first mention only. A page that mentions a character five times contributes one of them, picked by position, not by informativeness.</li>
+        <li>Direction is thrown away. <em>A kills B</em> and <em>B kills A</em> both come out as <code>foe</code>.</li>
+        <li>The 654 pair-only sentences are not a random subset of the 1,555. Short sentences naming exactly two characters skew toward opening lines and list-like text, so we have traded the crowding problem for a length-and-section problem. The family result survives the restriction; we have not shown it survives that.</li>
+        <li>The surviving result rests on 41 links. That is the smallest number this post leans on, and it is not comfortable.</li>
+        <li>Week 4's communities are one run of an algorithm that agrees with itself about 70% of the time. Every crossing rate here moves if the seed does, and we did not propagate that.</li>
+        <li>303 characters from one Wikipedia category. As always, this is a finding about how Wikipedia is written at least as much as about Marvel.</li>
+      </ul>
+
+      <h2>The corpus underneath it</h2>
+
+      <p>Everything above rides on one preprocessing choice, so here it is, with the counts it produces. Words only, lowercased, no digits or punctuation, hyphens kept inside a token so <code>spider-man</code> survives as one word: <strong>690,709 tokens, 29,737 distinct types, and 11,769 types that occur exactly once</strong> — 40% of the vocabulary appearing a single time.</p>
+
+      <p>The ten most frequent words are <em>the, and, of, to, in, as, is, by, his, with</em>. Not one of them is about superheroes. Remove the stopwords and the top becomes <em>marvel, character, new, appears, series</em> — which is the language of encyclopedia-writing, not of heroism. Both lists are worth keeping in mind next time someone reports what a corpus is "about" from a frequency table.</p>
+
+      <figure>
+        <img src="../assets/img/week5_zipf.png" alt="Two panels of word frequency against frequency rank, linear and log-log, comparing the 303 full pages, the 303 short descriptions, and an ideal Zipf curve with exponent 1.">
+        <div class="chart" data-chart="zipf" data-alt="Word frequency against frequency rank for the Marvel corpus"></div>
+        <figcaption>Fig. 3 &mdash; Rank against frequency, with the ideal curve for comparison. <span class="figcaption__hint">Click the first key to switch between log-log and linear axes; click a series to hide it.</span></figcaption>
+      </figure>
+
+      <p>Fitted over ranks 10 to 1,000, the full pages give a slope of <strong>0.90</strong> and the short descriptions <strong>1.02</strong> — both near the textbook 1, and the full corpus visibly straighter over more decades. We will say it is Zipf-<em>like</em> and stop there. A straight-ish line on log-log axes is consistent with a power law and does not establish one; a lognormal looks the same by eye over this range, and the tail's apparent straightness is partly an artefact of plotting rank against a staircase of ties at 1 and 2. Our own two slopes differ by 0.12 on corpora from the same source, which is reason enough not to read much into either.</p>
+
+      <h2>Reproduce it</h2>
+
+      <p>Data: this week's <code>marvel_pages.zip</code>, the week-1 edges, and week 4's communities read straight back out of the chart data so the two posts cannot disagree.</p>
+
+      <pre><code>cd "Week5 Lecture/Homework"
+python pages.py                   # corpus summary, checked against the roster
+python analysis_week5.py          # everything, 10,000 label permutations
+python analysis_week5.py --fast   # 1,000, for iterating
+python analysis_week5.py --sample # dump the sentences, for reading by hand</code></pre>
+
+      <p>Built with spaCy, tiktoken, NLTK, scikit-learn, NumPy and Matplotlib. Two implementation notes worth passing on. The filenames inside the zip are URL-encoded, and exactly one character is affected — <code>Mark_Hazzard%3A_Merc</code> — which is what makes it dangerous: a naive join returns 302 of 303 articles and looks like it worked. And our own surface-name matcher sorted a character's aliases by length alone, leaving ties to be broken by Python's set iteration order, which is randomised per process; two runs of the same script disagreed about how many foes there were until we sorted on length <em>and</em> spelling. Every number above comes from the deterministic version.</p>
+
+      <p>The full workings, including the answers to this week's other exercises and the sixty-two sentences we read, are in <code>week5_typed_notes.md</code> in the repo.</p>
+
+    </div>
+  </div>
+  </article>
+
+  <nav class="sans post-nav" aria-label="Post navigation">
+    <a href="week4.html">← Week 04</a>
+    <a href="../index.html#posts">All posts</a>
+    <span style="color:var(--muted); font-weight:400;">Week 06 · coming soon</span>
+  </nav>
+
+  </main>
+
+  <div class="spacer"></div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" style="margin-top:64px;">
+    <div class="sans site-footer__note">© <span data-site="team-name">Varmel</span> · 02805 Social Graphs and Interactions · DTU</div>
+    <a href="https://github.com/movega/02805-Social-graphs-and-interactions" class="sans site-footer__link" data-site="repo-link">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <span data-site="repo-label">movega/02805-Social-graphs-and-interactions</span>
+    </a>
+  </footer>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/charts.js" data-src="../assets/data/week5_charts.json"></script>
+</body>
+</html>

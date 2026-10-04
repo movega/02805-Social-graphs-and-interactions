@@ -560,6 +560,21 @@ a.post-card:hover .post-card__glyph { color: var(--text); }
   color: var(--accent2); margin-bottom: 8px;
 }
 
+/* week 5: a callout for the specimens that went wrong, so the reader can tell
+   at a glance that these are the failures rather than the definitions */
+.callout--warn { border-left-color: var(--accent); }
+.callout--warn .callout__label { color: var(--accent); }
+.callout--warn p + p { margin-top: 14px; }
+
+/* a quoted line of source text: set apart from our own prose, and allowed to
+   keep its own emphasis on the word that fooled the matcher */
+.quote {
+  display: block; margin-top: 4px; padding-left: 12px;
+  border-left: 2px solid var(--line);
+  color: var(--muted); font-size: 0.95em;
+}
+.quote em { color: var(--accent); font-style: normal; font-weight: 600; }
+
 .todo {
   display: inline-block;
   font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;

@@ -1112,6 +1112,230 @@
 
   /* ---- boot ------------------------------------------------------------- */
 
+  /* ---- week 5: the label panels ----------------------------------------- */
+  /* Two panels of the same measurement, before and after restricting to
+     sentences that name nobody but the pair. Each label gets the permutation
+     band (±2 sd), the permutation mean, and the observed value on top. */
+
+  function labelPanels(host, spec) {
+    var body = div('chart__plot', host);
+    var legend = div('chart__legend', host);
+    [['deg', 'Label permutation, ±2 sd'], ['real', 'Observed']].forEach(function (k) {
+      var s = div('chart__key chart__key--static', legend);
+      s.innerHTML = '<span class="chart__swatch" style="background:' + C[k[0]] + '"></span>' + k[1];
+    });
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(300, body.clientWidth || host.clientWidth || 700);
+      var narrow = W < 620;
+      var panels = spec.panels;
+      var cols = narrow ? 1 : panels.length;
+      var panelW = W / cols;
+      var panelH = narrow ? 250 : 300;
+      var H = panelH * (narrow ? panels.length : 1);
+      var m = { t: 44, r: 14, b: 30, l: 46 };
+
+      // One shared y scale, so the two panels are honestly comparable.
+      var lo = 1, hi = 0;
+      panels.forEach(function (p) {
+        p.rows.forEach(function (r) {
+          lo = Math.min(lo, r.obs, r.mu - 2.4 * r.sd);
+          hi = Math.max(hi, r.obs, r.mu + 2.4 * r.sd);
+        });
+      });
+      var pad = (hi - lo) * 0.12;
+      lo -= pad; hi += pad;
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H,
+                            role: 'img', 'aria-label': spec.alt ||
+                            'Share of edges crossing a week-4 community, by label, before and after restricting to pair-only sentences' }, body);
+
+      panels.forEach(function (p, pi) {
+        var ox = narrow ? 0 : pi * panelW;
+        var oy = narrow ? pi * panelH : 0;
+        var iw = panelW - m.l - m.r;
+        var ih = panelH - m.t - m.b;
+        var Y = function (v) { return oy + m.t + (1 - (v - lo) / (hi - lo)) * ih; };
+        var X = function (i) { return ox + m.l + (i + 0.5) / p.rows.length * iw; };
+
+        el('text', { x: ox + m.l + iw / 2, y: oy + 16, 'text-anchor': 'middle',
+                     class: 'chart__axis' }, svg).textContent = p.title;
+        el('text', { x: ox + m.l + iw / 2, y: oy + 31, 'text-anchor': 'middle',
+                     class: 'chart__tick' }, svg)
+          .textContent = p.n_edges + ' edges · baseline ' + fmt(p.baseline);
+
+        // y grid, only on the first panel's axis to keep it quiet
+        niceTicks(lo, hi, 5).forEach(function (t) {
+          el('line', { x1: ox + m.l, y1: Y(t), x2: ox + m.l + iw, y2: Y(t),
+                       stroke: C.line, 'stroke-width': 1, opacity: 0.45 }, svg);
+          if (pi === 0 || narrow) {
+            el('text', { x: ox + m.l - 8, y: Y(t) + 4, 'text-anchor': 'end',
+                         class: 'chart__tick' }, svg).textContent = fmt(t);
+          }
+        });
+
+        p.rows.forEach(function (r, i) {
+          var cx = X(i);
+          var halfW = Math.min(46, iw / p.rows.length * 0.36);
+          el('rect', { x: cx - halfW, y: Y(r.mu + 2 * r.sd), width: halfW * 2,
+                       height: Math.max(2, Y(r.mu - 2 * r.sd) - Y(r.mu + 2 * r.sd)),
+                       fill: C.deg, opacity: 0.22 }, svg);
+          el('line', { x1: cx - halfW, y1: Y(r.mu), x2: cx + halfW, y2: Y(r.mu),
+                       stroke: C.deg, 'stroke-width': 1.4 }, svg);
+          el('circle', { cx: cx, cy: Y(r.obs), r: 6.5, fill: C.real,
+                         stroke: C.panel, 'stroke-width': 1.5 }, svg);
+
+          var top = Math.min(Y(r.obs), Y(r.mu + 2 * r.sd));
+          el('text', { x: cx, y: top - 9, 'text-anchor': 'middle',
+                       class: 'chart__tick' }, svg)
+            .textContent = 'z = ' + (r.z > 0 ? '+' : '') + r.z.toFixed(2);
+          el('text', { x: cx, y: oy + m.t + ih + 18, 'text-anchor': 'middle',
+                       class: 'chart__rowlabel' }, svg).textContent = r.label;
+
+          var hit = el('rect', { x: cx - iw / p.rows.length / 2, y: oy + m.t,
+                                 width: iw / p.rows.length, height: ih,
+                                 fill: 'transparent' }, svg);
+          hoverable(hit, host, function () {
+            return '<strong>' + r.label + '</strong> · ' + r.n + ' edges<br>' +
+                   'Crosses a community: <strong>' + fmt(r.obs) + '</strong><br>' +
+                   'Shuffled labels: ' + fmt(r.mu) + ' ± ' + fmt(r.sd) + '<br>' +
+                   'z = ' + (r.z > 0 ? '+' : '') + r.z.toFixed(2) +
+                   ' · p = ' + (r.p >= 0.999 ? '1.00' : r.p.toFixed(4));
+          });
+        });
+      });
+    }
+
+    return draw;
+  }
+
+  /* ---- week 5: rank-frequency ------------------------------------------- */
+  /* The same counts on linear and log-log axes, because that is the whole
+     lesson of the section: nothing happens to the data when you switch. */
+
+  function zipfChart(host, spec) {
+    var body = div('chart__plot', host);
+    var legend = div('chart__legend', host);
+    var logMode = true;
+    var off = {};
+
+    var series = [
+      { key: 'full', label: '303 full pages', colour: 'real', pts: spec.full },
+      { key: 'desc', label: '303 short descriptions', colour: 'er', pts: spec.desc },
+      { key: 'ideal', label: 'ideal Zipf, s = 1', colour: 'deg', pts: null }
+    ];
+
+    var scaleKey = div('chart__key', legend);
+    scaleKey.innerHTML = '<span class="chart__swatch" style="background:' + C.muted + '"></span>log-log axes';
+    scaleKey.addEventListener('click', function () {
+      logMode = !logMode;
+      scaleKey.innerHTML = '<span class="chart__swatch" style="background:' + C.muted +
+        '"></span>' + (logMode ? 'log-log axes' : 'linear axes');
+      draw();
+    });
+
+    series.forEach(function (s) {
+      var k = div('chart__key', legend);
+      k.innerHTML = '<span class="chart__swatch" style="background:' + C[s.colour] + '"></span>' + s.label;
+      k.addEventListener('click', function () {
+        off[s.key] = !off[s.key];
+        k.classList.toggle('is-off', !!off[s.key]);
+        draw();
+      });
+    });
+
+    function draw() {
+      body.innerHTML = '';
+      var W = Math.max(300, body.clientWidth || host.clientWidth || 700);
+      var H = Math.min(380, Math.max(240, W * 0.52));
+      var m = { t: 12, r: 14, b: 40, l: 54 };
+      var iw = W - m.l - m.r, ih = H - m.t - m.b;
+
+      var maxF = spec.full[0][1];
+      var maxR = logMode ? spec.full[spec.full.length - 1][0] : 120;
+      var X, Y;
+      if (logMode) {
+        var lx = Math.log10(maxR), ly = Math.log10(maxF);
+        X = function (r) { return m.l + Math.log10(r) / lx * iw; };
+        Y = function (f) { return m.t + (1 - Math.log10(f) / ly) * ih; };
+      } else {
+        X = function (r) { return m.l + Math.min(r, maxR) / maxR * iw; };
+        Y = function (f) { return m.t + (1 - f / maxF) * ih; };
+      }
+
+      var svg = el('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H,
+                            role: 'img', 'aria-label': 'Word frequency against frequency rank for the Marvel corpus' }, body);
+
+      // axes
+      var xticks = logMode ? [1, 10, 100, 1000, 10000] : niceTicks(0, maxR, 6);
+      xticks.forEach(function (t) {
+        if (t < 1 || t > maxR) return;
+        el('line', { x1: X(t), y1: m.t, x2: X(t), y2: m.t + ih, stroke: C.line,
+                     'stroke-width': 1, opacity: 0.4 }, svg);
+        el('text', { x: X(t), y: m.t + ih + 16, 'text-anchor': 'middle',
+                     class: 'chart__tick' }, svg).textContent = t.toLocaleString('en-GB');
+      });
+      var yticks = logMode ? [1, 10, 100, 1000, 10000] : niceTicks(0, maxF, 5);
+      yticks.forEach(function (t) {
+        if (t < 1 || t > maxF) return;
+        el('line', { x1: m.l, y1: Y(t), x2: m.l + iw, y2: Y(t), stroke: C.line,
+                     'stroke-width': 1, opacity: 0.4 }, svg);
+        el('text', { x: m.l - 8, y: Y(t) + 4, 'text-anchor': 'end',
+                     class: 'chart__tick' }, svg).textContent = t.toLocaleString('en-GB');
+      });
+
+      series.forEach(function (s) {
+        if (off[s.key]) return;
+        if (s.key === 'ideal') {
+          var d = '';
+          for (var r = 1; r <= maxR; r = r < 10 ? r + 1 : Math.ceil(r * 1.12)) {
+            var f = maxF / r;
+            if (f < 1) break;
+            d += (d ? 'L' : 'M') + X(r).toFixed(1) + ' ' + Y(f).toFixed(1);
+          }
+          el('path', { d: d, fill: 'none', stroke: C.deg, 'stroke-width': 1.4 }, svg);
+          return;
+        }
+        s.pts.forEach(function (p) {
+          if (p[0] > maxR || p[1] < 1) return;
+          el('circle', { cx: X(p[0]), cy: Y(p[1]), r: 1.6, fill: C[s.colour],
+                         opacity: 0.75 }, svg);
+        });
+      });
+
+      el('text', { x: m.l + iw / 2, y: H - 4, 'text-anchor': 'middle',
+                   class: 'chart__axis' }, svg).textContent = 'frequency rank';
+      el('text', { x: 12, y: m.t + ih / 2, 'text-anchor': 'middle',
+                   transform: 'rotate(-90 12 ' + (m.t + ih / 2) + ')',
+                   class: 'chart__axis' }, svg).textContent = 'frequency';
+
+      // Read the nearest full-page point off the pointer's x position. The
+      // listener goes on before hoverable's, so the text is current by the
+      // time the tooltip asks for it.
+      var hit = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+      var hitHtml = '';
+      hit.addEventListener('mousemove', function (ev) {
+        var bb = svg.getBoundingClientRect();
+        var px = ev.clientX - bb.left;
+        var rank = logMode
+          ? Math.round(Math.pow(10, (px - m.l) / iw * Math.log10(maxR)))
+          : Math.round((px - m.l) / iw * maxR);
+        rank = Math.max(1, rank);
+        var best = null;
+        spec.full.forEach(function (p) {
+          if (!best || Math.abs(p[0] - rank) < Math.abs(best[0] - rank)) best = p;
+        });
+        hitHtml = 'Full pages · rank <strong>' + best[0].toLocaleString('en-GB') +
+                  '</strong><br>frequency <strong>' + best[1].toLocaleString('en-GB') +
+                  '</strong><br>ideal Zipf here: ' + Math.round(maxF / best[0]).toLocaleString('en-GB');
+      });
+      hoverable(hit, host, function () { return hitHtml; });
+    }
+
+    return draw;
+  }
+
   function mount(data) {
     var redraws = [];
 
@@ -1185,6 +1409,10 @@
         draw = function () { parts.forEach(function (f) { f(); }); };
       } else if (kind === 'seams') {
         draw = seamsMap(host, data.seams);
+      } else if (kind === 'labelpanels') {
+        draw = labelPanels(host, data.labels);
+      } else if (kind === 'zipf') {
+        draw = zipfChart(host, data.zipf);
       }
 
       if (!draw) return;

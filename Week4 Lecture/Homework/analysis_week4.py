@@ -103,7 +103,7 @@ def _rows(path, has_header):
     """The two releases disagree about whether the column names are commented out,
     so say explicitly which one you are reading."""
     out, header = [], None
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for line in f:
             if line.startswith("#"):
                 continue
